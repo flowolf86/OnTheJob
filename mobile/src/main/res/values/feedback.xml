@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="feedback_email">flowolf86@gmail.com</string>
+    <string name="feedback_subject">Feedback for \'On The Job!\'</string>
+    <string name="feedback_text">Dear Florian,\nthis is what I think about your app&#8230;</string>
+
+</resources>

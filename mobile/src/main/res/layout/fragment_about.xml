@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/license_text"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/thank_you_devs" />
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/libraries"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/license_text_top"
+            android:text="@string/google" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/google_sub" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:singleLine="false"
+            android:text="@string/google_sub2" />
+
+        <TextView
+            style="@style/license_text_top"
+            android:text="@string/butterknife" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/butterknife_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/joda_time" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/joda_time_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/android_ui" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/android_ui_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/annotations" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/annotations_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/gson" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/gson_sub" />
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/apache"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/license_text"
+            android:singleLine="false"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:text="@string/apache_license"/>
+
+    </LinearLayout>
+</ScrollView>

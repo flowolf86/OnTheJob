@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        style="@style/content_header"
+        android:paddingEnd="@dimen/default_margin">
+
+        <TextView
+            style="@style/content_header_title"
+            android:text="@string/today" />
+
+        <TextView
+            android:id="@+id/work_today_hours"
+            style="@style/content_header_title"
+            android:layout_alignParentEnd="true"
+            android:text="@string/dash"/>
+    </RelativeLayout>
+</LinearLayout>

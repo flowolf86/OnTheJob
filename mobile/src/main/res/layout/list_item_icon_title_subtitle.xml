@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list_item"
+    style="@style/main_card_double_line_view"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="0dp">
+
+    <RelativeLayout style="@style/list_item_double_line">
+
+        <ImageView
+            android:id="@+id/icon"
+            style="@style/content_entry_image" />
+
+        <ImageView
+            android:id="@+id/arrow_right"
+            style="@style/list_item_arrow_right" />
+
+        <LinearLayout
+            style="@style/content_title_subtitle_wrapper"
+            android:layout_toEndOf="@id/icon"
+            android:layout_toStartOf="@id/arrow_right">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/list_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/subtitle"
+                style="@style/list_item_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

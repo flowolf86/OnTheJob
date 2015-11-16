@@ -1,0 +1,149 @@
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="ui.fragment.IntervalDetailsFragment">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/default_margin">
+
+            <ImageView
+                android:id="@+id/category_selector"
+                style="@style/content_entry_selector_image"
+                android:src="@drawable/list_circle" />
+
+            <ImageView
+                android:id="@+id/category_icon"
+                style="@style/content_entry_selector_icon"/>
+
+            <EditText
+                android:id="@+id/title"
+                style="@style/default_edit_text"
+                android:layout_toRightOf="@id/category_selector"
+                android:hint="@string/title_mandatory_hint"
+                android:maxLength="@integer/title_length"
+                android:textSize="@dimen/abc_text_size_menu_material"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/title_message"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:paddingEnd="@dimen/default_margin"
+                android:singleLine="true"
+                android:textColor="@color/error"/>
+
+            <TextView
+                android:id="@+id/title_counter"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:singleLine="true"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/description"
+            style="@style/default_multiline_edit_text"
+            android:gravity="top|start"
+            android:lines="4"
+            android:minLines="2"
+            android:maxLines="5"
+            android:hint="@string/description_hint"
+            android:maxLength="@integer/block_description_length"
+            android:inputType="textMultiLine"
+            android:textSize="@dimen/abc_text_size_menu_material"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/description_message"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:paddingEnd="@dimen/default_margin"
+                android:singleLine="true"
+                android:textColor="@color/error"/>
+
+            <TextView
+                android:id="@+id/description_counter"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:singleLine="true"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/start_date"
+                style="@style/default_edit_text"
+                android:focusable="false"
+                android:hint="@string/work_container_start_hint"
+                android:inputType="date"
+                android:textSize="@dimen/abc_text_size_menu_material"/>
+
+            <EditText
+                android:id="@+id/end_date"
+                style="@style/default_edit_text"
+                android:focusable="false"
+                android:hint="@string/work_container_end_hint"
+                android:inputType="date"
+                android:textSize="@dimen/abc_text_size_menu_material"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/store_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_save_white_24dp"
+        app:borderWidth="0dp"
+        app:elevation="3dp"
+        app:layout_anchor="@id/root"
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="6dp"/>
+
+</android.support.design.widget.CoordinatorLayout>

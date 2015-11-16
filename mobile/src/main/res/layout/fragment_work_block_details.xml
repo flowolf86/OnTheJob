@@ -1,0 +1,191 @@
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="ui.fragment.WorkBlockDetailsFragment">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/title"
+            style="@style/default_edit_text"
+            android:layout_marginTop="@dimen/default_margin"
+            android:hint="@string/title_hint"
+            android:maxLength="@integer/title_length"
+            android:textSize="@dimen/abc_text_size_menu_material"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/title_message"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:paddingEnd="@dimen/default_margin"
+                android:singleLine="true"
+                android:textColor="@color/error"/>
+
+            <TextView
+                android:id="@+id/title_counter"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:singleLine="true"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/description"
+            style="@style/default_multiline_edit_text"
+            android:gravity="top|start"
+            android:lines="4"
+            android:minLines="2"
+            android:maxLines="5"
+            android:hint="@string/description_hint"
+            android:maxLength="@integer/block_description_length"
+            android:inputType="textMultiLine"
+            android:textSize="@dimen/abc_text_size_menu_material"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/description_message"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:paddingEnd="@dimen/default_margin"
+                android:singleLine="true"
+                android:textColor="@color/error"/>
+
+            <TextView
+                android:id="@+id/description_counter"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:singleLine="true"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <EditText
+                android:id="@+id/start_time"
+                style="@style/default_edit_text"
+                android:layout_width="0dip"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="5"
+                android:focusable="false"
+                android:hint="@string/work_block_start_hint"
+                android:inputType="time"
+                android:textSize="@dimen/abc_text_size_menu_material"/>
+
+            <EditText
+                android:id="@+id/end_time"
+                style="@style/default_edit_text"
+                android:layout_width="0dip"
+                android:layout_marginStart="0dp"
+                android:layout_weight="5"
+                android:focusable="false"
+                android:hint="@string/work_block_end_hint"
+                android:inputType="time"
+                android:textSize="@dimen/abc_text_size_menu_material"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:layout_marginTop="@dimen/default_margin"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/title_category" />
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/category_view"
+            style="@style/main_card_double_line_view"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_double_line">
+
+                <ImageView
+                    android:id="@+id/category_selector"
+                    style="@style/content_entry_selector_image"
+                    android:src="@drawable/list_circle"/>
+
+                <ImageView
+                    android:id="@+id/category_icon"
+                    style="@style/content_entry_selector_icon"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/category_icon">
+
+                    <TextView
+                        android:id="@+id/category_title"
+                        style="@style/list_item_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/category_subtitle"
+                        style="@style/list_item_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/store_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_save_white_24dp"
+        app:borderWidth="0dp"
+        app:elevation="3dp"
+        app:layout_anchor="@id/root"
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="6dp"/>
+
+</android.support.design.widget.CoordinatorLayout>

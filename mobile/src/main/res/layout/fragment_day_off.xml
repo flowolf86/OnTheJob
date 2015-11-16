@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="ui.fragment.DayOffFragment">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            style="@style/content_header_white"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/sick_leave_category"/>
+
+            <TextView
+                android:id="@+id/sick_leave_statistics"
+                style="@style/content_header_title"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/call_in_sick_view"
+            style="@style/main_card_double_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_double_line">
+
+                <ImageView
+                    android:id="@+id/call_in_sick_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_airline_seat_individual_suite_black_24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/call_in_sick_icon">
+
+                    <TextView
+                        android:id="@+id/call_in_sick_title"
+                        style="@style/list_item_title"
+                        android:text="@string/call_in_sick_today"/>
+
+                    <TextView
+                        android:id="@+id/call_in_sick_subtitle"
+                        style="@style/list_item_subtitle"
+                        android:text="@string/call_in_sick_today_description"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/manage_sick_view"
+            style="@style/main_card_double_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_double_line">
+
+                <ImageView
+                    android:id="@+id/manage_sick_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_assignment_black_24dp"/>
+
+                <ImageView
+                    android:id="@+id/arrow_right"
+                    style="@style/list_item_arrow_right"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/manage_sick_icon"
+                    android:layout_toStartOf="@id/arrow_right">
+
+                    <TextView
+                        android:id="@+id/manage_sick_title"
+                        style="@style/list_item_title"
+                        android:text="@string/manage_sick_leave_title"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            style="@style/content_header_white"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/vacation_category"/>
+
+            <TextView
+                android:id="@+id/vacation_statistics"
+                style="@style/content_header_title"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/call_in_vacation_view"
+            style="@style/main_card_double_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_double_line">
+
+                <ImageView
+                    android:id="@+id/call_in_vacation_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_flight_takeoff_black_24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/call_in_vacation_icon">
+
+                    <TextView
+                        android:id="@+id/call_in_vacation_title"
+                        style="@style/list_item_title"
+                        android:text="@string/call_in_vacation_today"/>
+
+                    <TextView
+                        android:id="@+id/call_in_vacation_subtitle"
+                        style="@style/list_item_subtitle"
+                        android:text="@string/call_in_vacation_today_description"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/manage_vacation_view"
+            style="@style/main_card_double_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_double_line">
+
+                <ImageView
+                    android:id="@+id/manage_vacation_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_assignment_black_24dp"/>
+
+                <ImageView
+                    android:id="@+id/arrow_right2"
+                    style="@style/list_item_arrow_right"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/manage_vacation_icon"
+                    android:layout_toStartOf="@id/arrow_right2">
+
+                    <TextView
+                        android:id="@+id/manage_vacation_title"
+                        style="@style/list_item_title"
+                        android:text="@string/manage_vacation_title"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

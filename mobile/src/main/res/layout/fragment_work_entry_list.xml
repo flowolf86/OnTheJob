@@ -1,0 +1,18 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.fragment.WorkEntryListFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content_recycler" />
+
+    <TextView
+        android:id="@+id/empty_recycler"
+        style="@style/list_empty_view"
+        android:text="@string/rv_empty_work_entries" />
+
+</android.support.design.widget.CoordinatorLayout>

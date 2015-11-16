@@ -1,0 +1,43 @@
+<resources>
+
+    <string name="libraries">Libraries</string>
+    <string name="apache">Apache 2.0</string>
+
+    <string name="version">v.%1$s \u00A9 Florian Wolf</string>
+
+    <string name="thank_you_devs">A big THANK YOU to all the developers without whom this app would not have been possible!</string>
+
+    <string name="google">All the folks at Google Inc.</string>
+    <string name="google_sub">for Android, Support-Libraries and awesome Google I/O after hours&#8230;</string>
+    <string name="google_sub2">for Material Design Icons under CC4.0 License\nhttps://creativecommons.org/licenses/by/4.0/</string>
+
+    <string name="joda_time">Joda Time</string>
+    <string name="joda_time_sub">Version 2.8.1 \u00A9 2013 Joda.org</string>
+
+    <string name="butterknife">Butterknife</string>
+    <string name="butterknife_sub">Version 7.0.1 \u00A9 2013 Jake Wharton</string>
+
+    <string name="android_ui">android-ui</string>
+    <string name="android_ui_sub">Version 1.2 \u00A9 2014 markushi</string>
+
+    <string name="annotations">Annotations</string>
+    <string name="annotations_sub">Version 13.0 \u00A9 2013 Jetbrains</string>
+
+    <string name="gson">GSON</string>
+    <string name="gson_sub">Version 2.3 \u00A9 2008 Google Inc.</string>
+
+    <string name="apache_license">
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at \n
+        \n
+        http://www.apache.org/licenses/LICENSE-2.0\n
+        \n
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    </string>
+
+</resources>

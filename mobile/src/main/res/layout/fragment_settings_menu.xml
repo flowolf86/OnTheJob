@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/root"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/work_area"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/geofencing_view"
+            style="@style/main_card_single_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_single_line">
+
+                <ImageView
+                    android:id="@+id/geofencing_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_place_black_24dp"/>
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/geofencing_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:minHeight="24dp"
+                    android:minWidth="24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toStartOf="@id/geofencing_checkbox"
+                    android:layout_toEndOf="@id/geofencing_icon">
+
+                    <TextView
+                        android:id="@+id/geofencing_title"
+                        style="@style/list_item_title"
+                        android:text="@string/allow_geofencing_title"/>
+
+                    <TextView
+                        android:id="@+id/geofencing_subtitle"
+                        style="@style/list_item_subtitle"
+                        android:text="@string/allow_geofencing_subtitle"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/work_radius_icon"
+                style="@style/content_entry_image"
+                android:src="@drawable/ic_my_location_black_24dp"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_width="match_parent"
+                android:layout_marginStart="-16dp"
+                android:layout_toEndOf="@id/work_radius_icon">
+
+                <TextView
+                    android:id="@+id/work_radius_title"
+                    style="@style/list_item_slider_text"
+                    android:paddingStart="@dimen/default_margin"
+                    android:text="@string/work_radius"/>
+
+                <SeekBar
+                    android:id="@+id/work_radius_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <include layout="@layout/content_space"/>
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/working_hours"/>
+        </LinearLayout>
+
+        <RelativeLayout style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/workload_icon"
+                style="@style/content_entry_image"
+                android:src="@drawable/ic_hourglass_empty_black_24dp"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_width="match_parent"
+                android:layout_marginStart="-16dp"
+                android:layout_toEndOf="@id/workload_icon">
+
+                <TextView
+                    android:id="@+id/weekly_workload_title"
+                    style="@style/list_item_slider_text"
+                    android:paddingStart="@dimen/default_margin"
+                    android:text="@string/weekly_workload"/>
+
+                <SeekBar
+                    android:id="@+id/weekly_workload_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/work_days_icon"
+                style="@style/content_entry_image"
+                android:src="@drawable/ic_schedule_black_24dp"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_width="match_parent"
+                android:layout_marginStart="-16dp"
+                android:layout_toEndOf="@id/work_days_icon">
+
+                <TextView
+                    android:id="@+id/weekly_work_days_title"
+                    style="@style/list_item_slider_text"
+                    android:paddingStart="@dimen/default_margin"
+                    android:text="@string/weekly_workdays"/>
+
+                <SeekBar
+                    android:id="@+id/weekly_work_days_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/vacation_days_icon"
+                style="@style/content_entry_image"
+                android:src="@drawable/ic_flight_takeoff_black_24dp"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_width="match_parent"
+                android:layout_marginStart="-16dp"
+                android:layout_toEndOf="@id/vacation_days_icon">
+
+                <TextView
+                    android:id="@+id/vacation_days_title"
+                    style="@style/list_item_slider_text"
+                    android:paddingStart="@dimen/default_margin"
+                    android:text="@string/yearly_vacation_days"/>
+
+                <SeekBar
+                    android:id="@+id/vacation_days_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/sick_leave_icon"
+                style="@style/content_entry_image"
+                android:src="@drawable/ic_airline_seat_individual_suite_black_24dp"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_width="match_parent"
+                android:layout_marginStart="-16dp"
+                android:layout_toEndOf="@id/sick_leave_icon">
+
+                <TextView
+                    android:id="@+id/sick_leave_title"
+                    style="@style/list_item_slider_text"
+                    android:paddingStart="@dimen/default_margin"
+                    android:text="@string/yearly_sick_leave"/>
+
+                <SeekBar
+                    android:id="@+id/sick_leave_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <include layout="@layout/content_space"/>
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/other"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/notifications_view"
+            style="@style/main_card_single_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_single_line">
+
+                <ImageView
+                    android:id="@+id/notifications_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_notifications_black_24dp"/>
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/notifications_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:minHeight="24dp"
+                    android:minWidth="24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toStartOf="@id/notifications_checkbox"
+                    android:layout_toEndOf="@id/notifications_icon">
+
+                    <TextView
+                        android:id="@+id/notifications_title"
+                        style="@style/list_item_title"
+                        android:text="@string/allow_notifications"/>
+
+                    <TextView
+                        android:id="@+id/notifications_subtitle"
+                        style="@style/list_item_subtitle"
+                        android:text="@string/allow_notifications_subtitle"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/categories_view"
+            style="@style/main_card_single_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_single_line">
+
+                <ImageView
+                    android:id="@+id/categories_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/ic_settings_black_24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/categories_icon">
+
+                    <TextView
+                        android:id="@+id/categories_title"
+                        style="@style/list_item_title"
+                        android:text="@string/title_categories"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <include layout="@layout/content_space"/>
+
+        <LinearLayout
+            style="@style/content_header_white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/legal"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/about_view"
+            style="@style/main_card_single_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_single_line">
+
+                <ImageView
+                    android:id="@+id/about_icon"
+                    style="@style/content_entry_image"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_assignment_black_24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/about_icon">
+
+                    <TextView
+                        android:id="@+id/about_title"
+                        style="@style/list_item_title"
+                        android:text="@string/about"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/feedback_view"
+            style="@style/main_card_single_line_view"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="0dp">
+
+            <RelativeLayout style="@style/list_item_single_line">
+
+                <ImageView
+                    android:id="@+id/feedback_icon"
+                    style="@style/content_entry_image"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_feedback_black_24dp"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/feedback_icon">
+
+                    <TextView
+                        android:id="@+id/feedback_title"
+                        style="@style/list_item_title"
+                        android:text="@string/feedback"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

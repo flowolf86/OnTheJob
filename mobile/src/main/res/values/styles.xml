@@ -1,0 +1,285 @@
+<resources>
+
+    <!-- GENERAL -->
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- CONTENT -->
+    <style name="content_header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/content_head_height</item>
+        <item name="android:paddingLeft">@dimen/default_margin</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/grey_200</item>
+    </style>
+
+    <style name="content_header_white">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/content_head_height</item>
+        <item name="android:paddingLeft">@dimen/default_margin</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="content_header_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black_54</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="content_entry_image">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">-20dp</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="content_entry_selector_image">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:background">@drawable/list_circle</item>
+    </style>
+
+    <style name="content_entry_selector_icon">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+    </style>
+
+    <style name="content_title_subtitle_wrapper">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- WEEK VIEW -->
+    <style name="fragment_item_head">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="weekday">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingStart">@dimen/default_margin</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="fragment_item_subtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black_54</item>
+    </style>
+
+    <!-- LIST -->
+    <style name="list_item_single_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/list_title_line_height</item>
+        <item name="android:paddingStart">@dimen/zero_margin</item>
+        <item name="android:paddingEnd">@dimen/default_margin</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="list_item_double_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/list_title_subtitle_line_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/zero_margin</item>
+        <item name="android:paddingEnd">@dimen/default_margin</item>
+    </style>
+
+    <style name="list_item_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="list_item_subtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/black_54</item>
+    </style>
+
+    <style name="list_item_slider_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_small_material</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/black_54</item>
+    </style>
+
+    <style name="list_item_arrow_right">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingRight">-32dp</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:src">@drawable/ic_chevron_right_black_18dp</item>
+        <item name="android:textSize">@dimen/abc_text_size_title_material</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+
+    <style name="list_item_category">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:paddingRight">@dimen/default_margin</item>
+    </style>
+
+    <style name="list_empty_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">@dimen/default_margin</item>
+    </style>
+
+    <!-- CARDS -->
+    <style name="main_card_double_line_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/list_title_subtitle_line_height</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="main_card_single_line_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/list_title_line_height</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- DRAWER -->
+    <style name="drawer_input_field">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">56dp</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textSize">@dimen/abc_text_size_title_material</item>
+    </style>
+
+    <!-- EDIT_TEXT -->
+    <style name="default_edit_text_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+    </style>
+
+    <style name="default_edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+    </style>
+
+    <style name="default_multiline_edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+    </style>
+
+    <!-- SLIDE_IN_PANEL -->
+    <style name="slide_in_item_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="slide_in_item_subtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <!-- LICENSE TEXT -->
+    <style name="license_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginBottom">@dimen/zero_margin</item>
+    </style>
+
+    <style name="license_text_top">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">@dimen/zero_margin</item>
+    </style>
+
+    <style name="license_text_bottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginBottom">@dimen/zero_margin</item>
+    </style>
+
+</resources>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/week_fragment_root"
+    android:orientation="vertical"
+    android:clickable="true">
+
+    <RelativeLayout
+        style="@style/content_header"
+        android:paddingEnd="@dimen/default_margin">
+
+        <TextView
+            android:id="@+id/work_week_title"
+            style="@style/content_header_title"
+            android:text="@string/work_week_number" />
+
+        <TextView
+            android:id="@+id/work_week_hours"
+            style="@style/content_header_title"
+            android:layout_alignParentEnd="true"
+            android:text="@string/dash"/>
+    </RelativeLayout>
+
+    <include layout="@layout/divider" />
+
+    <LinearLayout
+        style="@style/list_item_double_line"
+        android:orientation="horizontal"
+        android:paddingStart="0dp"
+        android:weightSum="7"
+        android:paddingEnd="@dimen/default_margin"
+        android:background="@android:color/white">
+
+        <RelativeLayout
+            android:id="@+id/monday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/monday_title"
+                style="@style/fragment_item_head"
+                android:text="@string/monday_short" />
+
+            <TextView
+                android:id="@+id/monday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/monday_title"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tuesday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/tuesday_title"
+                style="@style/fragment_item_head"
+                android:text="@string/tuesday_short" />
+
+            <TextView
+                android:id="@+id/tuesday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/tuesday_title" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wednesday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/wednesday_title"
+                style="@style/fragment_item_head"
+                android:text="@string/wednesday_short" />
+
+            <TextView
+                android:id="@+id/wednesday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/wednesday_title"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/thursday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/thursday_title"
+                style="@style/fragment_item_head"
+                android:text="@string/thursday_short" />
+
+            <TextView
+                android:id="@+id/thursday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/thursday_title"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/friday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/friday_title"
+                style="@style/fragment_item_head"
+                android:text="@string/friday_short" />
+
+            <TextView
+                android:id="@+id/friday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/friday_title"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/saturday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/saturday_title"
+                style="@style/fragment_item_head"
+                android:textColor="@color/black_12"
+                android:text="@string/saturday_short" />
+
+            <TextView
+                android:id="@+id/saturday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/saturday_title"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sunday_layout"
+            style="@style/weekday">
+
+            <TextView
+                android:id="@+id/sunday_title"
+                style="@style/fragment_item_head"
+                android:textColor="@color/black_12"
+                android:text="@string/sunday_short" />
+
+            <TextView
+                android:id="@+id/sunday_subtitle"
+                style="@style/fragment_item_subtitle"
+                android:layout_below="@id/sunday_title"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
