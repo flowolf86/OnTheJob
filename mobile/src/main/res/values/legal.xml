@@ -26,6 +26,12 @@
     <string name="gson">GSON</string>
     <string name="gson_sub">Version 2.3 \u00A9 2008 Google Inc.</string>
 
+    <string name="csv">OpenCSV</string>
+    <string name="csv_sub">Version 3.6 \u00A9 2015 opencsv.sourceforge.net</string>
+
+    <string name="mp_android_chart">MPAndroidChart</string>
+    <string name="mp_android_chart_sub">Version 2.1.6 \u00A9 2015 Philipp Jahoda</string>
+
     <string name="apache_license">
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.

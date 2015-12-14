@@ -6,10 +6,10 @@ import android.location.Address;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.florianwolf.onthejob.BuildConfig;
@@ -25,9 +25,10 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
 
     public static final String FRAGMENT_TAG = "drawer_fragment";
 
-    @Bind(R.id.settings_view) CardView mSettingsLayout;
-    @Bind(R.id.primary_work_view) CardView mPrimaryWorkLayout;
-    @Bind(R.id.secondary_work_view) CardView mSecondaryWorkLayout;
+    @Bind(R.id.settings_view) RelativeLayout mSettingsLayout;
+    @Bind(R.id.primary_work_view) RelativeLayout mPrimaryWorkLayout;
+    @Bind(R.id.secondary_work_view) RelativeLayout mSecondaryWorkLayout;
+    @Bind(R.id.export_work_data_view) RelativeLayout mExportWorkDataLayout;
     @Bind(R.id.primary_work_subtitle) TextView mPrimaryWorkSubtitle;
     @Bind(R.id.secondary_work_subtitle) TextView mSecondaryWorkSubtitle;
     @Bind(R.id.copyright) TextView mCopyright;
@@ -51,6 +52,7 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
         void onSettingsEntrySelected();
         void onPrimaryWorkAddressSelected();
         void onSecondaryWorkAddressSelected();
+        void onExportSelected();
     }
 
     /*
@@ -116,11 +118,13 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
         mSettingsLayout.setOnClickListener(this);
         mPrimaryWorkLayout.setOnClickListener(this);
         mSecondaryWorkLayout.setOnClickListener(this);
+        mExportWorkDataLayout.setOnClickListener(this);
     }
 
     private void verifyActivityFulfillsRequirements(Activity activity) {
 
         boolean verify = activity instanceof FragmentNavigationInterface
+                && activity instanceof OnDrawerFragmentActionListener
                 && activity instanceof FragmentToolbarInterface
                 && activity instanceof FragmentSnackbarInterface;
 
@@ -140,6 +144,9 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.secondary_work_view:
                 ((OnDrawerFragmentActionListener)getActivity()).onSecondaryWorkAddressSelected();
+                break;
+            case R.id.export_work_data_view:
+                ((OnDrawerFragmentActionListener)getActivity()).onExportSelected();
                 break;
             default:
                 break;

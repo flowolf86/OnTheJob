@@ -229,7 +229,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
     private void addMarkerWithGeofence(@NonNull final LatLng latLng) {
 
         mGoogleMap.clear();
-        mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_24dp)));
+        mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.fw_location)));
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
         int radius = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORK_RADIUS, WorkConfiguration.DEFAULT_WORK_RADIUS);

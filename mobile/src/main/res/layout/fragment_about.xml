@@ -2,7 +2,6 @@
 <ScrollView
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -72,6 +71,20 @@
         <TextView
             style="@style/license_text_bottom"
             android:text="@string/gson_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/csv" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/csv_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/mp_android_chart" />
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/mp_android_chart_sub" />
 
         <LinearLayout
             style="@style/content_header_white"

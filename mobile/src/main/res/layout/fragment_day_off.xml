@@ -15,7 +15,6 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -36,7 +35,6 @@
         <android.support.v7.widget.CardView
             android:id="@+id/call_in_sick_view"
             style="@style/main_card_double_line_view"
-            card_view:cardBackgroundColor="@android:color/white"
             card_view:cardCornerRadius="0dp"
             card_view:cardElevation="0dp">
 
@@ -44,8 +42,8 @@
 
                 <ImageView
                     android:id="@+id/call_in_sick_icon"
-                    style="@style/content_entry_image"
-                    android:src="@drawable/ic_airline_seat_individual_suite_black_24dp"/>
+                    style="@style/content_entry_image_double_line"
+                    android:src="@drawable/fw_sick_leave_2"/>
 
                 <LinearLayout
                     style="@style/content_title_subtitle_wrapper"
@@ -68,7 +66,6 @@
         <android.support.v7.widget.CardView
             android:id="@+id/manage_sick_view"
             style="@style/main_card_double_line_view"
-            card_view:cardBackgroundColor="@android:color/white"
             card_view:cardCornerRadius="0dp"
             card_view:cardElevation="0dp">
 
@@ -76,8 +73,8 @@
 
                 <ImageView
                     android:id="@+id/manage_sick_icon"
-                    style="@style/content_entry_image"
-                    android:src="@drawable/ic_assignment_black_24dp"/>
+                    style="@style/content_entry_image_double_line"
+                    android:src="@drawable/fw_about_2"/>
 
                 <ImageView
                     android:id="@+id/arrow_right"
@@ -115,7 +112,6 @@
         <android.support.v7.widget.CardView
             android:id="@+id/call_in_vacation_view"
             style="@style/main_card_double_line_view"
-            card_view:cardBackgroundColor="@android:color/white"
             card_view:cardCornerRadius="0dp"
             card_view:cardElevation="0dp">
 
@@ -123,8 +119,8 @@
 
                 <ImageView
                     android:id="@+id/call_in_vacation_icon"
-                    style="@style/content_entry_image"
-                    android:src="@drawable/ic_flight_takeoff_black_24dp"/>
+                    style="@style/content_entry_image_double_line"
+                    android:src="@drawable/fw_vacation_3"/>
 
                 <LinearLayout
                     style="@style/content_title_subtitle_wrapper"
@@ -147,7 +143,6 @@
         <android.support.v7.widget.CardView
             android:id="@+id/manage_vacation_view"
             style="@style/main_card_double_line_view"
-            card_view:cardBackgroundColor="@android:color/white"
             card_view:cardCornerRadius="0dp"
             card_view:cardElevation="0dp">
 
@@ -155,8 +150,8 @@
 
                 <ImageView
                     android:id="@+id/manage_vacation_icon"
-                    style="@style/content_entry_image"
-                    android:src="@drawable/ic_assignment_black_24dp"/>
+                    style="@style/content_entry_image_double_line"
+                    android:src="@drawable/fw_about_2"/>
 
                 <ImageView
                     android:id="@+id/arrow_right2"

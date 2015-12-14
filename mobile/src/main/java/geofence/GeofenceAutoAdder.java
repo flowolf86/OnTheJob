@@ -64,7 +64,7 @@ public class GeofenceAutoAdder {
 
     public void saveGeofenceEventInDatabase(final long timestamp, final int type, final String fenceId) {
 
-        // We always store enter events without forther checks
+        // We always store slide_side_enter events without forther checks
         if(type == Geofence.GEOFENCE_TRANSITION_ENTER){
 
             DatabaseHelper.addGeofenceEvent(mContext, new GeofenceEvent(timestamp, timestamp, fenceId, type), new GeofenceDbCallback() {
@@ -84,7 +84,7 @@ public class GeofenceAutoAdder {
             return;
         }
 
-        // If it is an exit event, we check the last events for an enter event
+        // If it is an slide_side_exit event, we check the last events for an slide_side_enter event
         if(type == Geofence.GEOFENCE_TRANSITION_EXIT) {
 
             DatabaseHelper.getLastXGeofenceEvents(mContext, 3, new GeofenceDbCallback() {
@@ -103,7 +103,7 @@ public class GeofenceAutoAdder {
 
                         // If we have results, iterate from bottom up in DESC order
 
-                        // e.g. GEOFENCE EXIT 1 EVENT looking for valid enter 1 event in last entries
+                        // e.g. GEOFENCE EXIT 1 EVENT looking for valid slide_side_enter 1 event in last entries
                         // ENTRY 15 = ENTER 1   => valid
                         // ENTRY 16 = EXIT 1    => valid = null
                         // ENTRY 17 = ENTER 2   => valid = null
@@ -118,21 +118,21 @@ public class GeofenceAutoAdder {
                             DateTime dateTime = new DateTime(event.timestamp);
                             boolean isToday = dateTime.toLocalDate().equals(new LocalDate());
                             if(isToday) {
-                                // and look for the last enter with the same fenceId
+                                // and look for the last slide_side_enter with the same fenceId
                                 if (event.geofenceId.equals(fenceId)) {
 
                                     if (event.geofenceType == Geofence.GEOFENCE_TRANSITION_ENTER) {
                                         aValidEnterEvent = event;
                                     } else {
 
-                                        // If the last event with that exit ID was an EXIT event, something is not OK...
+                                        // If the last event with that slide_side_exit ID was an EXIT event, something is not OK...
                                         aValidEnterEvent = null;
                                     }
                                 } else {
                                     Log.d(TAG, "Skipping event. Not the id we are looking for. Continue...");
                                 }
                             } else {
-                                Log.w(TAG, "No work block could be created. Last enter was NOT today.");
+                                Log.w(TAG, "No work block could be created. Last slide_side_enter was NOT today.");
                             }
                         }
                     } else {
@@ -148,7 +148,7 @@ public class GeofenceAutoAdder {
                         // We found:
                         // One of the last entries was an ENTER event with the same fence ID that this event has.
                         // No EXIT was called after the ENTER event with the same ID.
-                        // The last enter was TODAY.
+                        // The last slide_side_enter was TODAY.
 
                         // => We have a valid ENTER event in our db that was today with the same geofence id.
 

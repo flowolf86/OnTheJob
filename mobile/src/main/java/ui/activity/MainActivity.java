@@ -3,6 +3,7 @@ package ui.activity;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import data.manager.SharedPreferencesManager;
 import listing.MapFragmentState;
 import ui.base.BaseActivity;
 import ui.base.BaseFragment;
+import ui.fragment.CalendarFragment;
 import ui.fragment.CategoryDetailsFragment;
 import ui.fragment.CategoryListFragment;
 import ui.fragment.DayOffFragment;
@@ -47,6 +49,8 @@ import ui.fragment.WorkBlockListFragment;
 import ui.fragment.WorkEntryDetailsFragment;
 import ui.fragment.WorkEntryListFragment;
 import util.AddressUtils;
+import util.CSVUtils;
+import util.PermissionUtils;
 
 public class MainActivity extends BaseActivity implements
         BaseFragment.FragmentSnackbarInterface,
@@ -61,7 +65,8 @@ public class MainActivity extends BaseActivity implements
         TodayWidgetFragment.TodayWidgetInterface,
         CategoryListFragment.CategoryListFragmentInterface,
         IntervalDetailsFragment.IntervalDetailsFragmentInterface,
-        IntervalListFragment.IntervalListFragmentInterface {
+        IntervalListFragment.IntervalListFragmentInterface,
+        CalendarFragment.CalendarFragmentInterface{
 
     private BaseFragment mSelectedFragment;
 
@@ -119,6 +124,22 @@ public class MainActivity extends BaseActivity implements
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtils.STORAGE_PERMISSION_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onExportSelected();
+                } else {
+                    // Permission Denied
+                    // TODO
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     /*
         Logic
      */
@@ -138,9 +159,9 @@ public class MainActivity extends BaseActivity implements
         super.replaceFragment(R.id.fragment_drawer_wrapper, drawerFragment, false, BaseActivity.ANIMATION_NONE, DrawerFragment.FRAGMENT_TAG);
     }
 
-    public void displayWorkEntryDetailsFragment(@Nullable WorkEntry workEntry, @Nullable String customToolbarTitle){
+    public void displayWorkEntryDetailsFragment(@Nullable WorkEntry workEntry, @Nullable String customToolbarTitle, int animation){
         WorkEntryDetailsFragment workEntryDetailsFragment = WorkEntryDetailsFragment.newInstance(workEntry, workEntry == null ? WorkEntryDetailsFragment.CREATE_STATE : WorkEntryDetailsFragment.RETAIN_STATE, customToolbarTitle);
-        super.replaceFragment(R.id.fragment_content_wrapper, workEntryDetailsFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, WorkEntryDetailsFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, workEntryDetailsFragment, true, animation, WorkEntryDetailsFragment.FRAGMENT_TAG);
     }
 
     public void displayIntervalDetailsFragment(@Nullable Interval interval, @IntervalDetailsFragment.DayOffType int type){
@@ -148,9 +169,14 @@ public class MainActivity extends BaseActivity implements
         super.replaceFragment(R.id.fragment_content_wrapper, dayOffPlanerFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, IntervalDetailsFragment.FRAGMENT_TAG);
     }
 
-    public void displayWorkEntryListFragment(@Nullable ArrayList<WorkEntry> entryList, @Nullable String customToolbarTitle){
+    public void displayWorkEntryListFragment(@Nullable ArrayList<WorkEntry> entryList, @Nullable String customToolbarTitle, int animation){
         WorkEntryListFragment workEntryListFragment = WorkEntryListFragment.newInstance(entryList, customToolbarTitle);
-        super.replaceFragment(R.id.fragment_content_wrapper, workEntryListFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, WorkEntryListFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, workEntryListFragment, true, animation, WorkEntryListFragment.FRAGMENT_TAG);
+    }
+
+    public void displayWorkEntryCalendarFragment(@Nullable String customToolbarTitle){
+        CalendarFragment calendarFragment = CalendarFragment.newInstance(customToolbarTitle);
+        super.replaceFragment(R.id.fragment_content_wrapper, calendarFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, CalendarFragment.FRAGMENT_TAG);
     }
 
     public void displayWorkBlockListFragment(WorkEntry workEntry, @Nullable String customToolbarTitle){
@@ -158,9 +184,9 @@ public class MainActivity extends BaseActivity implements
         super.replaceFragment(R.id.fragment_content_wrapper, workBlockListFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, WorkBlockListFragment.FRAGMENT_TAG);
     }
 
-    public void displayWorkBlockDetailsFragment(@NonNull WorkEntry workEntry, @Nullable WorkBlock workBlock){
+    public void displayWorkBlockDetailsFragment(@NonNull WorkEntry workEntry, @Nullable WorkBlock workBlock, int animation){
         WorkBlockDetailsFragment workBlockDetailsFragment = WorkBlockDetailsFragment.newInstance(workEntry, workBlock, workBlock == null ? WorkBlockDetailsFragment.CREATE_STATE : WorkBlockDetailsFragment.EDIT_STATE);
-        super.replaceFragment(R.id.fragment_content_wrapper, workBlockDetailsFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, WorkBlockDetailsFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, workBlockDetailsFragment, true, animation, WorkBlockDetailsFragment.FRAGMENT_TAG);
     }
 
     public void displayCategoriesFragment(@Nullable WorkBlock workBlock){
@@ -268,11 +294,11 @@ public class MainActivity extends BaseActivity implements
     public void handleDrawerIconState(String tag){
 
         // Ignore the drawer fragment which always gets loaded invisibly
-        if(tag != null && tag.equals("drawer_fragment")){
+        if(tag != null && tag.equals(DrawerFragment.FRAGMENT_TAG)){
             return;
         }
 
-        if(tag == null || tag.equals("main_menu_fragment")){
+        if(tag == null || tag.equals(MainMenuFragment.FRAGMENT_TAG)){
             animateDrawerIconManually(false);
         }else{
             animateDrawerIconManually(true);
@@ -397,13 +423,25 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    @UiThread
+    public void onExportSelected(){
+
+        boolean hasStoragePermission = PermissionUtils.checkStoragePermissions(this);
+        if(!hasStoragePermission){
+            // If permission is granted later, we get notified via callback
+            return;
+        }
+        CSVUtils.exportData(this, getSupportFragmentManager());
+    }
+
+    @Override
     public void onAddEntrySelected() {
-        displayWorkEntryDetailsFragment(null, getString(R.string.title_new_work_day));
+        displayWorkEntryDetailsFragment(null, getString(R.string.title_new_work_day), BaseActivity.ANIMATION_SLIDE_IN_OUT);
     }
 
     @Override
     public void onHistorySelected() {
-        displayWorkEntryListFragment(null, getString(R.string.title_history));
+        displayWorkEntryCalendarFragment(getString(R.string.title_history));
     }
 
     @Override
@@ -417,7 +455,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onListEntryItemSelected(WorkEntry entry) {
-        displayWorkEntryDetailsFragment(entry, getString(R.string.title_edit_work_day));
+        displayWorkEntryDetailsFragment(entry, getString(R.string.title_edit_work_day), BaseActivity.ANIMATION_SLIDE_IN_OUT);
     }
 
     /*
@@ -426,12 +464,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onListBlockItemSelected(@NonNull WorkEntry workEntry, @NonNull WorkBlock workBlock) {
-        displayWorkBlockDetailsFragment(workEntry, workBlock);
+        displayWorkBlockDetailsFragment(workEntry, workBlock, BaseActivity.ANIMATION_SLIDE_IN_OUT);
     }
 
     @Override
     public void onAddWorkBlockRequest(@NonNull WorkEntry workEntry) {
-        displayWorkBlockDetailsFragment(workEntry, null);
+        displayWorkBlockDetailsFragment(workEntry, null, BaseActivity.ANIMATION_SLIDE_UP_DOWN);
     }
 
     /*
@@ -467,7 +505,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onWeekWidgetInteraction(@NonNull ArrayList<WorkEntry> workEntryList, @Nullable String toolbarTitle) {
-        displayWorkEntryListFragment(workEntryList, toolbarTitle);
+        displayWorkEntryListFragment(workEntryList, toolbarTitle, BaseActivity.ANIMATION_SLIDE_UP_DOWN);
     }
 
     /*
@@ -478,7 +516,7 @@ public class MainActivity extends BaseActivity implements
 
         final DataCacheHelper dataCacheHelper = new DataCacheHelper(this);
         final WorkEntry workEntry = dataCacheHelper.getWorkEntryForTimestampDay(System.currentTimeMillis());
-        displayWorkEntryDetailsFragment(workEntry, workEntry == null ? getString(R.string.title_new_work_day) : getString(R.string.title_edit_work_day));
+        displayWorkEntryDetailsFragment(workEntry, workEntry == null ? getString(R.string.title_new_work_day) : getString(R.string.title_edit_work_day), BaseActivity.ANIMATION_SLIDE_UP_DOWN);
     }
 
     /*
@@ -529,5 +567,19 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onStore(@NonNull Interval interval) {
         interval.store(this, null);
+    }
+
+    /*
+        CalendarFragment#CalendarFragmentInterface
+     */
+    @Override
+    public void onDateSelected(WorkEntry workEntry) {
+        displayWorkEntryDetailsFragment(workEntry, getString(R.string.title_edit_work_day), BaseActivity.ANIMATION_SLIDE_IN_OUT);
+    }
+
+    @Override
+    public void onDisplayList() {
+        final DataCacheHelper dataCacheHelper = new DataCacheHelper(this);
+        displayWorkEntryListFragment(new ArrayList<>(dataCacheHelper.getAllWorkEntries()), getString(R.string.title_history), BaseActivity.ANIMATION_SLIDE_IN_OUT);
     }
 }

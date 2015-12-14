@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
     tools:context="ui.fragment.CategoryListFragment">
 
     <LinearLayout
@@ -13,7 +12,7 @@
 
         <TextView
             style="@style/content_header_title"
-            android:text="@string/system_default"/>
+            android:text="@string/preset"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -29,7 +28,7 @@
         <ImageView
             android:id="@+id/work_day_category_icon"
             style="@style/content_entry_selector_icon"
-            android:src="@drawable/ic_desktop_windows_black_24dp" />
+            android:src="@drawable/fw_category_work_day" />
 
         <LinearLayout
             style="@style/content_title_subtitle_wrapper"
@@ -62,7 +61,7 @@
         <ImageView
             android:id="@+id/vacation_category_icon"
             style="@style/content_entry_selector_icon"
-            android:src="@drawable/ic_flight_takeoff_black_24dp" />
+            android:src="@drawable/fw_vacation_3" />
 
         <LinearLayout
             style="@style/content_title_subtitle_wrapper"
@@ -96,7 +95,7 @@
         <ImageView
             android:id="@+id/sick_leave_category_icon"
             style="@style/content_entry_selector_icon"
-            android:src="@drawable/ic_airline_seat_individual_suite_black_24dp" />
+            android:src="@drawable/fw_sick_leave_2" />
 
         <LinearLayout
             style="@style/content_title_subtitle_wrapper"

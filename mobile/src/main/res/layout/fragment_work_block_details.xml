@@ -1,7 +1,6 @@
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +12,6 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         android:orientation="vertical">
 
         <EditText
@@ -134,15 +132,10 @@
                 android:text="@string/title_category" />
         </LinearLayout>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/category_view"
-            style="@style/main_card_double_line_view"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            card_view:cardBackgroundColor="@android:color/white"
-            card_view:cardCornerRadius="0dp"
-            card_view:cardElevation="0dp">
 
-            <RelativeLayout style="@style/list_item_double_line">
+            <RelativeLayout
+                android:id="@+id/category_view"
+                style="@style/list_item_double_line">
 
                 <ImageView
                     android:id="@+id/category_selector"
@@ -153,9 +146,14 @@
                     android:id="@+id/category_icon"
                     style="@style/content_entry_selector_icon"/>
 
+                <ImageView
+                    android:id="@+id/arrow_right"
+                    style="@style/list_item_arrow_right" />
+
                 <LinearLayout
                     style="@style/content_title_subtitle_wrapper"
-                    android:layout_toEndOf="@id/category_icon">
+                    android:layout_toEndOf="@id/category_icon"
+                    android:layout_toStartOf="@id/arrow_right">
 
                     <TextView
                         android:id="@+id/category_title"
@@ -172,20 +170,19 @@
 
             </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/store_block"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
         android:clickable="true"
-        android:src="@drawable/ic_save_white_24dp"
+        android:src="@drawable/fw_save"
         app:borderWidth="0dp"
         app:elevation="3dp"
         app:layout_anchor="@id/root"
         app:layout_anchorGravity="bottom|right|end"
-        app:pressedTranslationZ="6dp"/>
+        app:pressedTranslationZ="6dp"/> -->
 
 </android.support.design.widget.CoordinatorLayout>

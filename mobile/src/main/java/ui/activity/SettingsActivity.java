@@ -1,6 +1,5 @@
 package ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -14,6 +13,7 @@ import ui.fragment.AboutFragment;
 import ui.fragment.CategoryDetailsFragment;
 import ui.fragment.CategoryListFragment;
 import ui.fragment.SettingsMenuFragment;
+import util.MailUtils;
 
 /**
  * Created by Florian on 24.06.2015.
@@ -46,18 +46,6 @@ public class SettingsActivity extends BaseActivity implements
         super.replaceFragment(R.id.fragment_content_wrapper, settingsMenuFragment, false, BaseActivity.ANIMATION_NONE, SettingsMenuFragment.FRAGMENT_TAG);
     }
 
-    private void startMailApplication() {
-
-        final Intent intent = new Intent(Intent.ACTION_SEND);
-
-        intent.setType("plain/text");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.feedback_email)});
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
-        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.feedback_text));
-
-        startActivity(Intent.createChooser(intent, getString(R.string.feedback)));
-    }
-
     /*
         CategoryListFragment
      */
@@ -65,18 +53,18 @@ public class SettingsActivity extends BaseActivity implements
     @Override
     public void onCategoriesSelected() {
         CategoryListFragment categoryListFragment = CategoryListFragment.newInstance();
-        super.replaceFragment(R.id.fragment_content_wrapper, categoryListFragment, true, BaseActivity.ANIMATION_NONE, CategoryListFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, categoryListFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, CategoryListFragment.FRAGMENT_TAG);
     }
 
     @Override
     public void onAboutSelected() {
         AboutFragment aboutFragment = AboutFragment.newInstance();
-        super.replaceFragment(R.id.fragment_content_wrapper, aboutFragment, true, BaseActivity.ANIMATION_NONE, AboutFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, aboutFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, AboutFragment.FRAGMENT_TAG);
     }
 
     @Override
     public void onFeedbackSelected() {
-        startMailApplication();
+        MailUtils.startMailApplication(this, getString(R.string.feedback_email), getString(R.string.feedback_subject), getString(R.string.feedback_text), getString(R.string.feedback), null);
     }
 
     /*
@@ -86,13 +74,13 @@ public class SettingsActivity extends BaseActivity implements
     @Override
     public void onCategoryCreate() {
         CategoryDetailsFragment categoryDetailsFragment = CategoryDetailsFragment.newInstance(null);
-        super.replaceFragment(R.id.fragment_content_wrapper, categoryDetailsFragment, true, BaseActivity.ANIMATION_NONE, CategoryListFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, categoryDetailsFragment, true, BaseActivity.ANIMATION_SLIDE_UP_DOWN, CategoryListFragment.FRAGMENT_TAG);
     }
 
     @Override
     public void onCategoryEdit(@NonNull Category category) {
         CategoryDetailsFragment categoryDetailsFragment = CategoryDetailsFragment.newInstance(category);
-        super.replaceFragment(R.id.fragment_content_wrapper, categoryDetailsFragment, true, BaseActivity.ANIMATION_NONE, CategoryListFragment.FRAGMENT_TAG);
+        super.replaceFragment(R.id.fragment_content_wrapper, categoryDetailsFragment, true, BaseActivity.ANIMATION_SLIDE_IN_OUT, CategoryListFragment.FRAGMENT_TAG);
     }
 
     /*

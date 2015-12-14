@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
@@ -12,6 +14,8 @@ import org.joda.time.LocalTime;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +28,7 @@ import data.factory.CategoryFactory;
 import data.manager.SharedPreferencesManager;
 import database.DatabaseUiCallback;
 import util.DateUtils;
+import util.UserUtils;
 
 public class DataCacheHelper {
 
@@ -171,41 +176,77 @@ public class DataCacheHelper {
     }
 
     public double getTakenVacationDaysThisYear(@NonNull SharedPreferencesManager sharedPreferencesManager){
-
-        long vacationTakenThisYearMillies = 0L;
-
-        for(WorkEntry workEntry : getAllWorkEntries()){
-
-            if(!DateUtils.isSameYear(System.currentTimeMillis(), workEntry.getDate())){
-                continue;
-            }
-
-            for(WorkBlock block : workEntry.getWorkBlocks()){
-                vacationTakenThisYearMillies += block.getVacationMillies();
-            }
-        }
-
-        long hours = TimeUnit.MILLISECONDS.toHours(vacationTakenThisYearMillies);
-        return convertToAdjustedValueDependingOnUserPreferences(sharedPreferencesManager, hours);
+        return getCategoryDaysThisYear(sharedPreferencesManager, Category.VACATION);
     }
 
     public double getSickDaysThisYear(@NonNull SharedPreferencesManager sharedPreferencesManager){
+        return getCategoryDaysThisYear(sharedPreferencesManager, Category.SICK_LEAVE);
+    }
 
-        long sickLeaveTakenThisYearMillies = 0L;
+    private double getCategoryDaysThisYear(@NonNull SharedPreferencesManager sharedPreferencesManager, @Category.CategoryMode int category){
 
-        for(WorkEntry workEntry : getAllWorkEntries()){
+        long milliesThisYear;
 
-            if(!DateUtils.isSameYear(System.currentTimeMillis(), workEntry.getDate())){
-                continue;
-            }
+        // First check all intervals
+        int numberOfDays = 0;
 
-            for(WorkBlock block : workEntry.getWorkBlocks()){
-                sickLeaveTakenThisYearMillies += block.getSickLeaveMillies();
+        int[] weekSelectionInt = UserUtils.getUserWorkDaysArray(sharedPreferencesManager);
+
+        for(Interval interval : getIntervalsForMode(category)){
+
+            long checkDate = interval.getStartDate();
+            while(checkDate <= interval.getEndDate() || DateUtils.isSameDay(interval.getEndDate(), checkDate)){
+
+                if(DateUtils.isSameYear(System.currentTimeMillis(), checkDate)){
+
+                    if(isWorkDayForUser(weekSelectionInt, checkDate)) {
+                        numberOfDays++;
+                    }
+                }
+                checkDate += TimeUnit.HOURS.toMillis(24);
             }
         }
 
-        long hours = TimeUnit.MILLISECONDS.toHours(sickLeaveTakenThisYearMillies);
+        milliesThisYear = convertAbsoluteWorkDaysMilliesDependingOnUserPreferences(sharedPreferencesManager, numberOfDays);
+
+        // Now, check all blocks that have the corresponding category
+        for(WorkEntry workEntry : getAllWorkEntries()){
+            for(WorkBlock block : workEntry.getWorkBlocks()){
+                switch (category){
+                    case Category.VACATION:
+                        milliesThisYear += block.getVacationMillies();
+                        break;
+                    case Category.SICK_LEAVE:
+                        milliesThisYear += block.getSickLeaveMillies();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        long hours = TimeUnit.MILLISECONDS.toHours(milliesThisYear);
         return convertToAdjustedValueDependingOnUserPreferences(sharedPreferencesManager, hours);
+    }
+
+    public boolean isWorkDayForUser(Context context, long checkDate) {
+
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
+        int[] weekSelectionInt = UserUtils.getUserWorkDaysArray(sharedPreferencesManager);
+
+        return isWorkDayForUser(weekSelectionInt, checkDate);
+    }
+
+    public boolean isWorkDayForUser(int[] userWorkDays, long checkDate) {
+
+        LocalDate newDate = new LocalDate(checkDate);
+
+        for(int i = 0; i < userWorkDays.length; i++){
+            if(newDate.getDayOfWeek() == i+1 && userWorkDays[i] == 1){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -218,12 +259,33 @@ public class DataCacheHelper {
      */
     private double convertToAdjustedValueDependingOnUserPreferences(SharedPreferencesManager sharedPreferencesManager, long hours){
         int weeklyWorkload = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORKLOAD, WorkConfiguration.DEFAULT_WEEKLY_WORKLOAD);
-        int weeklyWorkdays = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORK_DAYS, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
+        int weeklyWorkdays = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORK_DAYS_NUMBER, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
 
         double dailyWorkload = weeklyWorkload / weeklyWorkdays;
 
         NumberFormat formatter = new DecimalFormat("#0.0");
-        return Double.parseDouble(formatter.format(hours / dailyWorkload));
+        Double finalValue;
+        try {
+            finalValue = Double.parseDouble(formatter.format(hours / dailyWorkload));
+        }catch (NumberFormatException e){
+            formatter = new DecimalFormat("#0,0");
+            try {
+                finalValue = Double.parseDouble(formatter.format(hours / dailyWorkload));
+            }catch (NumberFormatException e1){
+                return .0;
+            }
+        }
+
+        return finalValue;
+    }
+
+    private long convertAbsoluteWorkDaysMilliesDependingOnUserPreferences(SharedPreferencesManager sharedPreferencesManager, int days){
+        int weeklyWorkload = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORKLOAD, WorkConfiguration.DEFAULT_WEEKLY_WORKLOAD);
+        int weeklyWorkdays = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORK_DAYS_NUMBER, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
+
+        double dailyWorkload = weeklyWorkload / weeklyWorkdays;
+
+        return (long) (days * dailyWorkload) * 3600000; // 3600000 is an hour in ms
     }
 
     /*
@@ -290,5 +352,41 @@ public class DataCacheHelper {
 
     public void deleteInterval(@NonNull Interval interval, @Nullable DatabaseUiCallback uiCallback){
         mIntervalCache.deleteInterval(interval, uiCallback);
+    }
+
+    /*
+        Calendar
+     */
+
+    public HashSet<CalendarDay> getAllEventDays(){
+
+        HashSet<CalendarDay> hashSet = new HashSet<>();
+
+        // TODO Add vacation and sick days
+        for(WorkEntry entry : getAllWorkEntries()){
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(entry.getDate());
+            hashSet.add(CalendarDay.from(cal));
+        }
+
+        return hashSet;
+    }
+
+    public HashSet<CalendarDay> getAllVacationDays(){
+
+        HashSet<CalendarDay> hashSet = new HashSet<>();
+
+        // TODO
+
+        return hashSet;
+    }
+
+    public HashSet<CalendarDay> getAllSickDays(){
+
+        HashSet<CalendarDay> hashSet = new HashSet<>();
+
+        // TODO
+
+        return hashSet;
     }
 }

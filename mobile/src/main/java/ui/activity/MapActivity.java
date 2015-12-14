@@ -120,7 +120,7 @@ public class MapActivity extends BaseActivity implements BaseFragment.FragmentSn
     public void displayMapFragment(@Nullable final Address address, @MapFragmentState.IMapFragmentState int fragmentState){
 
         if(fragmentState == MapFragmentState.UNKNOWN){
-            throw new IllegalArgumentException("Map fragment state must not be MapFragmentState.UNKNOWN");
+            throw new IllegalArgumentException("Map fragment state must not be MapFragmentState.PENDING");
         }
 
         final MapFragment mapFragment = MapFragment.newInstance(address, fragmentState);

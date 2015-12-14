@@ -42,7 +42,7 @@ public class Category implements Parcelable, Selectable{
 
     public static final int WORK_DAY_COLOR = R.color.lime_500;
     public static final int VACATION_COLOR = R.color.yellow_200;
-    public static final int SICK_LEAVE_COLOR = R.color.orange_300;
+    public static final int SICK_LEAVE_COLOR = R.color.grey_300;
 
     public long _id = System.currentTimeMillis();
     public String name = null;
@@ -75,6 +75,14 @@ public class Category implements Parcelable, Selectable{
 
     public Category getCopy(){
         return new Category(_id, name, description, color, icon, category_type);
+    }
+
+    public @NonNull String getName() {
+        return name == null ? "" : name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setAllDataExcludingId(@NonNull Category newData){

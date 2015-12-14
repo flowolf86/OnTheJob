@@ -74,7 +74,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT  || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
 
-            // For us it does not matter which geofence triggers. Every enter is a "start work" and every exit is "end work"
+            // For us it does not matter which geofence triggers. Every slide_side_enter is a "start work" and every slide_side_exit is "end work"
             List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
             GeofenceAutoAdder geofenceAutoAdder = new GeofenceAutoAdder(getApplicationContext());
 
@@ -85,11 +85,11 @@ public class GeofenceTransitionsIntentService extends IntentService {
                     switch (triggeringGeofences.get(0).getRequestId()){
                         case GeofenceConfiguration.PRIMARY_GEOFENCE_ID:
                             AppBroadcaster.sendStatusChangedBroadcast(getApplicationContext(), GeofencingState.AT_WORK_PRIMARY);
-                            NotificationFactory.displayNotification(this, R.drawable.ic_layers_black_24dp, getString(R.string.app_name), getString(R.string.primary_geofence_entered), MainActivity.class);
+                            NotificationFactory.displayNotification(this, R.drawable.fw_geofencing, getString(R.string.app_name), getString(R.string.primary_geofence_entered), MainActivity.class);
                             break;
                         case GeofenceConfiguration.SECONDARY_GEOFENCE_ID:
                             AppBroadcaster.sendStatusChangedBroadcast(getApplicationContext(), GeofencingState.AT_WORK_SECONDARY);
-                            NotificationFactory.displayNotification(this, R.drawable.ic_layers_black_24dp, getString(R.string.app_name), getString(R.string.secondary_geofence_entered), MainActivity.class);
+                            NotificationFactory.displayNotification(this, R.drawable.fw_geofencing, getString(R.string.app_name), getString(R.string.secondary_geofence_entered), MainActivity.class);
                             break;
                     }
 
@@ -106,10 +106,10 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
                     switch (triggeringGeofences.get(0).getRequestId()){
                         case GeofenceConfiguration.PRIMARY_GEOFENCE_ID:
-                            NotificationFactory.displayNotification(this, R.drawable.ic_layers_clear_black_24dp, getString(R.string.app_name), getString(R.string.primary_geofence_left), MainActivity.class);
+                            NotificationFactory.displayNotification(this, R.drawable.fw_geofencing, getString(R.string.app_name), getString(R.string.primary_geofence_left), MainActivity.class);
                             break;
                         case GeofenceConfiguration.SECONDARY_GEOFENCE_ID:
-                            NotificationFactory.displayNotification(this, R.drawable.ic_layers_clear_black_24dp, getString(R.string.app_name), getString(R.string.secondary_geofence_left), MainActivity.class);
+                            NotificationFactory.displayNotification(this, R.drawable.fw_geofencing, getString(R.string.app_name), getString(R.string.secondary_geofence_left), MainActivity.class);
                             break;
                     }
 

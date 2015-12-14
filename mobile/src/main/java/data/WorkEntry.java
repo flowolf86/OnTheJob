@@ -37,6 +37,9 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
     // Helper for recycler views
     public boolean isSelected = false;
 
+    // Changed
+    public boolean hasChanged = false;
+
     // Init with default values. Set values later.
     public WorkEntry() {
         this.creation_time = System.currentTimeMillis();
@@ -59,14 +62,17 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
      */
     public WorkEntry(long itemId, long creationTime, long lastUpdateTime, long referenceTime, @Nullable String title, @Nullable String text, @WorkEntryType.EntryType int type) {
 
-        this._id = itemId;
+        setId(itemId);
+
         this.creation_time = creationTime;
         this.last_update = lastUpdateTime;
         this.reference_time = referenceTime;
+        this.type = type;
 
         setTitle(title);
         setText(text);
-        this.type = type;
+
+        setChanged(false);
     }
 
     public List<WorkBlock> getWorkBlocks(){
@@ -107,7 +113,7 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
         long duration = 0;
 
         for(WorkBlock block : work_blocks){
-            duration += (block.work_end - block.work_start);
+            duration += (block.getWorkEnd() - block.getWorkStart());
         }
 
         return duration;
@@ -119,6 +125,13 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
 
     public void setDate(long timestamp) {
 
+        if(timestamp != reference_time){
+            setChanged(true);
+        } else {
+            // No change...
+            return;
+        }
+
         // Get difference
         long timestampDifference = reference_time - timestamp;
 
@@ -126,8 +139,8 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
         reference_time = timestamp;
 
         // Set all timestamp of the blocks accordingly
-        for(WorkBlock block : getWorkBlocks()){
-            block.work_start += timestampDifference;
+        for(final WorkBlock block : getWorkBlocks()){
+            block.setWorkStart(block.getWorkStart() + timestampDifference);
         }
     }
 
@@ -136,6 +149,9 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
     }
 
     public void setTitle(@NonNull String title) {
+        if(!getTitle().equals(title)){
+            setChanged(true);
+        }
         this.title = title;
     }
 
@@ -144,6 +160,9 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
     }
 
     public void setText(@Nullable String text) {
+        if(!getText().equals(this.text)){
+            setChanged(true);
+        }
         this.text = text == null ? "" : text;
     }
 
@@ -168,6 +187,25 @@ public class WorkEntry implements Parcelable, Selectable, Comparable<WorkEntry>,
     public boolean hasValidDate(){
 
         return reference_time != INVALID_LONG;
+    }
+
+    public void setChanged(boolean hasChanged){
+        this.hasChanged = hasChanged;
+    }
+
+
+    public boolean hasChanged(){
+
+        if(!hasChanged){
+            // Check if any of the entries block has been changed
+            // If so, the entry itself has changed
+            for(WorkBlock block : getWorkBlocks()){
+                if(block.hasChanged()){
+                    setChanged(true);
+                }
+            }
+        }
+        return hasChanged;
     }
 
     /*

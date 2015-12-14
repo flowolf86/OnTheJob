@@ -4,7 +4,6 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:background="@android:color/white"
     tools:context="ui.activity.MapActivity">
 
     <!-- CONTENT-->
@@ -12,8 +11,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/white">
+        android:orientation="vertical">
 
         <include layout="@layout/toolbar" />
 

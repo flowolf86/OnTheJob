@@ -231,8 +231,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                         values = new ContentValues();
                         values.put(WorkBlockRow.COLUMN_NAME_CREATION_TIME, System.currentTimeMillis());
                         values.put(WorkBlockRow.COLUMN_NAME_LAST_UPDATE_TIME, System.currentTimeMillis());
-                        values.put(WorkBlockRow.COLUMN_NAME_WORK_START, block.work_start);
-                        values.put(WorkBlockRow.COLUMN_NAME_WORK_END, block.work_end);
+                        values.put(WorkBlockRow.COLUMN_NAME_WORK_START, block.getWorkStart());
+                        values.put(WorkBlockRow.COLUMN_NAME_WORK_END, block.getWorkEnd());
                         values.put(WorkBlockRow.COLUMN_NAME_TITLE, block.getTitle());
                         values.put(WorkBlockRow.COLUMN_NAME_TEXT, block.getText());
                         values.put(WorkBlockRow.COLUMN_NAME_CATEGORY_ID, block._category_reference_id);
@@ -372,8 +372,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
                 values.put(WorkBlockRow.COLUMN_NAME_CREATION_TIME, System.currentTimeMillis());
                 values.put(WorkBlockRow.COLUMN_NAME_LAST_UPDATE_TIME, System.currentTimeMillis());
-                values.put(WorkBlockRow.COLUMN_NAME_WORK_START, workBlock.work_start);
-                values.put(WorkBlockRow.COLUMN_NAME_WORK_END, workBlock.work_end);
+                values.put(WorkBlockRow.COLUMN_NAME_WORK_START, workBlock.getWorkStart());
+                values.put(WorkBlockRow.COLUMN_NAME_WORK_END, workBlock.getWorkEnd());
                 values.put(WorkBlockRow.COLUMN_NAME_TITLE, workBlock.getTitle());
                 values.put(WorkBlockRow.COLUMN_NAME_TEXT, workBlock.getText());
                 values.put(WorkBlockRow.COLUMN_NAME_CATEGORY_ID, workBlock._category_reference_id);
@@ -412,8 +412,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
                 values.put(WorkBlockRow.COLUMN_NAME_CREATION_TIME, workBlock.creation_time);
                 values.put(WorkBlockRow.COLUMN_NAME_LAST_UPDATE_TIME, System.currentTimeMillis());
-                values.put(WorkBlockRow.COLUMN_NAME_WORK_START, workBlock.work_start);
-                values.put(WorkBlockRow.COLUMN_NAME_WORK_END, workBlock.work_end);
+                values.put(WorkBlockRow.COLUMN_NAME_WORK_START, workBlock.getWorkStart());
+                values.put(WorkBlockRow.COLUMN_NAME_WORK_END, workBlock.getWorkEnd());
                 values.put(WorkBlockRow.COLUMN_NAME_TITLE, workBlock.getTitle());
                 values.put(WorkBlockRow.COLUMN_NAME_TEXT, workBlock.getText());
                 values.put(WorkBlockRow.COLUMN_NAME_CATEGORY_ID, workBlock._category_reference_id);
@@ -622,6 +622,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     String title = cursor.getString(cursor.getColumnIndexOrThrow(IntervalRow.COLUMN_NAME_TITLE));
                     String description = cursor.getString(cursor.getColumnIndexOrThrow(IntervalRow.COLUMN_NAME_TEXT));
                     long categoryRefId = cursor.getLong(cursor.getColumnIndexOrThrow(IntervalRow.COLUMN_NAME_CATEGORY_ID));
+
+                    // Get the categories synchronosly. Make sure we have them up and running at this point of time!
+                    try {
+                        readCategoriesFromDatabase(CategoryCacheHelper.getInstance()).join();
+                    }catch(Exception e){ }
 
                     List<Category> categories = CategoryCacheHelper.getInstance().getCategories();
                     Category intervalCategory = null;

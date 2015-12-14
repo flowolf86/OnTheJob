@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/week_fragment_root"
-    android:orientation="vertical"
-    android:clickable="true">
+    android:orientation="vertical">
 
     <RelativeLayout
         style="@style/content_header"
@@ -26,11 +25,11 @@
 
     <LinearLayout
         style="@style/list_item_double_line"
+        android:clickable="false"
         android:orientation="horizontal"
         android:paddingStart="0dp"
         android:weightSum="7"
-        android:paddingEnd="@dimen/default_margin"
-        android:background="@android:color/white">
+        android:paddingEnd="@dimen/default_margin">
 
         <RelativeLayout
             android:id="@+id/monday_layout"

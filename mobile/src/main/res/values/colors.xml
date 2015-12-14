@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primary">#00BCD4</color>
+    <color name="primary">#4CAF50</color>
     <!-- LIME: #D4E157 -->
-    <color name="primaryDark">#00A0B4</color>
-    <color name="accent">#ff9800</color>
+    <color name="primaryDark">#388E3C</color>
+    <color name="accent">#00BCD4</color>
 
     <color name="geofence_stroke">#b4ff8a00</color>
     <color name="geofence_fill">#64ff9000</color>
@@ -12,8 +12,12 @@
     <color name="error">#E57373</color>
 
     <color name="geofencing_active">#179543</color>
-    <color name="geofencing_on_hold">#a4e541</color>
+    <color name="geofencing_on_hold">#c7e541</color>
     <color name="geofencing_disabled">#e53d46</color>
+
+    <color name="weekday_active">@color/primary</color>
+    <color name="weekday_inactive">#eaeaea</color>
+    <color name="weekday_inactive_text">@color/black_54</color>
 
     <color name="black_87">#de000000</color>
     <color name="black_54">#8a000000</color>
@@ -32,4 +36,7 @@
     <color name="orange_300">#FFB74D</color>
     <color name="yellow_200">#FFF59D</color>
 
+    <color name="blue_200">#74b2ed</color>
+
+    <color name="background_gray">#f9f9f9</color>
 </resources>

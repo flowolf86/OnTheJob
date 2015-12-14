@@ -13,7 +13,7 @@
         android:textAllCaps="true"
         android:drawablePadding="6dp"
         android:drawableEnd="@drawable/oval_red"
-        android:text="@string/status_unknown"/>
+        android:text="@string/status_pending"/>
 
     <TextView
         style="@style/content_header_title"

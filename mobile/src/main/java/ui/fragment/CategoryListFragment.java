@@ -249,12 +249,13 @@ public class CategoryListFragment extends BaseListFragment implements View.OnCli
 
         final Category category = ((CategoryRecyclerAdapter)CategoryListFragment.super.getRecyclerAdapter()).getData().get(position);
 
+        ((FragmentActionModeInterface)getActivity()).onFragmentFinishActionModeRequest();
+
         if(isFragmentInSelectMode()){
             mWorkBlock.setCategory(category);
             ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
         } else {
             ((CategoryListFragmentInterface)getActivity()).onCategoryEdit(category);
-            ((FragmentActionModeInterface)getActivity()).onFragmentFinishActionModeRequest();
         }
     }
 

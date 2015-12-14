@@ -126,19 +126,22 @@ public class IntervalDetailsFragment extends BaseFragment implements View.OnClic
 
             if(mInterval == null){
 
+                String title;
                 Category category;
                 switch (getViewType()){
                     case VACATION:
                         category = CategoryFactory.getVacationCategory();
+                        title = getString(R.string.default_vacation_title);
                         break;
                     case SICK_LEAVE:
                         category = CategoryFactory.getSickLeaveCategory();
+                        title = getString(R.string.default_sick_leave_title);
                         break;
                     case NONE:
                     default:
-                        throw new IllegalArgumentException("Unable to handle type NONE / UNKNOWN in DayOffPlanerFragment...");
+                        throw new IllegalArgumentException("Unable to handle type NONE / PENDING in DayOffPlanerFragment...");
                 }
-                mInterval = new Interval("DEFAULT", "DEFAULT", System.currentTimeMillis(), System.currentTimeMillis() + TimeUnit.DAYS.toHours(1), category);
+                mInterval = new Interval(title, "", System.currentTimeMillis(), System.currentTimeMillis() + TimeUnit.DAYS.toHours(1), category);
             }
         }
         return mInterval;
@@ -260,10 +263,10 @@ public class IntervalDetailsFragment extends BaseFragment implements View.OnClic
 
         switch (getViewType()){
             case VACATION:
-                mCategoryIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_flight_takeoff_black_24dp));
+                mCategoryIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.fw_vacation_3));
                 break;
             case SICK_LEAVE:
-                mCategoryIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_airline_seat_individual_suite_black_24dp));
+                mCategoryIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.fw_sick_leave_2));
                 break;
             default:
                 break;

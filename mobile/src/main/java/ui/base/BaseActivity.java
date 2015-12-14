@@ -2,6 +2,8 @@ package ui.base;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,7 @@ import data.manager.SharedPreferencesManager;
 import geofence.GeofenceManager;
 import geofence.ManageGeofenceInterface;
 import location.LocationHelper;
+import util.VirtualKeyboardManager;
 
 public class BaseActivity extends AppCompatActivity implements
         BaseFragment.FragmentToolbarInterface, BaseFragment.FragmentNavigationInterface,
@@ -34,6 +37,8 @@ public class BaseActivity extends AppCompatActivity implements
     public static final int ANIMATION_SLIDE_IN_OUT = 100;
     public static final int ANIMATION_SLIDE_UP_DOWN = 200;
     public static final int ANIMATION_SLIDE_DOWN_UP = 300;
+
+    public static final int ANIMATION_DELAY_MS = 200;
 
     private ActionMode mActionMode = null;
     private BaseFragment mSelectedFragment;
@@ -109,30 +114,37 @@ public class BaseActivity extends AppCompatActivity implements
         onFragmentFinished();
     }
 
-    protected void replaceFragment(int containerId, Fragment f, boolean addToBackStack, int animationType, @Nullable final String tag){
+    protected void replaceFragment(final int containerId, final Fragment f, final boolean addToBackStack, int animationType, @Nullable final String tag){
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         switch (animationType){
             case ANIMATION_SLIDE_IN_OUT:
+                transaction.setCustomAnimations(R.anim.slide_side_enter, R.anim.slide_side_exit, R.anim.slide_side_pop_enter, R.anim.slide_side_pop_exit);
                 break;
             case ANIMATION_SLIDE_UP_DOWN:
-                transaction.setCustomAnimations(R.anim.panel_slide_in_from_bottom, R.anim.panel_slide_out_from_top, R.anim.panel_slide_in_from_bottom, R.anim.panel_slide_out_from_top);
+                transaction.setCustomAnimations(R.anim.slide_bottom_enter, R.anim.slide_bottom_exit, R.anim.slide_bottom_pop_enter, R.anim.slide_bottom_pop_exit);
                 break;
             case ANIMATION_SLIDE_DOWN_UP:
-                transaction.setCustomAnimations(R.anim.panel_slide_in_from_top, R.anim.panel_slide_out_from_bottom, R.anim.panel_slide_in_from_top, R.anim.panel_slide_out_from_bottom);
+                //TODO
+                //transaction.setCustomAnimations(R.anim.panel_slide_in_from_top, R.anim.panel_slide_out_from_bottom, R.anim.panel_slide_in_from_top, R.anim.panel_slide_out_from_bottom);
                 break;
             default:
                 break;
         }
 
-        transaction.replace(containerId, f, tag);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                transaction.replace(containerId, f, tag);
 
-        if(addToBackStack) {
-            transaction.addToBackStack(tag);
-        }
+                if(addToBackStack) {
+                    transaction.addToBackStack(tag);
+                }
 
-        transaction.commit();
+                transaction.commit();
+            }
+        }, ANIMATION_DELAY_MS);
     }
 
     protected void setToolbarTitle(String title){
@@ -153,8 +165,10 @@ public class BaseActivity extends AppCompatActivity implements
 
     @Override
     public void onFragmentFinished() {
-        int count = getSupportFragmentManager().getBackStackEntryCount();
 
+        VirtualKeyboardManager.hideKeyboard(this);
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
         if(count != 0) {
             getSupportFragmentManager().popBackStack();
         } else {

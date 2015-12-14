@@ -32,6 +32,7 @@ public class IntervalCache implements IntervalCacheCallback {
     private IntervalCache() { }
 
     private IntervalCache(@NonNull Context context){
+
         mDbHelper = new DatabaseManager(context);
 
         // Initial cache filling
@@ -175,6 +176,9 @@ public class IntervalCache implements IntervalCacheCallback {
 
     @Override
     public void onDbReadIntervalsComplete(@NonNull List<Interval> resultSet) {
+
+        Log.d("DB", "Read "+resultSet.size() + " intervals!");
+
         mIntervalEntries = resultSet;
         mIntervalLastValidDatabaseCopy.clear();
 

@@ -19,6 +19,8 @@ public class SimpleDialogFragment extends DialogFragment {
     public static final int ENABLE_GEOFENCING_DIALOG = 500;
     public static final int DISABLE_GEOFENCING_DIALOG = 510;
 
+    public static final int NO_REQUEST_CODE = -1;
+
     private String mTitle = null;
     private String mText = null;
     private String mPositiveButtonText = null;
@@ -35,7 +37,7 @@ public class SimpleDialogFragment extends DialogFragment {
 
     public SimpleDialogFragment() { }
 
-    public static SimpleDialogFragment newInstance(@Nullable String title, @NonNull String text, String positiveText, String negativeText, int requestCode, @Nullable Parcelable parcelable) {
+    public static SimpleDialogFragment newInstance(@Nullable String title, @NonNull String text, @NonNull String positiveText, @Nullable String negativeText, int requestCode, @Nullable Parcelable parcelable) {
 
         SimpleDialogFragment f = new SimpleDialogFragment();
 
@@ -76,7 +78,9 @@ public class SimpleDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int id) {
                 try {
                     mDialogInstance.dismiss();
-                    ((SimpleDialogCallback) getTargetFragment()).onPositiveDialogResponse(mRequestCode, mParcelable);
+                    if(getTargetFragment() != null) {
+                        ((SimpleDialogCallback) getTargetFragment()).onPositiveDialogResponse(mRequestCode, mParcelable);
+                    }
                 } catch (ClassCastException e) {
                     throw new IllegalArgumentException("Parent has to implement simple dialog callbacks");
                 }
@@ -86,7 +90,9 @@ public class SimpleDialogFragment extends DialogFragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 try {
                                     mDialogInstance.dismiss();
-                                    ((SimpleDialogCallback) getTargetFragment()).onNegativeDialogResponse(mRequestCode);
+                                    if(getTargetFragment() != null) {
+                                        ((SimpleDialogCallback) getTargetFragment()).onNegativeDialogResponse(mRequestCode);
+                                    }
                                 } catch (ClassCastException e) {
                                     throw new IllegalArgumentException("Parent has to implement simple dialog callbacks");
                                 }

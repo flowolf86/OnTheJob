@@ -73,7 +73,7 @@ public class CategoryRecyclerAdapter extends AbstractItemAdapter{
         if(isSelected) {
             drawableId = isDarkColor ? R.drawable.ic_check_white_24dp : R.drawable.ic_check_black_24dp;
         }else{
-            drawableId = isDarkColor ? R.drawable.ic_receipt_white_24dp : R.drawable.ic_receipt_black_24dp;
+            drawableId = isDarkColor ? R.drawable.fw_category_default : R.drawable.fw_category_default; //TODO
         }
         ((CategoryItemViewHolder)viewHolder).icon.setImageResource(drawableId); //TODO get from blob byte[]
     }
@@ -273,7 +273,7 @@ public class CategoryRecyclerAdapter extends AbstractItemAdapter{
                         icon.setImageResource(drawableId);
                     }else{
                         mDeleteData.remove(this.getLayoutPosition());
-                        int drawableId = isDarkColor ? R.drawable.ic_receipt_white_24dp : R.drawable.ic_receipt_black_24dp;
+                        int drawableId = isDarkColor ? R.drawable.fw_category_work_day : R.drawable.fw_category_work_day;
                         icon.setImageResource(drawableId);
                     }
 

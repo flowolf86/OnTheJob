@@ -13,7 +13,6 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -139,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
         android:clickable="true"
-        android:src="@drawable/ic_save_white_24dp"
+        android:src="@drawable/fw_save"
         app:borderWidth="0dp"
         app:elevation="3dp"
         app:layout_anchor="@id/root"

@@ -63,13 +63,13 @@ public class WorkBlockRecyclerAdapter extends AbstractItemAdapter {
 
         ((WorkBlockItemViewHolder)viewHolder).title.setText(block.getTitle());
 
-        int[] duration = DateUtils.getDurationBetweenDates(block.work_start, block.work_end);
+        int[] duration = DateUtils.getDurationBetweenDates(block.getWorkStart(), block.getWorkEnd());
 
-        String displayTime = null;
+        String displayTime;
         if(block._category_reference_id == Category.SICK_LEAVE){
-            displayTime = mContext.getString(R.string.work_block_subtitle_at, duration[0], duration[1], DateUtils.getTime(block.work_start));
+            displayTime = mContext.getString(R.string.work_block_subtitle_at, duration[0], duration[1], DateUtils.getTime(block.getWorkStart()));
         }else{
-            displayTime = mContext.getString(R.string.work_block_subtitle, duration[0], duration[1], DateUtils.getTime(block.work_start), DateUtils.getTime(block.work_end));
+            displayTime = mContext.getString(R.string.work_block_subtitle, duration[0], duration[1], DateUtils.getTime(block.getWorkStart()), DateUtils.getTime(block.getWorkEnd()));
         }
 
         ((WorkBlockItemViewHolder)viewHolder).icon.setImageResource(block.getIconId());

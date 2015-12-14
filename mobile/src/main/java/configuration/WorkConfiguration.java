@@ -9,7 +9,8 @@ public class WorkConfiguration {
     public static final int DEFAULT_WEEKLY_MAX_WORKLOAD = 80;
 
     public static final int DEFAULT_WEEKLY_WORK_DAYS = 5;
-    public static final int DEFAULT_WEEKLY_MAX_WORK_DAYS = 7;
+    public static final int[] DEFAULT_WEEKLY_WORK_DAYS_WHICH = new int[]{1,1,1,1,1,0,0};
+    public static final String DEFAULT_WEEKLY_WORK_DAYS_WHICH_SPLIT_CHAR = ",";
 
     public static final int DEFAULT_YEARLY_MAX_VACATION = 60;
     public static final int DEFAULT_YEARLY_MAX_SICK_LEAVE = 31;

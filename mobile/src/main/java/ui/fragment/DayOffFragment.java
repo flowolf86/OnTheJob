@@ -88,7 +88,7 @@ public class DayOffFragment extends BaseListFragment implements View.OnClickList
 
     private void setVacationsStatistics(SharedPreferencesManager sharedPreferencesManager, DataCacheHelper dataCacheHelper){
 
-        StringBuilder vacationString = new StringBuilder(String.format(Locale.getDefault(), Double.toString(dataCacheHelper.getTakenVacationDaysThisYear(sharedPreferencesManager))));
+        StringBuilder vacationString = new StringBuilder(String.format(Locale.ENGLISH, Double.toString(dataCacheHelper.getTakenVacationDaysThisYear(sharedPreferencesManager))));
         vacationString.append(" / ");
         vacationString.append(getString(R.string.x_days_in_year, UserUtils.getUserYearlyVacationDays(sharedPreferencesManager), DateUtils.getCurrentYear()));
         mVacationStatisticsView.setText(vacationString);
@@ -99,7 +99,7 @@ public class DayOffFragment extends BaseListFragment implements View.OnClickList
         StringBuilder sickDaysString = new StringBuilder();
         int userSickDays = UserUtils.getUserYearlySickDays(sharedPreferencesManager);
         if(userSickDays != WorkConfiguration.UNLIMITED_YEARLY_SICK_LEAVE) {
-            sickDaysString.append(String.format(Locale.getDefault(), Double.toString(dataCacheHelper.getSickDaysThisYear(sharedPreferencesManager))));
+            sickDaysString.append(String.format(Locale.ENGLISH, Double.toString(dataCacheHelper.getSickDaysThisYear(sharedPreferencesManager))));
             sickDaysString.append(" / ");
             sickDaysString.append(getString(R.string.x_days_in_year, UserUtils.getUserYearlySickDays(sharedPreferencesManager), DateUtils.getCurrentYear()));
         } else {

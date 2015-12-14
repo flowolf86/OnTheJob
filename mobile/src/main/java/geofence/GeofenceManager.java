@@ -359,7 +359,7 @@ public class GeofenceManager {
      */
     private @GeofencingState.IGeofencingState int getCurrentGeofenceState() {
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(mContext);
-        @GeofencingState.IGeofencingState int state = sharedPreferencesManager.get(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, GeofencingState.UNKNOWN);
+        @GeofencingState.IGeofencingState int state = sharedPreferencesManager.get(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, GeofencingState.PENDING);
         return state;
     }
 }

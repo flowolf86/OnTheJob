@@ -12,6 +12,7 @@ import java.util.List;
 import cache.CategoryCacheHelper;
 import data.factory.CategoryFactory;
 import util.ColorUtils;
+import util.TextUtils;
 
 public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>, Copyable, Restorable {
 
@@ -26,8 +27,8 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
     public long last_update = INVALID_LONG;
 
     // Work time related
-    public long work_start = INVALID_LONG;
-    public long work_end = INVALID_LONG;
+    private long work_start = INVALID_LONG;
+    private long work_end = INVALID_LONG;
 
     // Work subject related
     private String title = null;
@@ -37,6 +38,9 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
     // Helper for recycler views
     public boolean isSelected = false;
     private Category categoryReference = null;
+
+    // Changed
+    public boolean hasChanged = false;
 
     // Init with default values. Set values later.
     public WorkBlock(long _referenceId) {
@@ -56,25 +60,53 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
         this._id = itemId;
         this.creation_time = creationTime;
         this.last_update = lastUpdateTime;
-        this.work_start = workStart;
-        this.work_end = workEnd;
+
+        setWorkStart(workStart);
+        setWorkEnd(workEnd);
         setTitle(title);
         setText(text);
+
         this._category_reference_id = _category_reference_id;
         this._reference_id = _referenceId;
 
         setCategoryReference();
+        setChanged(false);
     }
 
     /*
         Getter and Setter
      */
 
+    public long getWorkStart() {
+        return work_start;
+    }
+
+    public void setWorkStart(long work_start) {
+        if(work_start != getWorkStart()){
+            setChanged(true);
+        }
+        this.work_start = work_start;
+    }
+
+    public long getWorkEnd() {
+        return work_end;
+    }
+
+    public void setWorkEnd(long work_end) {
+        if(work_end != getWorkEnd()){
+            setChanged(true);
+        }
+        this.work_end = work_end;
+    }
+
     public @NonNull String getTitle() {
         return title == null ? "" : title;
     }
 
     public void setTitle(@NonNull String title) {
+        if(!getTitle().equals(title)){
+            setChanged(true);
+        }
         this.title = title;
     }
 
@@ -83,7 +115,19 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
     }
 
     public void setText(@Nullable String text) {
+        if(!getText().equals(text)){
+            setChanged(true);
+        }
         this.text = text == null ? "" : text;
+    }
+
+    public void setChanged(boolean hasChanged){
+        this.hasChanged = hasChanged;
+    }
+
+
+    public boolean hasChanged(){
+        return hasChanged;
     }
 
     /*
@@ -112,7 +156,7 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
     public void restore(Object object) {
 
         if(!(object instanceof WorkBlock)){
-            throw new IllegalArgumentException("Object must me instance of WorkBlock");
+            throw new IllegalArgumentException("Object must be instance of WorkBlock");
         }
 
         this._id = ((WorkBlock) object)._id;
@@ -139,6 +183,11 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
         Validation
      */
 
+    public boolean isInitial(){
+
+        return work_start == INVALID_LONG && work_end == INVALID_LONG && _reference_id == INVALID_LONG && !TextUtils.isValidText(getTitle()) && !TextUtils.isValidText(getText());
+    }
+
     public boolean isComplete(){
 
         return work_start != INVALID_LONG && work_end != INVALID_LONG && _reference_id != INVALID_LONG;
@@ -164,6 +213,7 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
     }
 
     public void setCategory(@NonNull Category category){
+        this.hasChanged = true;
         categoryReference = category;
         _category_reference_id = (int) category._id;
     }
@@ -192,19 +242,19 @@ public class WorkBlock implements Parcelable, Selectable, Comparable<WorkBlock>,
 
         int iconId = -1;
         if(_category_reference_id == Category.WORK_DAY) {
-            iconId = R.drawable.ic_desktop_windows_black_24dp;
+            iconId = R.drawable.fw_category_work_day;
         }
         if(_category_reference_id == Category.VACATION) {
-            iconId = R.drawable.ic_flight_takeoff_black_24dp;
+            iconId = R.drawable.fw_vacation_3;
         }
         if(_category_reference_id == Category.SICK_LEAVE) {
-            iconId = R.drawable.ic_airline_seat_individual_suite_black_24dp;
+            iconId = R.drawable.fw_sick_leave_2;
         }
 
         if(iconId == -1) {
             // TODO This is the default right now
             boolean isDarkColor = ColorUtils.isDarkColor(getCategory().color);
-            iconId = isDarkColor ? R.drawable.ic_receipt_white_24dp : R.drawable.ic_receipt_black_24dp;
+            iconId = isDarkColor ? R.drawable.fw_category_default : R.drawable.fw_category_default; //TODO
         }
 
         return iconId;

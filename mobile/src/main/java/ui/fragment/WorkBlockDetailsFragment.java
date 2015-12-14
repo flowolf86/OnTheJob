@@ -9,10 +9,8 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,13 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.florianwolf.onthejob.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,8 +59,6 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
     /*
         Variables & Statics
      */
-    @Bind(R.id.store_block) FloatingActionButton mStoreBlockButton;
-
     @Bind(R.id.root) CoordinatorLayout mRootLayout;
 
     @Bind(R.id.title) EditText mTitleText;
@@ -74,13 +70,11 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
     @Bind(R.id.start_time) EditText mStartTime;
     @Bind(R.id.end_time) EditText mEndTime;
 
-    @Bind(R.id.category_view) CardView mCategoryView;
+    @Bind(R.id.category_view) RelativeLayout mCategoryView;
     @Bind(R.id.category_icon) ImageView mCategoryIcon;
     @Bind(R.id.category_selector) ImageView mCategorySelector;
     @Bind(R.id.category_title) TextView mCategoryTitle;
     @Bind(R.id.category_subtitle) TextView mCategorySubtitle;
-
-    private boolean mHasDataChanged = false;
 
     private static final String ARG_WORK_BLOCK = "work_block";
     private static final String ARG_WORK_ENTRY = "work_entry";
@@ -124,6 +118,42 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
 
         return f;
     }
+
+    /*
+        TextWatcher
+     */
+
+    private TextWatcher mTitleTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            getWorkBlock().setTitle(s.toString());
+            mTitleCounter.setText(getString(R.string.default_text_counter, s.length(), TITLE_LENGTH));
+        }
+    };
+
+    private TextWatcher mDescriptionTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            getWorkBlock().setText(s.toString());
+            mDescriptionCounter.setText(getString(R.string.default_text_counter, s.length(), DESCRIPTION_LENGTH));
+        }
+    };
 
     /*
         Fragment data
@@ -235,15 +265,14 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
         DESCRIPTION_LENGTH = getResources().getInteger(R.integer.block_description_length);
     }
 
-    private void setDataChanged() {
-        mHasDataChanged = true;
-    }
-
     private boolean hasDataChanged(){
-        return mHasDataChanged;
+        return getWorkBlock().hasChanged();
     }
 
     private void refreshFragmentData(int viewState) {
+
+        mTitleText.removeTextChangedListener(mTitleTextWatcher);
+        mDescriptionText.removeTextChangedListener(mDescriptionTextWatcher);
 
         if(viewState == EDIT_STATE){
 
@@ -255,12 +284,12 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
             mDescriptionText.setText(getWorkBlock().getText());
             mDescriptionCounter.setText(getString(R.string.default_text_counter, TextUtils.isValidText(getWorkBlock().getText())? getWorkBlock().getText().length() : 0, DESCRIPTION_LENGTH));
 
-            if(getWorkBlock().work_start != WorkBlock.INVALID_LONG) {
-                mStartTime.setText(DateUtils.getTime(getWorkBlock().work_start));
+            if(getWorkBlock().getWorkStart() != WorkBlock.INVALID_LONG) {
+                mStartTime.setText(DateUtils.getTime(getWorkBlock().getWorkStart()));
             }
 
-            if(getWorkBlock().work_end != WorkBlock.INVALID_LONG) {
-                mEndTime.setText(DateUtils.getTime(getWorkBlock().work_end));
+            if(getWorkBlock().getWorkEnd() != WorkBlock.INVALID_LONG) {
+                mEndTime.setText(DateUtils.getTime(getWorkBlock().getWorkEnd()));
             }
 
             setCategory();
@@ -301,6 +330,32 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
         }
     }
 
+    private void storeBlock() {
+
+        if(getWorkBlock().isInitial() || !hasDataChanged()){
+            ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
+            return;
+        }
+
+        if(!getWorkBlock().isComplete()){
+            showIncompleteWorkBlockSnackbar();
+            return;
+        }
+
+        if(!getWorkBlock().hasValidDates()){
+            showInvalidDatesWorkBlockSnackbar();
+            return;
+        }
+
+        if(!TextUtils.isValidText(getWorkBlock().getTitle())){
+            getWorkBlock().setTitle(getString(R.string.work_block));
+        }
+
+        ((WorkBlockDetailsInterface)getActivity()).onWorkBlockCreated(getWorkBlock());
+        ((FragmentSnackbarInterface) getActivity()).onFragmentSnackbarRequest(getString(R.string.work_block_added), Snackbar.LENGTH_SHORT);
+        ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
+    }
+
     /*
         Listeners
      */
@@ -309,44 +364,13 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
         mCategoryView.setOnClickListener(this);
 
         mTitleText.setOnFocusChangeListener(this);
-        mTitleText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                getWorkBlock().setTitle(s.toString());
-                mTitleCounter.setText(getString(R.string.default_text_counter, s.length(), TITLE_LENGTH));
-                setDataChanged();
-            }
-        });
+        mTitleText.addTextChangedListener(mTitleTextWatcher);
 
         mDescriptionText.setOnFocusChangeListener(this);
-        mDescriptionText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                getWorkBlock().setText(s.toString());
-                mDescriptionCounter.setText(getString(R.string.default_text_counter, s.length(), DESCRIPTION_LENGTH));
-                setDataChanged();
-            }
-        });
+        mDescriptionText.addTextChangedListener(mDescriptionTextWatcher);
 
         mStartTime.setOnClickListener(this);
         mEndTime.setOnClickListener(this);
-        mStoreBlockButton.setOnClickListener(this);
     }
 
     private void unsetOnFocusChangedListeners() {
@@ -358,40 +382,17 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.store_block:
-
-                if(!getWorkBlock().isComplete()){
-                    showIncompleteWorkBlockSnackbar();
-                    return;
-                }
-
-                if(!getWorkBlock().hasValidDates()){
-                    showInvalidDatesWorkBlockSnackbar();
-                    return;
-                }
-
-                if(!TextUtils.isValidText(getWorkBlock().getTitle())){
-                    getWorkBlock().setTitle(getString(R.string.work_block));
-                }
-
-                ((WorkBlockDetailsInterface)getActivity()).onWorkBlockCreated(getWorkBlock());
-                ((FragmentSnackbarInterface) getActivity()).onFragmentSnackbarRequest(getString(R.string.work_block_added), Snackbar.LENGTH_SHORT);
-                ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
-                break;
             case R.id.start_time:
-
-                TimePickerFragment startPicker = TimePickerFragment.newInstance(getWorkBlock().work_start == WorkEntry.INVALID_LONG ? System.currentTimeMillis() : getWorkBlock().work_start);
+                TimePickerFragment startPicker = TimePickerFragment.newInstance(getWorkBlock().getWorkStart() == WorkEntry.INVALID_LONG ? System.currentTimeMillis() : getWorkBlock().getWorkStart());
                 startPicker.setTargetFragment(this, START_TIME_REQUEST_CODE);
                 startPicker.show(getChildFragmentManager(), "startTimePicker");
                 break;
             case R.id.end_time:
-
-                TimePickerFragment endPicker = TimePickerFragment.newInstance(getWorkBlock().work_end == WorkEntry.INVALID_LONG ? System.currentTimeMillis() : getWorkBlock().work_end);
+                TimePickerFragment endPicker = TimePickerFragment.newInstance(getWorkBlock().getWorkEnd() == WorkEntry.INVALID_LONG ? System.currentTimeMillis() : getWorkBlock().getWorkEnd());
                 endPicker.setTargetFragment(this, END_TIME_REQUEST_CODE);
                 endPicker.show(getChildFragmentManager(), "endTimePicker");
                 break;
             case R.id.category_view:
-
                 ((WorkBlockDetailsInterface)getActivity()).onSelectCategory(getWorkBlock());
                 break;
             default:
@@ -404,14 +405,12 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
 
         switch (targetRequestCode){
             case START_TIME_REQUEST_CODE:
-                getWorkBlock().work_start = timestamp;
+                getWorkBlock().setWorkStart(timestamp);
                 mStartTime.setText(DateUtils.getTime(timestamp));
-                setDataChanged();
                 break;
             case END_TIME_REQUEST_CODE:
-                getWorkBlock().work_end = timestamp;
+                getWorkBlock().setWorkEnd(timestamp);
                 mEndTime.setText(DateUtils.getTime(timestamp));
-                setDataChanged();
                 break;
             default:
                 break;
@@ -446,25 +445,8 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
 
     @Override
     public boolean onActivityFinishFragmentRequest() {
-
-        if(!hasDataChanged()){
-            return false;
-        }
-
-        showExitWithoutSavingDialog();
+        storeBlock();
         return true;
-    }
-
-    public void showExitWithoutSavingDialog(){
-        SimpleDialogFragment newFragment = SimpleDialogFragment.newInstance(
-                null,
-                getString(R.string.dialog_text_exit_without_saving),
-                getString(R.string.dialog_button_exit).toUpperCase(Locale.getDefault()),
-                getString(R.string.dialog_button_stay).toUpperCase(Locale.getDefault()),
-                SimpleDialogFragment.EXIT_WITHOUT_SAVING_DIALOG,
-                null);
-        newFragment.setTargetFragment(this, 0);
-        newFragment.show(getChildFragmentManager(), "dialog");
     }
 
     public void showIncompleteWorkBlockSnackbar(){

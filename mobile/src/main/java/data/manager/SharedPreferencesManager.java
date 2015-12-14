@@ -14,6 +14,7 @@ public class SharedPreferencesManager {
 
     public static final String ID_WORKLOAD = "id_workload";
     public static final String ID_WORK_DAYS = "id_workdays";
+    public static final String ID_WORK_DAYS_NUMBER = "id_workdays_number";
     public static final String ID_VACATION = "id_vacation";
     public static final String ID_SICK_LEAVE = "id_sick_leave";
     public static final String ID_WORK_RADIUS = "id_radius";

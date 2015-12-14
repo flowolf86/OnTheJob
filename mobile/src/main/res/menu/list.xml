@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MapActivity">
+
+    <item android:id="@+id/action_display_history_list" android:title="@null"
+        android:icon="@drawable/ic_view_list_white_24dp"
+        android:orderInCategory="100" app:showAsAction="always" />
+</menu>

@@ -43,12 +43,12 @@ public class ColorPickerView extends RelativeLayout implements SeekBar.OnSeekBar
     public ColorPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, R.layout.view_color_picker);
-        configureSeekbars();
     }
 
     private void init(@NonNull Context context, @LayoutRes int layoutId) {
         inflate(context, layoutId, this);
         ButterKnife.bind(this);
+        configureSeekbars();
     }
 
     public void setCallback(@NonNull final ColorPickerViewInterface callback){

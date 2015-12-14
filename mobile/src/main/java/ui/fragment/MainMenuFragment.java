@@ -3,13 +3,10 @@ package ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.florianwolf.onthejob.R;
 
@@ -24,9 +21,9 @@ public class MainMenuFragment extends BaseFragment implements View.OnClickListen
 
     public static final String FRAGMENT_TAG = "main_menu_fragment";
 
-    @Bind(R.id.record_view) CardView mNewEntryLayout;
-    @Bind(R.id.history_view) CardView mHistoryLayout;
-    @Bind(R.id.day_off_view) CardView mDayOffLayout;
+    @Bind(R.id.record_view) RelativeLayout mNewEntryLayout;
+    @Bind(R.id.history_view) RelativeLayout mHistoryLayout;
+    @Bind(R.id.day_off_view) RelativeLayout mDayOffLayout;
 
     public MainMenuFragment() { }
 
@@ -66,15 +63,8 @@ public class MainMenuFragment extends BaseFragment implements View.OnClickListen
 
         ButterKnife.bind(this, view);
         setOnClickListeners();
-        setChildFragments();
 
         return view;
-    }
-
-    private void setChildFragments() {
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.status_fragment_wrapper, StatusWidgetFragment.newInstance());
-        transaction.commit();
     }
 
     @Override

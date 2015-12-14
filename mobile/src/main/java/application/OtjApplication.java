@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import cache.CategoryCacheHelper;
 import cache.EntryCache;
 import cache.IntervalCache;
-import database.DatabaseManager;
 
 /**
  * Created by Florian on 22.06.2015.
@@ -33,11 +32,11 @@ public class OtjApplication extends Application {
         mResources = getResources();
 
         // Initialize the caches
-        DatabaseManager databaseManager = new DatabaseManager(this);
-        databaseManager.wipeDatabase();
+        //DatabaseManager databaseManager = new DatabaseManager(this);
+        //databaseManager.wipeDatabase();
 
+        CategoryCacheHelper.init(this);
         EntryCache.init(this);
-        CategoryCacheHelper.init(this); //TODO Move from helper to cache
         IntervalCache.init(this);
 
         //deleteDatabase(DatabaseManager.DATABASE_NAME);

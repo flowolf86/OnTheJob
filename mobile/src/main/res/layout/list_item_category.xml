@@ -3,11 +3,11 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list_item"
     style="@style/main_card_double_line_view"
-    card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="0dp"
     card_view:cardElevation="0dp">
 
-    <RelativeLayout style="@style/list_item_double_line">
+    <RelativeLayout style="@style/list_item_double_line"
+        android:clickable="false">
 
         <ImageView
             android:id="@+id/selector"

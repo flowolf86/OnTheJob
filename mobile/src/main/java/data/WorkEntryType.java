@@ -19,9 +19,9 @@ public class WorkEntryType {
     /*
         Other
      */
-    public static final int MANUAL_ICON_ID = R.drawable.ic_description_black_24dp;
+    public static final int MANUAL_ICON_ID = R.drawable.fw_work_entry;
     public static final int CHECK_ICON_ID = R.drawable.ic_check_black_24dp;
 
-    public static final int VACATION_ICON_ID = R.drawable.ic_flight_takeoff_black_24dp;
-    public static final int SICK_LEAVE_ICON_ID = R.drawable.ic_airline_seat_individual_suite_black_24dp;
+    public static final int VACATION_ICON_ID = R.drawable.fw_vacation_3;
+    public static final int SICK_LEAVE_ICON_ID = R.drawable.fw_sick_leave_2;
 }

@@ -4,8 +4,8 @@
     <string name="title_new_work_day">New work day</string>
     <string name="title_edit_work_day">Edit work day</string>
 
-    <string name="title_new_work_block">New work block</string>
-    <string name="title_edit_work_block">Edit work block</string>
+    <string name="title_new_work_block">New activity</string>
+    <string name="title_edit_work_block">Edit activity</string>
 
     <string name="title_new_category">New category</string>
     <string name="title_edit_category">Edit category</string>
@@ -22,28 +22,28 @@
     <string name="drawer_open">drawer open</string>
     <string name="drawer_closed">drawer closed</string>
 
-    <string name="manage_work_day_title">Add work day</string>
-    <string name="manage_work_day_subtitle">Bring your log up to date</string>
+    <string name="manage_work_day_title">Log a work day</string>
+    <string name="manage_work_day_subtitle">Create or edit an entry</string>
 
-    <string name="record_day_off_title">Day off</string>
+    <string name="record_day_off_title">Manage your free time</string>
     <string name="record_day_off_subtitle">Set your vacation and sick-days</string>
 
-    <string name="record_history_title">History</string>
+    <string name="record_history_title">View log history</string>
     <string name="record_history_subtitle">Manage your logged work days</string>
 
-    <string name="work_block">Work block</string>
-    <string name="work_blocks">Work blocks</string>
-    <string name="generated_work_block_text">This work block has been generated due to your geofenes</string>
-    <string name="add_work_blocks">Add work blocks</string>
-    <string name="modify_work_blocks">Modify work blocks</string>
+    <string name="work_block">Activity</string>
+    <string name="work_blocks">Activities</string>
+    <string name="generated_work_block_text">This activity has been generated due to your geofenes</string>
+    <string name="add_work_blocks">Add activity</string>
+    <string name="modify_work_blocks">Modify activities</string>
 
-    <string name="block_subtitle">%1$d h %2$d min in %3$d work block/s</string>
-    <string name="block_subtitle_empty">Log work blocks of your work day</string>
+    <string name="block_subtitle">%1$d h %2$d min in %3$d activity/-ies</string>
+    <string name="block_subtitle_empty">Log activities of your work day</string>
 
-    <string name="title_hint">Title (optional)</string>
-    <string name="title_mandatory_hint">Title</string>
-    <string name="description_hint">Description (optional)</string>
-    <string name="date_hint">Set date</string>
+    <string name="title_hint">Enter a title (optional)</string>
+    <string name="title_mandatory_hint">Enter a title</string>
+    <string name="description_hint">Enter a description (optional)</string>
+    <string name="date_hint">Choose the date</string>
 
     <string name="work_block_start_hint">From</string>
     <string name="work_block_end_hint">To</string>
@@ -66,6 +66,7 @@
     <string name="more">More</string>
     <string name="details">Details</string>
     <string name="system_default">Default</string>
+    <string name="preset">Preset</string>
     <string name="quick_access">Quick access</string>
     <string name="statistics">Statistics</string>
     <string name="manage">Manage</string>
@@ -83,12 +84,12 @@
     <string name="dash">-</string>
 
     <!-- STATUS -->
-    <string name="current_status">Current status:</string>
+    <string name="current_status">Geofencing status:</string>
     <string name="status_disabled">Disabled</string>
     <string name="status_not_at_work">Not at work</string>
-    <string name="status_at_work_primary">At work (Primary)</string>
-    <string name="status_at_work_secondary">At work (Secondary)</string>
-    <string name="status_unknown">Unknown</string>
+    <string name="status_at_work_primary">At work</string>
+    <string name="status_at_work_secondary">At work</string>
+    <string name="status_pending">Pending</string>
 
     <!-- DAY OFF -->
     <string name="sick_day_entry_title">%1$s (out of work)</string>
@@ -98,7 +99,7 @@
     <string name="sick_day_block_description"> </string>
 
     <string name="call_in_sick_today">Call in sick today</string>
-    <string name="call_in_sick_today_description">A sick leave block will be created automatically</string>
+    <string name="call_in_sick_today_description">A sick leave entry will be created automatically</string>
 
     <string name="vacation_day_entry_title">%1$s (out of work)</string>
     <string name="vacation_day_entry_description">You took vacation</string>
@@ -107,7 +108,7 @@
     <string name="vacation_day_block_description"> </string>
 
     <string name="call_in_vacation_today">Take the day off</string>
-    <string name="call_in_vacation_today_description">A vacation block will be created automatically</string>
+    <string name="call_in_vacation_today_description">A vacation entry will be created automatically</string>
 
     <string name="called_in_vacation_today">Took the day off</string>
     <string name="called_in_sick_today">Called in sick today</string>
@@ -128,6 +129,7 @@
     <string name="dialog_button_disable">Disable</string>
     <string name="dialog_button_enable">Enable</string>
     <string name="dialog_button_select">Select</string>
+    <string name="dialog_button_ok">Ok</string>
 
     <string name="dialog_text_exit_without_saving">Exit without saving?</string>
     <string name="dialog_text_select_category_color">Select category color</string>
@@ -136,7 +138,7 @@
     <string name="dialog_text_edit_existing_work_day">%1$s, has already been logged. Edit this work day?</string>
 
     <string name="work_entry_stored">Work entry stored</string>
-    <string name="work_block_added">Work block added</string>
+    <string name="work_block_added">Activity added</string>
     <string name="category_stored">Category stored</string>
     <string name="vacation_created">Vacation has been created</string>
     <string name="sick_leave_created">Sick leave has been created</string>
@@ -215,6 +217,9 @@
     <string name="empty_category"></string>
     <string name="empty_category_description"></string>
 
+    <string name="default_vacation_title">Vacation</string>
+    <string name="default_sick_leave_title">Sick leave</string>
+
     <!-- MAP FRAGMENT -->
     <string name="select_location">Select location</string>
     <string name="no_address_please_try_again">No address found. Please try again</string>
@@ -228,12 +233,13 @@
     <string name="address_updated">Work address updated</string>
 
     <!-- GEOFENCING -->
-    <string name="allow_geofencing_title">Geofencing</string>
-    <string name="allow_geofencing_subtitle">Allow work tracking via geofence</string>
+    <string name="allow_geofencing_title">Geofencing (Beta!)</string>
+    <string name="allow_geofencing_subtitle">Enable work tracking with geofences</string>
 
     <string name="allow_notifications">Notifications</string>
     <string name="allow_notifications_subtitle">Get notified on geofence events</string>
     <string name="export_via_email">Export via email</string>
+    <string name="export_data">Export data</string>
 
     <string name="disable_geofencing_dialog">Disable automatic work tracking with geofences?</string>
     <string name="enable_geofencing_dialog">Enable automatic work tracking with geofences?</string>
@@ -252,9 +258,42 @@
     <string name="automatic_other">other</string>
 
     <!-- Empty recyclers -->
-    <string name="rv_empty_user_categories">No user categories. To add one, press +.</string>
-    <string name="rv_empty_work_blocks">No work blocks. To add one, press +.</string>
-    <string name="rv_empty_work_entries">No work days logged so far.</string>
-    <string name="rv_empty_vacation_or_sick_leave">Nothing planned yet.\nTo create a vacation or sick leave, press +.</string>
+    <string name="rv_empty_user_categories">It\'s so empty here right now&#8230;\n\nTo create your own awesome custom category, press +.</string>
+    <string name="rv_empty_work_blocks">No activities logged for this day.\n\nTo add a new one, press +.</string>
+    <string name="rv_empty_work_entries">No work days logged so far.\n\nYou can start logging your work days manually from the menu, or try the automatic geofencing feature!</string>
+    <string name="rv_empty_vacation_or_sick_leave">Nothing to see here&#8230;\n\nTo add an entry, press +.</string>
 
+    <string name="geofencing_beta_warning">This feature is currently in BETA. Geofencing might or might not work as intended in some use-cases.</string>
+
+    <!-- CSV Errors -->
+    <string name="csv_unable_to_create_file">Unable to create file. Please try again.</string>
+    <string name="csv_general_error">Unable to export data. Please try again.</string>
+
+    <!-- Permissions -->
+    <string name="storage_permission_question">To use this feature, you need to allow OnTheJob! to read and write data from the devices storage.</string>
+
+    <string-array name="custom_weekdays">
+        <item>@string/sunday_short</item>
+        <item>@string/monday_short</item>
+        <item>@string/tuesday_short</item>
+        <item>@string/wednesday_short</item>
+        <item>@string/thursday_short</item>
+        <item>@string/friday_short</item>
+        <item>@string/saturday_short</item>
+    </string-array>
+
+    <string-array name="custom_months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

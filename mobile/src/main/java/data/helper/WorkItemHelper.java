@@ -110,8 +110,8 @@ public class WorkItemHelper {
             workBlock.setText(context.getString(R.string.sick_day_block_description));
         }
 
-        workBlock.work_start = workBlockStartTime;
-        workBlock.work_end = workBlockStartTime + dailyWorkLoad;
+        workBlock.setWorkStart(workBlockStartTime);
+        workBlock.setWorkEnd(workBlockStartTime + dailyWorkLoad);
 
         return workBlock;
     }
@@ -121,7 +121,7 @@ public class WorkItemHelper {
     }
 
     private static int getWorkDays(SharedPreferencesManager pMan){
-        return pMan.get(SharedPreferencesManager.ID_WORK_DAYS, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
+        return pMan.get(SharedPreferencesManager.ID_WORK_DAYS_NUMBER, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
     }
 
     private static long getDailyWorkload(Context context){

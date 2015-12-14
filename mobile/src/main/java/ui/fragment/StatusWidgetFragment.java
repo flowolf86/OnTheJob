@@ -84,11 +84,16 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
     private void restoreLastState() {
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        @GeofencingState.IGeofencingState int state = sharedPreferencesManager.get(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, GeofencingState.UNKNOWN);
+        @GeofencingState.IGeofencingState int state = sharedPreferencesManager.get(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, GeofencingState.PENDING);
         setState(state);
     }
 
     private void setState(@GeofencingState.IGeofencingState int state) {
+
+        // Failsafe
+        if(mStatusText == null){
+            return;
+        }
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
         sharedPreferencesManager.set(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, state);
@@ -110,9 +115,9 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
                 setCompoundDrawable(R.drawable.oval_yellow);
                 mStatusText.setText(getString(R.string.status_not_at_work));
                 break;
-            case GeofencingState.UNKNOWN:
+            case GeofencingState.PENDING:
                 setCompoundDrawable(R.drawable.oval_red);
-                mStatusText.setText(getString(R.string.status_unknown));
+                mStatusText.setText(getString(R.string.status_pending));
                 break;
         }
     }
@@ -183,7 +188,7 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
 
         switch (responseCode){
             case SimpleDialogFragment.ENABLE_GEOFENCING_DIALOG:
-                setState(GeofencingState.UNKNOWN);
+                setState(GeofencingState.PENDING);
                 sharedPreferencesManager.set(SharedPreferencesManager.ID_GEOFENCING, true);
                 ((ManageGeofenceInterface)getActivity()).onUpdateAllGeofencesRequest();
                 break;
@@ -211,8 +216,11 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            @GeofencingState.IGeofencingState int status = intent.getIntExtra(EXTRA_STATE, GeofencingState.UNKNOWN);
-            setState(status);
+            @GeofencingState.IGeofencingState int status = intent.getIntExtra(EXTRA_STATE, GeofencingState.PENDING);
+
+            if(getActivity() != null && isAdded()) {
+                setState(status);
+            }
         }
     }
 }

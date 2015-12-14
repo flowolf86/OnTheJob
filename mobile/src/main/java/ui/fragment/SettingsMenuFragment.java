@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,8 +22,11 @@ import geofence.ManageGeofenceInterface;
 import listing.GeofencingState;
 import support.AppBroadcaster;
 import ui.base.BaseFragment;
+import ui.dialog.SimpleDialogFragment;
+import util.UserUtils;
+import view.WeekSelectorView;
 
-public class SettingsMenuFragment extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
+public class SettingsMenuFragment extends BaseFragment implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, WeekSelectorView.WeekSelectorViewInterface{
 
     public static final String FRAGMENT_TAG = "settings_menu_fragment";
 
@@ -34,16 +37,17 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
     @Bind(R.id.sick_leave_title) TextView mYearlySickLeaveSeekbarText;
 
     @Bind(R.id.weekly_workload_seekbar) SeekBar mWeeklyWorkloadSeekbar;
-    @Bind(R.id.weekly_work_days_seekbar) SeekBar mWeeklyWorkDaysSeekbar;
     @Bind(R.id.work_radius_seekbar) SeekBar mWorkRadiusSeekbar;
     @Bind(R.id.vacation_days_seekbar) SeekBar mYearlyVacationDaysSeekbar;
     @Bind(R.id.sick_leave_seekbar) SeekBar mYearlySickLeaveSeekbar;
 
-    @Bind(R.id.categories_view) CardView mCategoriesLayout;
-    @Bind(R.id.notifications_view) CardView mNotificationsLayout;
-    @Bind(R.id.geofencing_view) CardView mGeofencingLayout;
-    @Bind(R.id.about_view) CardView mAboutLayout;
-    @Bind(R.id.feedback_view) CardView mFeedbackLayout;
+    @Bind(R.id.week_selector) WeekSelectorView mWeekSelectorView;
+
+    @Bind(R.id.categories_view) RelativeLayout mCategoriesLayout;
+    @Bind(R.id.notifications_view) RelativeLayout mNotificationsLayout;
+    @Bind(R.id.geofencing_view) RelativeLayout mGeofencingLayout;
+    @Bind(R.id.about_view) RelativeLayout mAboutLayout;
+    @Bind(R.id.feedback_view) RelativeLayout mFeedbackLayout;
 
     @Bind(R.id.notifications_checkbox) AppCompatCheckBox mNotificationsCheckbox;
     @Bind(R.id.geofencing_checkbox) AppCompatCheckBox mGeofencingCheckbox;
@@ -92,6 +96,7 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
         // Set this after setting the defaults
         setOnClickListeners();
         configureSeekbars();
+        configureWeekSelector();
 
         return view;
     }
@@ -150,13 +155,17 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
         mGeofencingCheckbox.setOnCheckedChangeListener(this);
     }
 
+    private void configureWeekSelector() {
+
+        int[] weekSelectionInt = UserUtils.getUserWorkDaysArray(getSharedPreferencesManager());
+        mWeekSelectorView.setInitialData(this, weekSelectionInt);
+        mWeeklyWorkDaysSeekbarText.setText(getString(R.string.weekly_workdays, mWeekSelectorView.getNumberOfActiveElements()));
+    }
+
     private void configureSeekbars() {
 
         mWeeklyWorkloadSeekbar.setOnSeekBarChangeListener(this);
         mWeeklyWorkloadSeekbar.setMax(WorkConfiguration.DEFAULT_WEEKLY_MAX_WORKLOAD);
-
-        mWeeklyWorkDaysSeekbar.setOnSeekBarChangeListener(this);
-        mWeeklyWorkDaysSeekbar.setMax(WorkConfiguration.DEFAULT_WEEKLY_MAX_WORK_DAYS);
 
         mYearlyVacationDaysSeekbar.setOnSeekBarChangeListener(this);
         mYearlyVacationDaysSeekbar.setMax(WorkConfiguration.DEFAULT_YEARLY_MAX_VACATION);
@@ -171,10 +180,6 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
         int workLoad = getSharedPreferencesManager().get(SharedPreferencesManager.ID_WORKLOAD, WorkConfiguration.DEFAULT_WEEKLY_WORKLOAD);
         mWeeklyWorkloadSeekbar.setProgress(workLoad);
         mWeeklyWorkloadSeekbarText.setText(getString(R.string.weekly_workload, workLoad));
-
-        int workDays = getSharedPreferencesManager().get(SharedPreferencesManager.ID_WORK_DAYS, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
-        mWeeklyWorkDaysSeekbar.setProgress(workDays);
-        mWeeklyWorkDaysSeekbarText.setText(getString(R.string.weekly_workdays, workDays));
 
         int vacationDays = getSharedPreferencesManager().get(SharedPreferencesManager.ID_VACATION, WorkConfiguration.DEFAULT_YEARLY_VACATION);
         mYearlyVacationDaysSeekbar.setProgress(vacationDays);
@@ -206,10 +211,6 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if(mWeeklyWorkloadSeekbar.equals(seekBar) && fromUser){
             mWeeklyWorkloadSeekbarText.setText(getString(R.string.weekly_workload, progress));
-        }
-
-        if(mWeeklyWorkDaysSeekbar.equals(seekBar) && fromUser){
-            mWeeklyWorkDaysSeekbarText.setText(getString(R.string.weekly_workdays, progress));
         }
 
         if(mYearlyVacationDaysSeekbar.equals(seekBar) && fromUser){
@@ -248,10 +249,6 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
             if(getSharedPreferencesManager().get(SharedPreferencesManager.ID_GEOFENCING, true)) {
                 ((ManageGeofenceInterface) getActivity()).onUpdateAllGeofencesRequest();
             }
-        }
-
-        if(mWeeklyWorkDaysSeekbar.equals(seekBar)){
-            getSharedPreferencesManager().set(SharedPreferencesManager.ID_WORK_DAYS, seekBar.getProgress());
         }
 
         if(mYearlyVacationDaysSeekbar.equals(seekBar)){
@@ -299,6 +296,11 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
         }
 
         if(buttonView.equals(mGeofencingCheckbox)){
+            if(isChecked){
+                SimpleDialogFragment.newInstance(null, getString(R.string.geofencing_beta_warning),
+                        getString(R.string.dialog_button_ok), null, SimpleDialogFragment.NO_REQUEST_CODE, null).show(getChildFragmentManager(), null);
+            }
+
             getSharedPreferencesManager().set(SharedPreferencesManager.ID_GEOFENCING, isChecked);
             enableOrDisableGeofencing(isChecked);
         }
@@ -317,5 +319,28 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
 
             ((ManageGeofenceInterface) getActivity()).onRemoveAllGeofencesRequest();
         }
+    }
+
+    /*
+        Week selector
+     */
+    @Override
+    public void onWeekdaySelectedOrDeselected(int[] selection) {
+
+        int selectionCounter = 0;
+
+        StringBuilder workDays = new StringBuilder();
+        for(int i : selection){
+            workDays.append(i);
+            workDays.append(WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS_WHICH_SPLIT_CHAR);
+
+            if(i == 1){
+                selectionCounter++;
+            }
+        }
+
+        getSharedPreferencesManager().set(SharedPreferencesManager.ID_WORK_DAYS, workDays.toString());
+        getSharedPreferencesManager().set(SharedPreferencesManager.ID_WORK_DAYS_NUMBER, selectionCounter);
+        mWeeklyWorkDaysSeekbarText.setText(getString(R.string.weekly_workdays, mWeekSelectorView.getNumberOfActiveElements()));
     }
 }

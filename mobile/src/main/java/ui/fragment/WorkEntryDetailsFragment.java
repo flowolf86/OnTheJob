@@ -11,13 +11,13 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.florianwolf.onthejob.R;
@@ -68,9 +68,7 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
     @Bind(R.id.date) EditText mDateText;
     @Bind(R.id.blocks_subtitle) TextView  mBlocksSubtitle;
 
-    @Bind(R.id.blocks_view) CardView mBlocksView;
-
-    private boolean mHasDataChanged = false;
+    @Bind(R.id.blocks_view) RelativeLayout mBlocksView;
 
     public static final String FRAGMENT_TAG = "work_entry_details_fragment";
 
@@ -119,6 +117,42 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
 
         return f;
     }
+
+    /*
+        TextWatcher
+     */
+
+    private TextWatcher mTitleTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            getWorkEntry().setTitle(s.toString());
+            mTitleCounter.setText(getString(R.string.default_text_counter, s.length(), TITLE_LENGTH));
+        }
+    };
+
+    private TextWatcher mDescriptionTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            getWorkEntry().setText(s.toString());
+            mDescriptionCounter.setText(getString(R.string.default_text_counter, s.length(), DESCRIPTION_LENGTH));
+        }
+    };
 
     /*
         Fragment data
@@ -213,7 +247,7 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onDestroyView() {
-        unsetOnFocusChangedListeners();
+        unsetOnFocusAndTextChangedListeners();
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
@@ -240,12 +274,8 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         DESCRIPTION_LENGTH = getResources().getInteger(R.integer.description_length);
     }
 
-    private void setDataChanged() {
-        mHasDataChanged = true;
-    }
-
     private boolean hasDataChanged(){
-        return mHasDataChanged;
+        return getWorkEntry().hasChanged();
     }
 
     private void refreshFragmentData(int viewState) {
@@ -294,49 +324,22 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         mStoreEntryButton.setOnClickListener(this);
 
         mTitleText.setOnFocusChangeListener(this);
-        mTitleText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                getWorkEntry().setTitle(s.toString());
-                mTitleCounter.setText(getString(R.string.default_text_counter, s.length(), TITLE_LENGTH));
-                setDataChanged();
-            }
-        });
+        mTitleText.addTextChangedListener(mTitleTextWatcher);
 
         mDescriptionText.setOnFocusChangeListener(this);
-        mDescriptionText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                getWorkEntry().setText(s.toString());
-                mDescriptionCounter.setText(getString(R.string.default_text_counter, s.length(), DESCRIPTION_LENGTH));
-                setDataChanged();
-            }
-        });
+        mDescriptionText.addTextChangedListener(mDescriptionTextWatcher);
 
         mDateText.setOnClickListener(this);
         mBlocksView.setOnClickListener(this);
     }
 
-    private void unsetOnFocusChangedListeners() {
+    private void unsetOnFocusAndTextChangedListeners() {
 
         mTitleText.setOnFocusChangeListener(null);
         mDescriptionText.setOnFocusChangeListener(null);
+
+        mTitleText.removeTextChangedListener(mTitleTextWatcher);
+        mDescriptionText.removeTextChangedListener(mDescriptionTextWatcher);
     }
 
     /**
@@ -364,41 +367,45 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         refreshFragmentData(RETAIN_STATE);
     }
 
+    public void storeEntry(){
+
+        if(!getWorkEntry().hasValidDate()){
+            showEnterDateSnackbar();
+            return;
+        }
+
+        //TODO Put this elsewhere
+        String title = DateUtils.getDayOfWeekString(getWorkEntry().getDate());
+        String description = getString(R.string.default_description);
+
+        if(TextUtils.isValidText(mTitleText.getText().toString())){
+            title = mTitleText.getText().toString();
+        }
+
+        if(TextUtils.isValidText(mDescriptionText.getText().toString())){
+            description = mDescriptionText.getText().toString();
+        }
+
+        getWorkEntry().setTitle(title);
+        getWorkEntry().setText(description);
+
+        DataCacheHelper dataCacheHelper = new DataCacheHelper(getContext());
+
+        if(getViewState() == CREATE_STATE) {
+            dataCacheHelper.addNewEntry(getWorkEntry(), null);
+        }else if(getViewState() == EDIT_STATE  || getViewState() == RETAIN_STATE){
+            dataCacheHelper.modifyWorkEntry(getWorkEntry(), null);
+        }
+
+        ((FragmentSnackbarInterface)getActivity()).onFragmentSnackbarRequest(getString(R.string.work_entry_stored), Snackbar.LENGTH_SHORT);
+        ((BaseFragment.FragmentNavigationInterface)getActivity()).onFragmentFinished();
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.store_entry:
-
-                if(!getWorkEntry().hasValidDate()){
-                    showEnterDateSnackbar();
-                    return;
-                }
-
-                //TODO Put this elsewhere
-                String title = DateUtils.getDayOfWeekString(getWorkEntry().getDate());
-                String description = getString(R.string.default_description);
-
-                if(TextUtils.isValidText(mTitleText.getText().toString())){
-                    title = mTitleText.getText().toString();
-                }
-
-                if(TextUtils.isValidText(mDescriptionText.getText().toString())){
-                    description = mDescriptionText.getText().toString();
-                }
-
-                getWorkEntry().setTitle(title);
-                getWorkEntry().setText(description);
-
-                DataCacheHelper dataCacheHelper = new DataCacheHelper(getContext());
-
-                if(getViewState() == CREATE_STATE) {
-                    dataCacheHelper.addNewEntry(getWorkEntry(), null);
-                }else if(getViewState() == EDIT_STATE  || getViewState() == RETAIN_STATE){
-                    dataCacheHelper.modifyWorkEntry(getWorkEntry(), null);
-                }
-
-                ((FragmentSnackbarInterface)getActivity()).onFragmentSnackbarRequest(getString(R.string.work_entry_stored), Snackbar.LENGTH_SHORT);
-                ((BaseFragment.FragmentNavigationInterface)getActivity()).onFragmentFinished();
+                storeEntry();
                 break;
             case R.id.date:
                 DialogFragment newFragment = DatePickerFragment.newInstance(getWorkEntry().getDate() == WorkEntry.INVALID_LONG ? System.currentTimeMillis() : getWorkEntry().getDate());
@@ -452,7 +459,6 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         // Check if an entry for today already exists
         DataCacheHelper dataCacheHelper = new DataCacheHelper(getContext());
         WorkEntry todayEntry = dataCacheHelper.getWorkEntryForTimestampDay(timestamp);
-        setDataChanged();
 
         if(todayEntry != null){
             showEditWorkEntryDialog(todayEntry);

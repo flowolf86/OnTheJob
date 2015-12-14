@@ -338,7 +338,7 @@ public class CategoryDetailsFragment extends BaseFragment implements View.OnClic
         mEditedCategory.color = color;
         mSelector.setColorFilter(color, PorterDuff.Mode.ADD);
 
-        int drawableId = ColorUtils.isDarkColor(color) ? R.drawable.ic_receipt_white_24dp : R.drawable.ic_receipt_black_24dp;
+        int drawableId = ColorUtils.isDarkColor(color) ? R.drawable.fw_category_default : R.drawable.fw_category_default;
         mIcon.setImageResource(drawableId);
     }
 

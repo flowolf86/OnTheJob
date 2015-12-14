@@ -1,172 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/root"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white">
+<RelativeLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
-          android:id="@+id/status_fragment_wrapper"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/content_head_height" />
+        <RelativeLayout
+            android:id="@+id/todayContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:name="ui.fragment.StatusWidgetFragment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/content_head_height"
+                tools:layout="@layout/fragment_status_widget"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/weekview_fragment_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/manual_logging_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <fragment
+                    android:name="ui.fragment.ManualLoggingWidgetFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/fragment_manual_logging_widget"/>
+            </RelativeLayout>
+
+            <include layout="@layout/divider"/>
+
+            <fragment
+                android:name="ui.fragment.TodayWidgetFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_today_widget"/>
+
+            <include layout="@layout/divider"/>
+
+            <include layout="@layout/content_space"/>
+
+            <include layout="@layout/divider"/>
+
+            <fragment
+                android:name="ui.fragment.WeekWidgetFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_week_widget"/>
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_above="@id/weekview_fragment_wrapper"
+            android:layout_below="@id/todayContainer">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <RelativeLayout
                     android:id="@+id/record_view"
-                    style="@style/main_card_double_line_view"
-                    card_view:cardBackgroundColor="@android:color/white"
-                    card_view:cardCornerRadius="0dp"
-                    card_view:cardElevation="0dp">
+                    style="@style/list_item_double_line">
 
-                    <RelativeLayout style="@style/list_item_double_line">
+                    <ImageView
+                        android:id="@+id/record_icon"
+                        style="@style/content_entry_image_double_line"
+                        android:src="@drawable/fw_work_day"/>
 
-                        <ImageView
-                            android:id="@+id/record_icon"
-                            style="@style/content_entry_image"
-                            android:src="@drawable/ic_today_black_24dp"/>
+                    <ImageView
+                        android:id="@+id/arrow_right"
+                        style="@style/list_item_arrow_right"/>
 
-                        <ImageView
-                            android:id="@+id/arrow_right"
-                            style="@style/list_item_arrow_right"/>
+                    <LinearLayout
+                        style="@style/content_title_subtitle_wrapper"
+                        android:layout_toEndOf="@id/record_icon"
+                        android:layout_toStartOf="@id/arrow_right">
 
-                        <LinearLayout
-                            style="@style/content_title_subtitle_wrapper"
-                            android:layout_toEndOf="@id/record_icon"
-                            android:layout_toStartOf="@id/arrow_right">
+                        <TextView
+                            android:id="@+id/record_title"
+                            style="@style/list_item_title"
+                            android:text="@string/manage_work_day_title"/>
 
-                            <TextView
-                                android:id="@+id/record_title"
-                                style="@style/list_item_title"
-                                android:text="@string/manage_work_day_title"/>
+                        <TextView
+                            android:id="@+id/record_subtitle"
+                            style="@style/list_item_subtitle"
+                            android:text="@string/manage_work_day_subtitle"/>
+                    </LinearLayout>
+                </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/record_subtitle"
-                                style="@style/list_item_subtitle"
-                                android:text="@string/manage_work_day_subtitle"/>
-                        </LinearLayout>
-                    </RelativeLayout>
 
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
+                <RelativeLayout
                     android:id="@+id/history_view"
-                    style="@style/main_card_double_line_view"
-                    card_view:cardBackgroundColor="@android:color/white"
-                    card_view:cardCornerRadius="0dp"
-                    card_view:cardElevation="0dp">
+                    style="@style/list_item_double_line">
 
-                    <RelativeLayout style="@style/list_item_double_line">
+                    <ImageView
+                        android:id="@+id/history_icon"
+                        style="@style/content_entry_image_double_line"
+                        android:src="@drawable/fw_history"/>
 
-                        <ImageView
-                            android:id="@+id/history_icon"
-                            style="@style/content_entry_image"
-                            android:src="@drawable/ic_history_black_24dp"/>
+                    <ImageView
+                        android:id="@+id/arrow_right2"
+                        style="@style/list_item_arrow_right"/>
 
-                        <ImageView
-                            android:id="@+id/arrow_right2"
-                            style="@style/list_item_arrow_right"/>
+                    <LinearLayout
+                        style="@style/content_title_subtitle_wrapper"
+                        android:layout_toEndOf="@id/history_icon"
+                        android:layout_toStartOf="@id/arrow_right2">
 
-                        <LinearLayout
-                            style="@style/content_title_subtitle_wrapper"
-                            android:layout_toEndOf="@id/history_icon"
-                            android:layout_toStartOf="@id/arrow_right2">
+                        <TextView
+                            android:id="@+id/history_title"
+                            style="@style/list_item_title"
+                            android:text="@string/record_history_title"/>
 
-                            <TextView
-                                android:id="@+id/history_title"
-                                style="@style/list_item_title"
-                                android:text="@string/record_history_title"/>
+                        <TextView
+                            android:id="@+id/history_subtitle"
+                            style="@style/list_item_subtitle"
+                            android:text="@string/record_history_subtitle"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/history_subtitle"
-                                style="@style/list_item_subtitle"
-                                android:text="@string/record_history_subtitle"/>
-                        </LinearLayout>
+                </RelativeLayout>
 
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
+                <RelativeLayout
                     android:id="@+id/day_off_view"
-                    style="@style/main_card_double_line_view"
-                    card_view:cardBackgroundColor="@android:color/white"
-                    card_view:cardCornerRadius="0dp"
-                    card_view:cardElevation="0dp">
+                    style="@style/list_item_double_line">
 
-                    <RelativeLayout style="@style/list_item_double_line">
+                    <ImageView
+                        android:id="@+id/day_off_icon"
+                        style="@style/content_entry_image_double_line"
+                        android:src="@drawable/fw_vacation_4"/>
 
-                        <ImageView
-                            android:id="@+id/day_off_icon"
-                            style="@style/content_entry_image"
-                            android:src="@drawable/ic_public_black_24dp"/>
+                    <ImageView
+                        android:id="@+id/arrow_right3"
+                        style="@style/list_item_arrow_right"/>
 
-                        <ImageView
-                            android:id="@+id/arrow_right3"
-                            style="@style/list_item_arrow_right"/>
+                    <LinearLayout
+                        style="@style/content_title_subtitle_wrapper"
+                        android:layout_toEndOf="@id/day_off_icon"
+                        android:layout_toStartOf="@id/arrow_right3">
 
-                        <LinearLayout
-                            style="@style/content_title_subtitle_wrapper"
-                            android:layout_toEndOf="@id/day_off_icon"
-                            android:layout_toStartOf="@id/arrow_right3">
+                        <TextView
+                            android:id="@+id/day_off_title"
+                            style="@style/list_item_title"
+                            android:text="@string/record_day_off_title"/>
 
-                            <TextView
-                                android:id="@+id/day_off_title"
-                                style="@style/list_item_title"
-                                android:text="@string/record_day_off_title"/>
+                        <TextView
+                            android:id="@+id/day_off_subtitle"
+                            style="@style/list_item_subtitle"
+                            android:text="@string/record_day_off_subtitle"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/day_off_subtitle"
-                                style="@style/list_item_subtitle"
-                                android:text="@string/record_day_off_subtitle"/>
-                        </LinearLayout>
-
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/weekview_fragment_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <include layout="@layout/divider"/>
-
-        <fragment
-            android:name="ui.fragment.TodayWidgetFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_today_widget"/>
-
-        <include layout="@layout/divider"/>
-
-        <include layout="@layout/content_space"/>
-
-        <include layout="@layout/divider"/>
-
-        <fragment
-            android:name="ui.fragment.WeekWidgetFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_week_widget"/>
-
-        <include layout="@layout/content_space"/>
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
