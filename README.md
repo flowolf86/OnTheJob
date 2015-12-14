@@ -15,6 +15,7 @@ TODO:
 * Butterknife (http://jakewharton.github.io/butterknife/)
 * Android-UI for the neat Toolbar-Arrow (https://github.com/markushi/android-ui)
 * GSON for convinience (https://github.com/google/gson)
+* material-calendarview (https://github.com/prolificinteractive/material-calendarview)
 * A bunch of awesome Google play services, design, support, cardview libraries (http://developer.android.com/tools/support-library/index.html)
 
 # Sidenote
