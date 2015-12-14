@@ -32,6 +32,9 @@
     <string name="mp_android_chart">MPAndroidChart</string>
     <string name="mp_android_chart_sub">Version 2.1.6 \u00A9 2015 Philipp Jahoda</string>
 
+    <string name="cal_lib">material-calendarview</string>
+    <string name="cal_lib_sub">Version 1.1.0 \u00A9 2015 Prolific Interactive</string>
+
     <string name="apache_license">
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.

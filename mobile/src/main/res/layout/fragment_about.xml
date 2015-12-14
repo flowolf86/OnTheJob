@@ -82,9 +82,18 @@
         <TextView
             style="@style/license_text"
             android:text="@string/mp_android_chart" />
+
         <TextView
             style="@style/license_text_bottom"
             android:text="@string/mp_android_chart_sub" />
+
+        <TextView
+            style="@style/license_text"
+            android:text="@string/cal_lib" />
+
+        <TextView
+            style="@style/license_text_bottom"
+            android:text="@string/cal_lib_sub" />
 
         <LinearLayout
             style="@style/content_header_white"
