@@ -123,6 +123,25 @@
                     android:text="@string/more"/>
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/statistics_view"
+                style="@style/list_item_single_line">
+
+                <ImageView
+                    android:id="@+id/statistics_icon"
+                    style="@style/content_entry_image"
+                    android:src="@drawable/fw_statistics"/>
+
+                <LinearLayout
+                    style="@style/content_title_subtitle_wrapper"
+                    android:layout_toEndOf="@id/statistics_icon">
+
+                    <TextView
+                        android:id="@+id/statistics_title"
+                        style="@style/list_item_title"
+                        android:text="@string/statistics"/>
+                </LinearLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/export_work_data_view"

@@ -12,7 +12,7 @@ import data.manager.SharedPreferencesManager;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 24/08/15.
  */
 public class NotificationFactory {

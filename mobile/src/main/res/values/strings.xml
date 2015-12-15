@@ -107,6 +107,13 @@
     <string name="vacation_day_block_title">Took vacation</string>
     <string name="vacation_day_block_description"> </string>
 
+    <string name="manual_widget_entry_title">Work day</string>
+    <string name="manual_widget_block_title">Manual activity</string>
+    <string name="manual_widget_block_description">This activity has been created by manually logging</string>
+    <string name="manual_logging_work_entry_created">An activity has been created</string>
+    <string name="manual_logging_work_entry_not_created">You must log > 1 minute to create an entry</string>
+    <string name="manual_logging_work_entry_not_created_same_day">Logging failed. Start and stop must happen the same day.</string>
+
     <string name="call_in_vacation_today">Take the day off</string>
     <string name="call_in_vacation_today_description">A vacation entry will be created automatically</string>
 
@@ -137,7 +144,7 @@
     <string name="dialog_title_already_logged">Already logged</string>
     <string name="dialog_text_edit_existing_work_day">%1$s, has already been logged. Edit this work day?</string>
 
-    <string name="work_entry_stored">Work entry stored</string>
+    <string name="work_entry_stored">Work day stored</string>
     <string name="work_block_added">Activity added</string>
     <string name="category_stored">Category stored</string>
     <string name="vacation_created">Vacation has been created</string>
@@ -272,6 +279,11 @@
     <!-- Permissions -->
     <string name="storage_permission_question">To use this feature, you need to allow OnTheJob! to read and write data from the devices storage.</string>
 
+    <!-- Calendar -->
+    <string name="work_day">Work day</string>
+    <string name="sick_leave">Sick leave</string>
+    <string name="calendar_note">Note: Only work days are accessible from this view</string>
+
     <string-array name="custom_weekdays">
         <item>@string/sunday_short</item>
         <item>@string/monday_short</item>
@@ -296,4 +308,11 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <!-- Manual logging widget -->
+    <string name="manual_logging">Manual logging</string>
+    <string name="manual_logging_inactive">Inactive</string>
+    <string name="manual_logging_active">Active for %1s</string>
+
+    <string name="manual_logging_tutorial">Please remember that you also need to manually stop logging by clicking on the stop icon. No activity will be logged if the app detects that you did not start and stop logging the same day or you were logging less than one minute. Enjoy!</string>
 </resources>

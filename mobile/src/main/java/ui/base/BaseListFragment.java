@@ -86,7 +86,7 @@ public abstract class BaseListFragment extends BaseFragment {
             ((FragmentActionModeInterface)getActivity()).onFragmentSetActionModeRequest(mode);
 
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.actionmenu_delete, menu);
+            inflater.inflate(R.menu.delete, menu);
 
             ((FragmentActionModeInterface)getActivity()).onFragmentSetActionModeTitleRequest(getString(R.string.selected_elements, mContentRecyclerAdapter.getDeleteData().size()));
             return true;
@@ -103,7 +103,7 @@ public abstract class BaseListFragment extends BaseFragment {
             final AtomicBoolean allowNullify = new AtomicBoolean(true);
 
             switch (item.getItemId()) {
-                case R.id.action_delete_all:
+                case R.id.action_delete:
 
                     int numberOfItems = mContentRecyclerAdapter.getDeleteData().size();
                     mContentRecyclerAdapter.removeAllSelected(getActivity());

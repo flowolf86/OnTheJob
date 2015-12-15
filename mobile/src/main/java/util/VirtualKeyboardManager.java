@@ -7,7 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 14/12/15.
  */
 public class VirtualKeyboardManager {

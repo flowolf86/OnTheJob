@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 09/11/15.
  */
 public class WeekSelectorView extends RelativeLayout implements View.OnClickListener{

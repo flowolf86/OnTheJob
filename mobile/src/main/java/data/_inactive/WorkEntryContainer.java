@@ -27,7 +27,7 @@ import util.TextUtils;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 13/11/15.
  *
  * This container is used for holding multiple WorkEntries e.g. due to a planned vacation or sick leave

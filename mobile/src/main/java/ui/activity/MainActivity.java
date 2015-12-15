@@ -435,6 +435,19 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    public void onStatisticsSelected(){
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+
+        // Assure smooth animation and transition
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(MainActivity.this, StatisticsActivity.class));
+            }
+        }, ACTIVITY_TRANSITION_DELAY);
+    }
+
+    @Override
     public void onAddEntrySelected() {
         displayWorkEntryDetailsFragment(null, getString(R.string.title_new_work_day), BaseActivity.ANIMATION_SLIDE_IN_OUT);
     }

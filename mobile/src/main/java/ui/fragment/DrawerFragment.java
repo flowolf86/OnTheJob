@@ -29,6 +29,7 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
     @Bind(R.id.primary_work_view) RelativeLayout mPrimaryWorkLayout;
     @Bind(R.id.secondary_work_view) RelativeLayout mSecondaryWorkLayout;
     @Bind(R.id.export_work_data_view) RelativeLayout mExportWorkDataLayout;
+    @Bind(R.id.statistics_view) RelativeLayout mStatisticsLayout;
     @Bind(R.id.primary_work_subtitle) TextView mPrimaryWorkSubtitle;
     @Bind(R.id.secondary_work_subtitle) TextView mSecondaryWorkSubtitle;
     @Bind(R.id.copyright) TextView mCopyright;
@@ -53,6 +54,7 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
         void onPrimaryWorkAddressSelected();
         void onSecondaryWorkAddressSelected();
         void onExportSelected();
+        void onStatisticsSelected();
     }
 
     /*
@@ -119,6 +121,7 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
         mPrimaryWorkLayout.setOnClickListener(this);
         mSecondaryWorkLayout.setOnClickListener(this);
         mExportWorkDataLayout.setOnClickListener(this);
+        mStatisticsLayout.setOnClickListener(this);
     }
 
     private void verifyActivityFulfillsRequirements(Activity activity) {
@@ -147,6 +150,9 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.export_work_data_view:
                 ((OnDrawerFragmentActionListener)getActivity()).onExportSelected();
+                break;
+            case R.id.statistics_view:
+                ((OnDrawerFragmentActionListener)getActivity()).onStatisticsSelected();
                 break;
             default:
                 break;

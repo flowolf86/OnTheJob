@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 14/12/15.
  */
 public class EventDecorator implements DayViewDecorator {

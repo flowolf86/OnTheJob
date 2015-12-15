@@ -285,7 +285,7 @@ public class DataCacheHelper {
 
         double dailyWorkload = weeklyWorkload / weeklyWorkdays;
 
-        return (long) (days * dailyWorkload) * 3600000; // 3600000 is an hour in ms
+        return (long) (days * dailyWorkload) * TimeUnit.HOURS.toMillis(1);
     }
 
     /*
@@ -323,7 +323,12 @@ public class DataCacheHelper {
      * @param workEntry
      * @param uiCallback optional callback for the ui. may be null.
      */
-    public void deleteWorkEntry(@NonNull WorkEntry workEntry, @Nullable DatabaseUiCallback uiCallback){
+    public void deleteWorkEntry(@Nullable WorkEntry workEntry, @Nullable DatabaseUiCallback uiCallback){
+
+        if(workEntry == null){
+            return;
+        }
+
         mEntryCache.deleteWorkEntry(workEntry, uiCallback);
     }
 
@@ -362,7 +367,6 @@ public class DataCacheHelper {
 
         HashSet<CalendarDay> hashSet = new HashSet<>();
 
-        // TODO Add vacation and sick days
         for(WorkEntry entry : getAllWorkEntries()){
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(entry.getDate());
@@ -374,19 +378,26 @@ public class DataCacheHelper {
 
     public HashSet<CalendarDay> getAllVacationDays(){
 
-        HashSet<CalendarDay> hashSet = new HashSet<>();
-
-        // TODO
-
-        return hashSet;
+        return getIntervalDaysAsHashSet(Category.VACATION);
     }
 
     public HashSet<CalendarDay> getAllSickDays(){
 
+        return getIntervalDaysAsHashSet(Category.SICK_LEAVE);
+    }
+
+    private HashSet<CalendarDay> getIntervalDaysAsHashSet(final @Category.CategoryMode int mode){
+
         HashSet<CalendarDay> hashSet = new HashSet<>();
-
-        // TODO
-
+        for(Interval interval : getIntervalsForMode(mode)){
+            long time = interval.getStartDate();
+            while(time <= interval.getEndDate()){
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(time);
+                hashSet.add(CalendarDay.from(cal));
+                time += TimeUnit.DAYS.toMillis(1);
+            }
+        }
         return hashSet;
     }
 }

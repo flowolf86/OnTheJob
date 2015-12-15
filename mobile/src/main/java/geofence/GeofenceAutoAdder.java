@@ -25,7 +25,7 @@ import support.AppToaster;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 25/08/15.
  */
 public class GeofenceAutoAdder {

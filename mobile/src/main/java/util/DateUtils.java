@@ -212,4 +212,19 @@ public class DateUtils {
     public static int getNumberOfDays(long startDate, long endDate) {
         return Days.daysBetween(new LocalDate(startDate), new LocalDate(endDate)).getDays() + 1;
     }
+
+    /**
+     * Returns HH:MM:SS for any given long value of milliseconds
+     *
+     * @param millies
+     * @return
+     */
+    public static String getHoursMinutesSeconds(long millis) {
+
+        long hours = TimeUnit.MILLISECONDS.toHours(millis);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis - TimeUnit.HOURS.toMillis(hours));
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis - TimeUnit.MINUTES.toMillis(minutes));
+
+        return String.format("%02d:", hours) + String.format("%02d:", minutes) + String.format("%02d", seconds);
+    }
 }

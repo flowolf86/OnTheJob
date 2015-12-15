@@ -12,6 +12,7 @@ import configuration.WorkConfiguration;
 import data.Category;
 import data.WorkBlock;
 import data.WorkEntry;
+import data.factory.CategoryFactory;
 import data.factory.WorkBlockFactory;
 import data.factory.WorkEntryFactory;
 import data.manager.SharedPreferencesManager;
@@ -102,7 +103,7 @@ public class WorkItemHelper {
 
         if(category.getId() == Category.VACATION){
             workBlock.setTitle(context.getString(R.string.vacation_day_block_title));
-            workBlock.setTitle(context.getString(R.string.vacation_day_block_description));
+            workBlock.setText(context.getString(R.string.vacation_day_block_description));
         }
 
         if(category.getId() == Category.SICK_LEAVE){
@@ -112,6 +113,26 @@ public class WorkItemHelper {
 
         workBlock.setWorkStart(workBlockStartTime);
         workBlock.setWorkEnd(workBlockStartTime + dailyWorkLoad);
+
+        return workBlock;
+    }
+
+    /**
+     *
+     * @param workEntry a work entry. if null a new entry for today is being created automatically
+     * @param context an android context
+     * @return
+     */
+    public static WorkBlock generateManuallyStartStoppedWorkBlock(@NonNull WorkEntry workEntry, long workBlockStartTime, long workBlockEndTime, @NonNull Context context){
+
+        final WorkBlock workBlock = WorkBlockFactory.buildNewEmptyWorkBlock(workEntry);
+        workBlock.setCategory(CategoryFactory.getWorkDayCategory());
+
+        workBlock.setTitle(context.getString(R.string.manual_widget_block_title));
+        workBlock.setText(context.getString(R.string.manual_widget_block_description));
+
+        workBlock.setWorkStart(workBlockStartTime);
+        workBlock.setWorkEnd(workBlockEndTime);
 
         return workBlock;
     }

@@ -40,8 +40,8 @@ public class Category implements Parcelable, Selectable{
         Variables & Statics
      */
 
-    public static final int WORK_DAY_COLOR = R.color.lime_500;
-    public static final int VACATION_COLOR = R.color.yellow_200;
+    public static final int WORK_DAY_COLOR = R.color.accent;
+    public static final int VACATION_COLOR = R.color.primary;
     public static final int SICK_LEAVE_COLOR = R.color.grey_300;
 
     public long _id = System.currentTimeMillis();

@@ -14,6 +14,9 @@ import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -158,7 +161,7 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         Fragment data
      */
 
-    private WorkEntry getWorkEntry(){
+    private @Nullable WorkEntry getWorkEntry(){
 
         if(mArgWorkEntry == null){
             mArgWorkEntry = getArguments().getParcelable(ARG_WORK_ENTRY);
@@ -252,6 +255,13 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.delete, menu);
+    }
+
     private void verifyActivityFulfillsRequirements(Activity activity) {
 
         boolean verify = activity instanceof FragmentNavigationInterface
@@ -287,6 +297,8 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
 
         if(viewState == EDIT_STATE || viewState == RETAIN_STATE){
 
+            setHasOptionsMenu(true);
+
             // Restore work entry
             if(getWorkEntry().getWorkBlocks().size() > 0) {
                 int[] duration = getWorkEntry().getTotalWorkBlockDuration();
@@ -310,6 +322,8 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
             }
 
         } else if(viewState == CREATE_STATE){
+
+            setHasOptionsMenu(false);
 
             mTitleText.setText("");
             mTitleCounter.setText(getString(R.string.default_text_counter, 0, TITLE_LENGTH));
@@ -555,5 +569,27 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
             default:
                 break;
         }
+    }
+
+    /*
+        OptionsMenu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                deleteWorkEntry();
+                ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteWorkEntry() {
+        final DataCacheHelper dataCacheHelper = new DataCacheHelper(getContext());
+        dataCacheHelper.deleteWorkEntry(getWorkEntry(), null);
     }
 }

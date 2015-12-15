@@ -10,7 +10,7 @@ import com.florianwolf.onthejob.R;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 11/12/15.
  */
 public class MailUtils {

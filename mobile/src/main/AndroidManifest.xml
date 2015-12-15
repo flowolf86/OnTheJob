@@ -40,6 +40,12 @@
             android:label="@string/map"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="ui.activity.StatisticsActivity"
+            android:label="@string/statistics"
+            android:screenOrientation="portrait" />
+
         <service android:name="geofence.GeofenceTransitionsIntentService" />
+        <service android:name="service.ManualLoggingService" />
     </application>
 </manifest>

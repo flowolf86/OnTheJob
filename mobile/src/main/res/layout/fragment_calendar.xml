@@ -1,17 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:padding="@dimen/default_margin"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
+        android:id="@+id/legend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mcv_showOtherDates="all"
-        app:mcv_selectionColor="?attr/colorAccent"
-        app:mcv_weekDayLabels="@array/custom_weekdays"
-        app:mcv_monthLabels="@array/custom_months"/>
-</ScrollView>
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/default_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/oval_cal_event"
+            android:drawablePadding="@dimen/default_margin"
+            android:text="@string/work_day"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/oval_cal_vacation"
+            android:drawablePadding="@dimen/default_margin"
+            android:text="@string/vacation"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/oval_cal_sick"
+            android:drawablePadding="@dimen/default_margin"
+            android:text="@string/sick_leave"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:text="@string/calendar_note"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="@dimen/default_margin"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/legend">
+
+        <RelativeLayout
+            android:id="@+id/async_calendar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

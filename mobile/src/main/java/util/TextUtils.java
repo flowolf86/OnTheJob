@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 24/08/15.
  */
 public class TextUtils {

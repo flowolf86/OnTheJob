@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root"
-    android:layout_width="wrap_content"
-    android:minWidth="150dp"
-    android:layout_height="40dp"
-    android:paddingStart="6dp"
-    android:paddingEnd="6dp"
-    android:background="@color/grey_200">
+    style="@style/content_header"
+    android:layout_height="48dp"
+    android:paddingEnd="@dimen/default_margin">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/content_header_title"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/manual_logging"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/manual_logging_status"
+            style="@style/content_header_subtitle"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/manual_logging_inactive"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/record"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/oval_record"/>
 
         <ImageView
             android:id="@+id/start_stop"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_play_arrow_black_48dp"/>
-
-        <TextView
-            android:id="@+id/time_logging"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="6dp"
-            android:drawableStart="@drawable/oval_red"
-            android:gravity="center_vertical"
-            android:text="Not logging"/>
 
     </LinearLayout>
 </RelativeLayout>

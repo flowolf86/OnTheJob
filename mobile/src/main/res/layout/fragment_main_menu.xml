@@ -29,18 +29,17 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/manual_logging_fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+            <include layout="@layout/divider"/>
 
-                <fragment
-                    android:name="ui.fragment.ManualLoggingWidgetFragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:layout="@layout/fragment_manual_logging_widget"/>
-            </RelativeLayout>
+            <fragment
+                android:name="ui.fragment.ManualLoggingWidgetFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                tools:layout="@layout/fragment_manual_logging_widget"/>
+
+            <include layout="@layout/divider"/>
+
+            <include layout="@layout/content_space"/>
 
             <include layout="@layout/divider"/>
 

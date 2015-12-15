@@ -14,7 +14,7 @@ import util.TextUtils;
 
 /**
  * Author:  Florian Wolf
- * Email:   florian.wolf@maibornwolff.de
+ * Email:   flowolf86@gmail.com
  * on 13/11/15.
  *
  * This class defines an interval of time in which something happens (e.g. a vacation, sick-leave)

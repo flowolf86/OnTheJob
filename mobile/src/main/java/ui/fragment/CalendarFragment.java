@@ -3,6 +3,8 @@ package ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.florianwolf.onthejob.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -24,6 +31,7 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cache.DataCacheHelper;
+import data.Category;
 import data.WorkEntry;
 import ui.base.BaseFragment;
 import ui.decorator.EventDecorator;
@@ -37,7 +45,12 @@ public class CalendarFragment extends BaseFragment implements OnDateSelectedList
 
     private static String ARG_CUSTOM_TOOLBAR_TITLE = "custom_toolbar_title";
 
-    @Bind(R.id.calendarView) MaterialCalendarView mCalendarView;
+    public static final int ASYNC_DELAY = 500;
+
+    @Bind(R.id.async_calendar_container) RelativeLayout mCalendarContainer;
+    @Bind(R.id.progress_bar) ProgressBar mProgressBar;
+    @Bind(R.id.legend) LinearLayout mLegend;
+    MaterialCalendarView mMaterialCalendarView;
 
     public interface CalendarFragmentInterface{
         void onDateSelected(WorkEntry workEntry);
@@ -72,7 +85,7 @@ public class CalendarFragment extends BaseFragment implements OnDateSelectedList
         ButterKnife.bind(this, view);
         super.setToolbarTitle(getArguments().getString(ARG_CUSTOM_TOOLBAR_TITLE));
         setHasOptionsMenu(true);
-        setUpCalendarView();
+        asyncCalenderLoader();
 
         return view;
     }
@@ -105,23 +118,70 @@ public class CalendarFragment extends BaseFragment implements OnDateSelectedList
         Logic
      */
 
-    private void setUpCalendarView() {
+    private void asyncCalenderLoader() {
 
-        mCalendarView.setFirstDayOfWeek(Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek());
-        mCalendarView.setSelectedDate(Calendar.getInstance());
-        mCalendarView.setOnDateChangedListener(this);
-        decorateEvents();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mMaterialCalendarView = new MaterialCalendarView(getContext());
+                mMaterialCalendarView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                mMaterialCalendarView.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
+                mMaterialCalendarView.setSelectionColor(ContextCompat.getColor(getContext(), R.color.orange_300));
+                mMaterialCalendarView.setWeekDayLabels(R.array.custom_weekdays);
+                mMaterialCalendarView.setTitleMonths(R.array.custom_months);
+                mMaterialCalendarView.setFirstDayOfWeek(Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek());
+                mMaterialCalendarView.setSelectedDate(Calendar.getInstance());
+                decorateEvents();
+
+                final Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+                final Animation fadeOutAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+
+                mMaterialCalendarView.setOnDateChangedListener(CalendarFragment.this);
+
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(mCalendarContainer != null && mProgressBar != null && mMaterialCalendarView != null && getActivity() != null){
+                            mCalendarContainer.addView(mMaterialCalendarView);
+                            mCalendarContainer.startAnimation(fadeInAnimation);
+                            mLegend.startAnimation(fadeInAnimation);
+                            mProgressBar.startAnimation(fadeOutAnimation);
+                            fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    mCalendarContainer.setVisibility(View.VISIBLE);
+                                    mLegend.setVisibility(View.VISIBLE);
+                                    mProgressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+                        }
+                    }
+                }, ASYNC_DELAY);
+
+            }
+        }).start();
     }
 
     private void decorateEvents() {
         DataCacheHelper dataCacheHelper = new DataCacheHelper(getContext());
 
-        // WorkEntries
-        mCalendarView.addDecorator(new EventDecorator(ContextCompat.getColor(getContext(), R.color.primary), dataCacheHelper.getAllEventDays()));
         // Sick days
-        mCalendarView.addDecorator(new EventDecorator(ContextCompat.getColor(getContext(), R.color.orange_300), dataCacheHelper.getAllSickDays()));
+        mMaterialCalendarView.addDecorator(new EventDecorator(ContextCompat.getColor(getContext(), Category.SICK_LEAVE_COLOR), dataCacheHelper.getAllSickDays()));
         // Vacation
-        mCalendarView.addDecorator(new EventDecorator(ContextCompat.getColor(getContext(), R.color.blue_200), dataCacheHelper.getAllVacationDays()));
+        mMaterialCalendarView.addDecorator(new EventDecorator(ContextCompat.getColor(getContext(), Category.VACATION_COLOR), dataCacheHelper.getAllVacationDays()));
+        // WorkEntries
+        mMaterialCalendarView.addDecorator(new EventDecorator(ContextCompat.getColor(getContext(), Category.WORK_DAY_COLOR), dataCacheHelper.getAllEventDays()));
     }
 
     /*
