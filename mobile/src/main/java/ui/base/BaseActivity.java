@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationServices;
 import data.manager.SharedPreferencesManager;
 import geofence.GeofenceManager;
 import geofence.ManageGeofenceInterface;
+import location.LocationHelper;
 import util.VirtualKeyboardManager;
 
 public class BaseActivity extends AppCompatActivity implements

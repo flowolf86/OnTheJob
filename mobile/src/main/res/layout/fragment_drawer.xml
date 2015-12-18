@@ -46,7 +46,7 @@
 
                 <TextView
                     style="@style/content_header_title"
-                    android:text="@string/location"/>
+                    android:text="@string/gefence_locations"/>
             </LinearLayout>
 
             <RelativeLayout

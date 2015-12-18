@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SeekBar xmlns:android="http://schemas.android.com/apk/res/android"
-         android:id="@+id/seekbar"
-         android:layout_width="match_parent"
-         android:layout_height="30dp"
-         android:background="@color/primary"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/primary"
+    android:orientation="vertical">
+
+    <SeekBar android:id="@+id/seekbar"
+             android:layout_width="match_parent"
+             android:layout_height="30dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ic_info_white_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:ellipsize="end"
+            android:textSize="11sp"
+            android:text="@string/move_slider" />
+    </LinearLayout>
+</LinearLayout>

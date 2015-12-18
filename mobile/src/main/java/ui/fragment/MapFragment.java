@@ -149,6 +149,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         mGoogleMap.setOnMarkerClickListener(this);
 
         if(PermissionUtils.hasLocationPermissions(getActivity())){
+            LocationHelper.setLastLocation(LocationServices.FusedLocationApi.getLastLocation(((BaseActivity)getActivity()).getGoogleApiClient()));
             mGoogleMap.setMyLocationEnabled(true);
         }
     }

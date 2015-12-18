@@ -20,15 +20,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/street"
-            style="@style/slide_in_item_title"
-            android:layout_gravity="center_vertical"/>
-
-        <TextView
-            android:id="@+id/city"
-            style="@style/slide_in_item_subtitle"
+        <ImageView
+            android:id="@+id/store_entry"
+            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_marginRight="@dimen/default_margin"
             android:layout_gravity="center_vertical"
-            android:layout_below="@id/street"/>
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/fw_save"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_toStartOf="@id/store_entry">
+
+            <TextView
+                android:id="@+id/street"
+                style="@style/slide_in_item_title"/>
+
+            <TextView
+                android:id="@+id/city"
+                style="@style/slide_in_item_subtitle"
+                android:layout_below="@id/street"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 </RelativeLayout>

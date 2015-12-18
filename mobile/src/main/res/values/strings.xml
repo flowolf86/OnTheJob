@@ -66,6 +66,7 @@
     <string name="map">Map</string>
     <string name="other">Other</string>
     <string name="location">Location</string>
+    <string name="gefence_locations">Geofence locations</string>
     <string name="more">More</string>
     <string name="details">Details</string>
     <string name="system_default">Default</string>
@@ -325,4 +326,6 @@
     <!-- Statistics -->
     <string name="start_date">Select start date</string>
     <string name="end_date">Select end date</string>
+
+    <string name="move_slider">You can modify your work radius by moving the slider</string>
 </resources>
