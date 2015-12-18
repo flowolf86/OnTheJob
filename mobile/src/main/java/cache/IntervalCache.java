@@ -34,13 +34,7 @@ public class IntervalCache implements IntervalCacheCallback {
     private IntervalCache(@NonNull Context context){
 
         mDbHelper = new DatabaseManager(context);
-
-        // Initial cache filling
-        try {
-            mDbHelper.readIntervalsFromDatabase(this);
-        }catch(Exception e){
-            Log.w("DB", "Unable to read data from database.");
-        }
+        refreshCache();
     }
 
     public static void init(@NonNull Context context){
@@ -158,12 +152,7 @@ public class IntervalCache implements IntervalCacheCallback {
         }
     }
 
-    /*
-        Callbacks
-     */
-
-    @Override
-    public void onDbOperationComplete(String msg, int errorId) {
+    protected void refreshCache(){
 
         // Something modified our database. We need to update the cache.
         try {
@@ -172,6 +161,16 @@ public class IntervalCache implements IntervalCacheCallback {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    /*
+        Callbacks
+     */
+
+    @Override
+    public void onDbOperationComplete(String msg, int errorId) {
+
+        // Something modified the database. Refresh cache.
+        refreshCache();
     }
 
     @Override

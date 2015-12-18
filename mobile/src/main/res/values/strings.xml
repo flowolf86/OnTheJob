@@ -48,6 +48,9 @@
     <string name="work_block_start_hint">From</string>
     <string name="work_block_end_hint">To</string>
 
+    <string name="statistic_start_hint">From:</string>
+    <string name="statistic_end_hint">To:</string>
+
     <string name="work_container_start_hint">From</string>
     <string name="work_container_end_hint">To (including)</string>
 
@@ -277,7 +280,8 @@
     <string name="csv_general_error">Unable to export data. Please try again.</string>
 
     <!-- Permissions -->
-    <string name="storage_permission_question">To use this feature, you need to allow OnTheJob! to read and write data from the devices storage.</string>
+    <string name="storage_permission_question">OnTheJob writes temporary export data on the devices storage. To be able to export this data and send it to you, this app needs your permission to read and write from storage.</string>
+    <string name="map_permission_question">To be able to display your position on the map, OnTheJob! needs your permission to access the devices location.</string>
 
     <!-- Calendar -->
     <string name="work_day">Work day</string>
@@ -315,4 +319,10 @@
     <string name="manual_logging_active">Active for %1s</string>
 
     <string name="manual_logging_tutorial">Please remember that you also need to manually stop logging by clicking on the stop icon. No activity will be logged if the app detects that you did not start and stop logging the same day or you were logging less than one minute. Enjoy!</string>
+
+    <string name="pie_chart_description">% of time\nper category</string>
+
+    <!-- Statistics -->
+    <string name="start_date">Select start date</string>
+    <string name="end_date">Select end date</string>
 </resources>

@@ -71,6 +71,14 @@ public class DataCacheHelper {
         return mIntervalCache.getAllIntervals();
     }
 
+    public void refreshEntryCache(){
+        mEntryCache.refreshCache();
+    }
+
+    public void refreshIntervalCache(){
+        mIntervalCache.refreshCache();
+    }
+
     public List<WorkEntry> getCacheDbRestoreData() {
         return mEntryCache.getLastValidDbCacheCopy();
     }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.florianwolf.onthejob.R;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,7 +34,9 @@ import configuration.WorkConfiguration;
 import data.manager.SharedPreferencesManager;
 import listing.MapFragmentState;
 import location.LocationHelper;
+import ui.base.BaseActivity;
 import ui.base.BaseFragment;
+import util.PermissionUtils;
 
 /**
  * Created by Florian on 22.06.2015.
@@ -131,7 +134,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
     private void setUpMap(@NonNull GoogleMap googleMap) {
 
         mGoogleMap = googleMap;
-        mGoogleMap.setMyLocationEnabled(true);
         mGoogleMap.setTrafficEnabled(true);
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
@@ -145,12 +147,16 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
         mGoogleMap.setOnMapLongClickListener(this);
         mGoogleMap.setOnMapClickListener(this);
         mGoogleMap.setOnMarkerClickListener(this);
+
+        if(PermissionUtils.hasLocationPermissions(getActivity())){
+            mGoogleMap.setMyLocationEnabled(true);
+        }
     }
 
     public void locateMe() {
 
         final Location location = LocationHelper.getLastLocation();
-        if(location != null){
+        if (location != null) {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             animateTo(latLng, false);
             ((MapFragmentInterface) getActivity()).onMapLongClick(latLng);
@@ -180,11 +186,27 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Goo
     }
 
     /*
+        Permissions
+     */
+    public void onPermissionGranted(){
+        if(mGoogleMap != null){
+            mGoogleMap.setMyLocationEnabled(true);
+        }
+
+        LocationHelper.setLastLocation(LocationServices.FusedLocationApi.getLastLocation(((BaseActivity)getActivity()).getGoogleApiClient()));
+    }
+
+    public void onPermissionDenied(){
+        //TODO
+    }
+
+    /*
         Map callbacks
      */
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+
         setUpMap(googleMap);
         setLocation((Address) getArguments().getParcelable(ARG_ADDRESS));
     }

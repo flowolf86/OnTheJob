@@ -1,6 +1,7 @@
 package ui.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import ui.base.BaseFragment;
 import ui.fragment.MapFragment;
 import ui.fragment.SlideInMapPanelFragment;
 import ui.fragment.SlideInSeekbarPanelFragment;
+import util.PermissionUtils;
 
 public class MapActivity extends BaseActivity implements BaseFragment.FragmentSnackbarInterface,
         SlideInMapPanelFragment.SlideInMapPanelInterface, SlideInSeekbarPanelFragment.SlideInSeekbarPanelFragmentInterface,
@@ -70,6 +72,23 @@ public class MapActivity extends BaseActivity implements BaseFragment.FragmentSn
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtils.LOCATION_PERMISSION_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(getMapFragment() != null){
+                        getMapFragment().onPermissionGranted();
+                    }
+                } else {
+                    PermissionUtils.onLocationPermissionDenied();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()){
@@ -112,8 +131,6 @@ public class MapActivity extends BaseActivity implements BaseFragment.FragmentSn
             @MapFragmentState.IMapFragmentState int state = intent.getIntExtra(EXTRA_STATE, MapFragmentState.UNKNOWN);
 
             displayMapFragment(address, state);
-        } else {
-            //TODO
         }
     }
 
@@ -168,8 +185,10 @@ public class MapActivity extends BaseActivity implements BaseFragment.FragmentSn
 
     private void hideSlideInPanelIfPossible(@Nullable FragmentManager fm) {
 
-        final FragmentManager fragmentManager = fm != null ? fm : getSupportFragmentManager();
-        fragmentManager.popBackStack(SlideInMapPanelFragment.FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        try {
+            final FragmentManager fragmentManager = fm != null ? fm : getSupportFragmentManager();
+            fragmentManager.popBackStack(SlideInMapPanelFragment.FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }catch(IllegalStateException e){ }
     }
 
     /*

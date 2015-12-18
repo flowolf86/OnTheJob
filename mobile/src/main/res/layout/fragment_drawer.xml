@@ -6,19 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray">
 
-    <TextView
-        android:id="@+id/copyright"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/default_margin"
-        android:gravity="end"
-        android:textColor="@color/black_12"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/copyright"
         android:layout_alignParentTop="true">
 
         <LinearLayout
@@ -182,7 +172,6 @@
                         android:text="@string/settings"/>
                 </LinearLayout>
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.florianwolf.onthejob.BuildConfig;
 import com.florianwolf.onthejob.R;
 
 import butterknife.Bind;
@@ -32,7 +31,6 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
     @Bind(R.id.statistics_view) RelativeLayout mStatisticsLayout;
     @Bind(R.id.primary_work_subtitle) TextView mPrimaryWorkSubtitle;
     @Bind(R.id.secondary_work_subtitle) TextView mSecondaryWorkSubtitle;
-    @Bind(R.id.copyright) TextView mCopyright;
 
     public DrawerFragment() { }
 
@@ -89,8 +87,6 @@ public class DrawerFragment extends BaseFragment implements View.OnClickListener
         if(secondaryAddress != null){
             setSecondaryWorkAddress(secondaryAddress);
         }
-
-        mCopyright.setText(getString(R.string.version, BuildConfig.VERSION_NAME));
     }
 
     @Override

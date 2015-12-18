@@ -3,7 +3,7 @@
     <string name="libraries">Libraries</string>
     <string name="apache">Apache 2.0</string>
 
-    <string name="version">v.%1$s \u00A9 Florian Wolf</string>
+    <string name="version">OnTheJob! v.%1$s \u00A9 Florian Wolf</string>
 
     <string name="thank_you_devs">A big THANK YOU to all the developers without whom this app would not have been possible!</string>
 

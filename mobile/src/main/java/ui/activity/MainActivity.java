@@ -51,6 +51,7 @@ import ui.fragment.WorkEntryListFragment;
 import util.AddressUtils;
 import util.CSVUtils;
 import util.PermissionUtils;
+import util.VirtualKeyboardManager;
 
 public class MainActivity extends BaseActivity implements
         BaseFragment.FragmentSnackbarInterface,
@@ -131,8 +132,7 @@ public class MainActivity extends BaseActivity implements
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     onExportSelected();
                 } else {
-                    // Permission Denied
-                    // TODO
+                    PermissionUtils.onStoragePermissionDenied();
                 }
                 break;
             default:
@@ -426,7 +426,7 @@ public class MainActivity extends BaseActivity implements
     @UiThread
     public void onExportSelected(){
 
-        boolean hasStoragePermission = PermissionUtils.checkStoragePermissions(this);
+        boolean hasStoragePermission = PermissionUtils.hasStoragePermissions(this);
         if(!hasStoragePermission){
             // If permission is granted later, we get notified via callback
             return;
@@ -491,6 +491,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onWorkBlockListRequest(@NonNull WorkEntry entry) {
+        VirtualKeyboardManager.hideKeyboard(this);
         displayWorkBlockListFragment(entry, null);
     }
 
@@ -509,6 +510,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onSelectCategory(@NonNull WorkBlock block) {
+        VirtualKeyboardManager.hideKeyboard(this);
         displayCategoriesFragment(block);
     }
 

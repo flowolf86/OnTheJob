@@ -34,13 +34,7 @@ public class EntryCache implements EntryCacheCallback {
 
     private EntryCache(@NonNull Context context){
         mDbHelper = new DatabaseManager(context);
-
-        // Initial cache filling
-        try {
-            mDbHelper.readEntriesFromDatabase(this);
-        }catch(Exception e){
-            Log.w("DB", "Unable to read data from database.");
-        }
+        refreshCache();
     }
 
     public static void init(@NonNull Context context){
@@ -238,6 +232,17 @@ public class EntryCache implements EntryCacheCallback {
         }
     }
 
+    protected void refreshCache() {
+
+        // Initial cache filling
+        try {
+            setDatabaseStatusOutOfDate();
+            mDbHelper.readEntriesFromDatabase(this);
+        }catch(Exception e){
+            Log.w("DB", "Unable to read data from database.");
+        }
+    }
+
     /*
         Callbacks
      */
@@ -245,13 +250,8 @@ public class EntryCache implements EntryCacheCallback {
     @Override
     public void onDbOperationComplete(String msg, int errorId) {
 
-        // Something modified our database. We need to update the cache.
-        try {
-            setDatabaseStatusOutOfDate();
-            mDbHelper.readEntriesFromDatabase(this);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        // Something modified our database. Refresh the cache
+        refreshCache();
     }
 
     @Override

@@ -49,7 +49,7 @@ public class CSVUtils {
             @Override
             public void run() {
                 CSVWriter writer = null;
-                final String FILE_PATH = context.getExternalCacheDir() + "\\onthejob_backup_" + System.currentTimeMillis() + ".csv";
+                final String FILE_PATH = context.getExternalCacheDir() + "/onthejob_backup_" + System.currentTimeMillis() + ".csv";
                 try {
                     writer = new CSVWriter(new FileWriter(FILE_PATH));
 

@@ -16,6 +16,7 @@ import java.util.List;
 
 import cache.CategoryCacheCallback;
 import cache.CategoryCacheHelper;
+import cache.DataCacheHelper;
 import cache.EntryCacheCallback;
 import cache.GeofenceDbCallback;
 import cache.IntervalCacheCallback;
@@ -765,6 +766,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 if(cacheCallback != null) {
                     cacheCallback.triggerDatabaseRead(mContext);
                 }
+                refreshEntryCache();    //TODO Lose cupling
 
                 Log.d("DB", "WRITE REPORT: " + (newBlockRowId == -1 ? 0 : 1) + " category/ies. ");
             }
@@ -830,12 +832,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
                     try {
                         Log.d("DB", "MODIFY REPORT: Unable to modify. Try to create category.");
                         createCategoryInDatabase(category, cacheCallback);
+
                     }catch(Exception ignore){ }
                 }
 
                 if(cacheCallback != null) {
                     cacheCallback.triggerDatabaseRead(mContext);
                 }
+                refreshEntryCache();    //TODO Lose cupling
 
                 Log.d("DB", "MODIFY REPORT: " + count + " category/-ies.");
             }
@@ -856,9 +860,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String[] blockSelectionArgs = { String.valueOf(category._id) };
                 int blockRowCount = db.delete(CategoriesRow.TABLE_NAME, blockSelection, blockSelectionArgs);
 
+                refreshEntryCache();
                 if(cacheCallback != null) {
                     cacheCallback.triggerDatabaseRead(mContext);
                 }
+                refreshEntryCache();    //TODO Lose cupling
 
                 Log.d("DB", "DELETE REPORT: " + blockRowCount + " category/ies.");
             }
@@ -1120,5 +1126,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         };
 
         new Thread(r).start();
+    }
+
+    private void refreshEntryCache() {
+
+        DataCacheHelper dataCacheHelper = new DataCacheHelper(mContext);
+        dataCacheHelper.refreshEntryCache();
     }
 }
