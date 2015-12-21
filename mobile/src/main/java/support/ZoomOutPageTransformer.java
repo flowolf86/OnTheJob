@@ -3,6 +3,8 @@ package support;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+;
+
 /**
  * Author:  http://developer.android.com/training/animation/screen-slide.html
  * Email:   flowolf86@gmail.com

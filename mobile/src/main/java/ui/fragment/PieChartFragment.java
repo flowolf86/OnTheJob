@@ -2,6 +2,7 @@ package ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.florianwolf.onthejob.R;
@@ -39,6 +42,7 @@ import ui.base.BaseFragment;
 import ui.dialog.DatePickerFragment;
 import util.DateUtils;
 import util.MapUtil;
+import util.TextUtils;
 
 /**
  * Created by Florian on 22.06.2015.
@@ -148,6 +152,7 @@ public class PieChartFragment extends BaseFragment implements View.OnClickListen
         setChartDataAsync(mCurrentStartDate, mCurrentEndDate);
     }
 
+    // TODO Clean up...
     private void setChartDataAsync(final long startDate, final long endDate) {
 
         DataCacheHelper dataCacheHelper = new DataCacheHelper(getContext());
@@ -176,6 +181,7 @@ public class PieChartFragment extends BaseFragment implements View.OnClickListen
 
                     long thisCategoryTime = 0L;
 
+                    // O(n2) should be no problem here considering the low amount of blocks in an entry
                     for(WorkEntry workEntry : selectedList) {
                         for (WorkBlock workBlock : workEntry.getWorkBlocks()) {
                             if(category.getId() == workBlock.getCategory().getId()){
@@ -200,6 +206,17 @@ public class PieChartFragment extends BaseFragment implements View.OnClickListen
 
                 categoryToTimeReference = MapUtil.sortByValue(categoryToTimeReference);
 
+                final TextView textView = new TextView(getContext());
+                textView.setText(getString(R.string.top_categories));
+                textView.setTypeface(null, Typeface.BOLD);
+
+                postOnMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCategoryDetailsContainer.addView(textView);
+                    }
+                });
+
                 final long total = categoryTotalTime;
                 int counter = 0;
                 for(HashMap.Entry entry : categoryToTimeReference.entrySet()){
@@ -217,25 +234,30 @@ public class PieChartFragment extends BaseFragment implements View.OnClickListen
 
                     // Display top 5
                     if(counter <= 5) {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        postOnMainThread(new Runnable() {
                             @Override
                             public void run() {
-                                TextView textView = new TextView(getContext());
-                                textView.setText(category.getName() + ", " + totalCategoryTime + ", " + ((double) totalCategoryTime / (double) total) * 100. + "%");
-                                mCategoryDetailsContainer.addView(textView);
+                                LinearLayout parent = getNewHorizontalLinearLayoutParent(mCategoryDetailsContainer);
+
+                                final TextView tv1 = getLinearLayoutWeightedTextView(2);
+                                tv1.setText(category.getName());
+                                parent.addView(tv1);
+
+                                final TextView tv2 = getLinearLayoutWeightedTextView(2);
+                                tv2.setText(getCategoryHoursAndMinutes(totalCategoryTime));
+                                parent.addView(tv2);
+
+                                final TextView tv3 = getLinearLayoutWeightedTextView(1);
+                                tv3.setText(getCategoryPercent(totalCategoryTime, total));
+                                parent.addView(tv3);
                             }
                         });
                     }
                 }
 
-                final PieDataSet tempPieData = new PieDataSet(entries, null);
-                tempPieData.setColors(colors);
-                tempPieData.setSliceSpace(1f);
-                tempPieData.setValueFormatter(new PercentFormatter());
-                tempPieData.setValueTextSize(12f);
-                final PieData finalPieData = new PieData(labels, tempPieData);
+                final PieData finalPieData = getFinalPieData(labels, entries, colors);
 
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                postOnMainThread(new Runnable() {
                     @Override
                     public void run() {
 
@@ -245,6 +267,44 @@ public class PieChartFragment extends BaseFragment implements View.OnClickListen
                 });
             }
         }).start();
+    }
+
+    private void postOnMainThread(Runnable runnable){
+        new Handler(Looper.getMainLooper()).post(runnable);
+    }
+
+    private TextView getLinearLayoutWeightedTextView(int weight){
+        final TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, weight);
+        final TextView tv = new TextView(getContext());
+        tv.setLayoutParams(params);
+        tv.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        return tv;
+    }
+
+    private LinearLayout getNewHorizontalLinearLayoutParent(LinearLayout mCategoryDetailsContainer) {
+
+        final LinearLayout ll = new LinearLayout(getContext());
+        //LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 3);
+        mCategoryDetailsContainer.addView(ll);
+        return ll;
+    }
+
+    private PieData getFinalPieData(ArrayList<String> labels, ArrayList<Entry> entries, ArrayList<Integer> colors){
+
+        final PieDataSet tempPieData = new PieDataSet(entries, null);
+        tempPieData.setColors(colors);
+        tempPieData.setSliceSpace(1f);
+        tempPieData.setValueFormatter(new PercentFormatter());
+        tempPieData.setValueTextSize(12f);
+        return new PieData(labels, tempPieData);
+    }
+
+    private String getCategoryHoursAndMinutes(long totalCategoryTime){
+        return DateUtils.getHoursAndMinutes(getContext(), totalCategoryTime);
+    }
+
+    private String getCategoryPercent(long totalCategoryTime, long total){
+        return "" + TextUtils.formatDoubleNumber(((double) totalCategoryTime / (double) total) * 100.) + "%";
     }
 
     /**

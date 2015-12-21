@@ -16,6 +16,7 @@ public class SimpleDialogFragment extends DialogFragment {
 
     public static final int EXIT_WITHOUT_SAVING_DIALOG = 100;
     public static final int EDIT_WORK_DAY_DIALOG = 200;
+    public static final int DELETE_ENTRY_DIALOG = 300;
     public static final int ENABLE_GEOFENCING_DIALOG = 500;
     public static final int DISABLE_GEOFENCING_DIALOG = 510;
 

@@ -1,5 +1,17 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
 
+    <string name="app_name">On The Job!</string>
+
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_closed">drawer closed</string>
+
+    <!-- Feedback -->
+    <string name="feedback_email">flowolf86@gmail.com</string>
+
+    <!-- About -->
     <string name="libraries">Libraries</string>
     <string name="apache">Apache 2.0</string>
 
@@ -48,5 +60,4 @@
         See the License for the specific language governing permissions and
         limitations under the License.
     </string>
-
 </resources>

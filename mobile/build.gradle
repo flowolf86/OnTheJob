@@ -9,14 +9,16 @@ android {
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
-        versionName "0.9 Beta"
+        versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         debug {
-            resValue "string", "google_maps_api_key", "AIzaSyDO9_E-Ah6EtDS-dcA4NTW1LaZNA3qzzro"
+            resValue "string", "google_maps_api_key", "AIzaSyB3dLC_6IVvFrckkI45SYAjJJNWQqJAGh0"
         }
         release {
             minifyEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "google_maps_api_key", "AIzaSyB3dLC_6IVvFrckkI45SYAjJJNWQqJAGh0"
         }
@@ -30,10 +32,11 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
+    //wearApp project(':wear')
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.google.android.gms:play-services-maps:8.3.0'
-    compile 'com.google.android.gms:play-services-location:8.3.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.google.android.gms:play-services-location:8.4.0'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'

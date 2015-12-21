@@ -6,6 +6,7 @@
     android:paddingEnd="@dimen/default_margin">
 
     <LinearLayout
+        android:id="@+id/logging_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -27,6 +28,15 @@
             android:gravity="center_vertical"/>
     </LinearLayout>
 
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/record"
+        android:layout_toEndOf="@id/logging_container"
+        android:layout_marginStart="6dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/oval_record"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -34,13 +44,6 @@
         android:layout_alignParentEnd="true"
         android:gravity="center"
         android:orientation="horizontal">
-
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/record"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@drawable/oval_record"/>
 
         <ImageView
             android:id="@+id/start_stop"

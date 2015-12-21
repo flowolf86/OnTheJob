@@ -1,5 +1,10 @@
 package util;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.florianwolf.onthejob.R;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -223,8 +228,22 @@ public class DateUtils {
 
         long hours = TimeUnit.MILLISECONDS.toHours(millis);
         long minutes = TimeUnit.MILLISECONDS.toMinutes(millis - TimeUnit.HOURS.toMillis(hours));
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis - TimeUnit.MINUTES.toMillis(minutes));
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis - TimeUnit.HOURS.toMillis(hours) - TimeUnit.MINUTES.toMillis(minutes));
 
         return String.format("%02d:", hours) + String.format("%02d:", minutes) + String.format("%02d", seconds);
+    }
+
+    /**
+     * Returns HH h MM min for any given long value of milliseconds
+     *
+     * @param millies
+     * @return
+     */
+    public static String getHoursAndMinutes(@NonNull Context context, long millis) {
+
+        long hours = TimeUnit.MILLISECONDS.toHours(millis);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis - TimeUnit.HOURS.toMillis(hours));
+
+        return context.getString(R.string.hours_minutes_string, String.format("%02d", hours), String.format("%02d", minutes));
     }
 }

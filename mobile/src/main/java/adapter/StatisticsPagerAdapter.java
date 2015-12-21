@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import ui.fragment.ListChartFragment;
 import ui.fragment.PieChartFragment;
 
 /**
@@ -22,7 +23,14 @@ public class StatisticsPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        return new PieChartFragment();  //TODO
+        switch (position){
+            case 0:
+                return PieChartFragment.newInstance();
+            case 1:
+                return ListChartFragment.newInstance();
+            default:
+                return null;
+        }
     }
 
     @Override

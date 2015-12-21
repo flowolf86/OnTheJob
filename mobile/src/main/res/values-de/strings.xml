@@ -1,0 +1,335 @@
+<resources>
+    <string name="title_new_work_day">Neuer Arbeitstag</string>
+    <string name="title_edit_work_day">Arbeitstag editieren</string>
+
+    <string name="title_new_work_block">Neue Aktivität</string>
+    <string name="title_edit_work_block">Aktivität editieren</string>
+
+    <string name="title_new_category">Neue Kategorie</string>
+    <string name="title_edit_category">Kategorie editieren</string>
+
+    <string name="title_new">Neu</string>
+    <string name="title_edit">Ändern</string>
+
+    <string name="title_history">Historie</string>
+    <string name="title_categories">Kategorien</string>
+    <string name="title_category">Kategorie</string>
+    <string name="title_blocks">%1$s</string>
+    <string name="title_day_off">Freier Tag</string>
+
+    <string name="manage_work_day_title">Arbeitstag eintragen</string>
+    <string name="manage_work_day_subtitle">Erstelle oder editiere einen Eintrag</string>
+
+    <string name="record_day_off_title">Urlaub und Krankheit</string>
+    <string name="record_day_off_subtitle">Trage Urlaub- und Krankheitstage ein</string>
+
+    <string name="record_history_title">Eintragshistorie</string>
+    <string name="record_history_subtitle">Alle Einträge auf einen Blick</string>
+
+    <string name="work_block">Aktivität</string>
+    <string name="work_blocks">Aktivitäten</string>
+    <string name="generated_work_block_text">Diese Aktivität wurde aufgrund eingestellter Geofences automatisch erstellt</string>
+    <string name="add_work_blocks">Aktivität hinzufügen</string>
+    <string name="modify_work_blocks">Aktivitäten editieren</string>
+
+    <string name="block_subtitle">%1$d Std %2$d Min in %3$d Aktivität/en</string>
+    <string name="block_subtitle_empty">Füge dem Arbeitstag Aktivitäten hinzu</string>
+
+    <string name="title_hint">Gib einen Titel ein (optional)</string>
+    <string name="title_mandatory_hint">Gib einen Titel ein</string>
+    <string name="description_hint">Gib eine Beschreibung ein (optional)</string>
+    <string name="date_hint">Wähle ein Datum</string>
+
+    <string name="work_block_start_hint">Von</string>
+    <string name="work_block_end_hint">Bis</string>
+
+    <string name="statistic_start_hint">Von:</string>
+    <string name="statistic_end_hint">Bis:</string>
+
+    <string name="work_container_start_hint">Von</string>
+    <string name="work_container_end_hint">Bis (inklusive)</string>
+
+    <string name="default_text_counter">%1$d / %2$d</string>
+
+    <string name="list_work_entry_subtitle">%1$s - %2$d Std %3$d Min - %4$d Aktivität/en</string>
+    <string name="list_interval_subtitle">%1$s - %2$s - %3$d Tag/e</string>
+
+    <string name="general">Allgemein</string>
+    <string name="settings">Einstellungen</string>
+    <string name="about">Über OnTheJob!</string>
+    <string name="feedback">Feedback</string>
+    <string name="map">Karte</string>
+    <string name="other">Andere</string>
+    <string name="location">Ort</string>
+    <string name="gefence_locations">Orte für Geofences</string>
+    <string name="more">Mehr</string>
+    <string name="details">Details</string>
+    <string name="system_default">Standard</string>
+    <string name="preset">Voreinstellung</string>
+    <string name="quick_access">Schnellzugriff</string>
+    <string name="statistics">Statistiken</string>
+    <string name="manage">Verwalten</string>
+    <string name="unlimited">Unbegrenzt</string>
+    <string name="legal">Feedback &amp; Rechtliches</string>
+
+    <string name="vacation">Urlaub</string>
+
+    <string name="work_week_number">Woche %1$s</string>
+    <string name="x_days_in_year">%1$d Tag/e in %2$s</string>
+    <string name="x_days_string_in_year">%1$s Tag/e in %2$s</string>
+
+    <string name="hours_minutes_string">%1$s Std %2$s Min</string>
+    <string name="hours_minutes">%1$d Std %2$d Min</string>
+    <string name="hours_minutes_short">%1$dStd%2$d</string>
+    <string name="dash">-</string>
+
+    <!-- STATUS -->
+    <string name="current_status">Geofencing Status:</string>
+    <string name="status_disabled">Deaktiviert</string>
+    <string name="status_not_at_work">Nicht in der Arbeit</string>
+    <string name="status_at_work_primary">In der Arbeit</string>
+    <string name="status_at_work_secondary">In der Arbeit</string>
+    <string name="status_pending">Warte&#8230;</string>
+
+    <!-- DAY OFF -->
+    <string name="sick_day_entry_title">%1$s (abwesend)</string>
+    <string name="sick_day_entry_description">Krankmeldung</string>
+
+    <string name="sick_day_block_title">Krank gemeldet</string>
+    <string name="sick_day_block_description"> </string>
+
+    <string name="call_in_sick_today">Heute krank melden</string>
+    <string name="call_in_sick_today_description">Eine Krankmeldung für heute wird automatisch erstellt</string>
+
+    <string name="vacation_day_entry_title">%1$s (abwesend)</string>
+    <string name="vacation_day_entry_description">Du hast Urlaub genommen</string>
+
+    <string name="vacation_day_block_title">Urlaub</string>
+    <string name="vacation_day_block_description"> </string>
+
+    <string name="manual_widget_entry_title">Arbeitstag</string>
+    <string name="manual_widget_block_title">Manuell eingetragene Aktivität</string>
+    <string name="manual_widget_block_description">Diese Aktivität wurde durch manuelles Loggen erstellt</string>
+    <string name="manual_logging_work_entry_created">Eine Aktivität wurde erstellt</string>
+    <string name="manual_logging_work_entry_not_created">Es muss > 1 Minute geloggt werden um einen Eintrag zu erstellen</string>
+    <string name="manual_logging_work_entry_not_created_same_day">Fehlgeschlagen. Start und Ende müssen am selben Tag geschehen.</string>
+
+    <string name="call_in_vacation_today">Heute frei nehmen</string>
+    <string name="call_in_vacation_today_description">Ein Urlaubseintrag für heute wird automatisch erstellt</string>
+
+    <string name="called_in_vacation_today">Für heute frei genommen</string>
+    <string name="called_in_sick_today">Für heute krank gemeldet</string>
+
+    <string name="manage_vacation_title">Urlaub</string>
+    <string name="manage_vacation_description">Verwalte deinen Urlaub</string>
+
+    <string name="manage_sick_leave_title">Krankheit</string>
+    <string name="manage_sick_leave_description">Verwalte deine Krankheitstage</string>
+
+    <!-- DIALOG -->
+    <string name="dialog_button_yes">Ja</string>
+    <string name="dialog_button_no">Nein</string>
+    <string name="dialog_button_exit">Beenden</string>
+    <string name="dialog_button_edit">Ändern</string>
+    <string name="dialog_button_stay">Bleiben</string>
+    <string name="dialog_button_cancel">Abbrechen</string>
+    <string name="dialog_button_disable">Deaktivieren</string>
+    <string name="dialog_button_enable">Aktivieren</string>
+    <string name="dialog_button_select">Auswählen</string>
+    <string name="dialog_button_ok">Ok</string>
+    <string name="dialog_button_delete">Löschen</string>
+
+    <string name="dialog_text_exit_without_saving">Beenden ohne zu speichern?</string>
+    <string name="dialog_text_select_category_color">Kategoriefarbe auswählen</string>
+    <string name="dialog_text_delete_work_day">Arbeitstag löschen?</string>
+
+    <string name="dialog_title_already_logged">Bereits eingetragen</string>
+    <string name="dialog_text_edit_existing_work_day">%1$s, wurde bereits eingetragen. Diesen Arbeitstag editieren?</string>
+
+    <string name="work_entry_stored">Arbeitstag gesichert</string>
+    <string name="work_block_added">Aktivität hinzugefügt</string>
+    <string name="category_stored">Kategorie gesichert</string>
+    <string name="vacation_created">Urlaub wurde eingetragen</string>
+    <string name="sick_leave_created">Krankheitstage wurden eingetragen</string>
+
+    <!-- WORK ENTRY -->
+    <string name="default_description"> </string>
+
+    <!-- DATE DISPLAY -->
+    <string name="work_block_subtitle">%1$d Std %2$d Min: %3$s - %4$s</string>
+    <string name="work_block_subtitle_at">%1$d Std %2$d Min: Am %3$s</string>
+
+    <!-- SNACKBARS -->
+    <string name="undo">Rückgängig</string>
+    <string name="item_deleted">%1$d Eintrag gelöscht</string>
+    <string name="items_deleted">%1$d Einträge gelöscht</string>
+    <string name="please_choose_date">Bitte ein Datum auswählen</string>
+    <string name="block_is_incomplete">Bitte vor dem Speichern alle Daten eintragen</string>
+    <string name="block_invalid_times">Endzeit muss nach Startzeit liegen</string>
+    <string name="block_invalid_dates">Enddatum muss nach Startdatum liegen</string>
+    <string name="category_no_name">Bitte gib einen Kategorienamen ein</string>
+    <string name="please_enter_title">Bitte gib einen Titel ein</string>
+
+    <!-- ACTION MODE -->
+    <string name="selected_elements">%1$d ausgewählt</string>
+
+    <!-- DRAWER -->
+    <string name="primary_work_title">Primäre Arbeitsadresse</string>
+    <string name="primary_work_subtitle">Zum festlegen tippen</string>
+    <string name="secondary_work_title">Sekundäre Arbeitsadresse</string>
+    <string name="secondary_work_subtitle">Zum festlegen tippen</string>
+
+    <string name="working_hours">Arbeitsstunden</string>
+    <string name="work_area">Arbeitsbereich</string>
+    <string name="weekly_workdays">Wochenarbeitstage (%1$d)</string>
+    <string name="weekly_workload">Wochenarbeitsstunden (%1$dStd)</string>
+    <string name="work_radius">Arbeitsradius (%1$dm)</string>
+    <string name="yearly_vacation_days">Urlaubstage pro Jahr (%1$d)</string>
+    <string name="yearly_sick_leave">Krankheitstage pro Jahr (%1$s)</string>
+
+    <!-- TODAY FRAGMENT  -->
+    <string name="today">Heute</string>
+    <string name="work_start">Du arbeitest seit %1$s</string>
+    <string name="work_end">Du hast deine Arbeit um %1$s beendet</string>
+
+    <!-- YOUR WEEK FRAGMENT -->
+    <string name="your_week">Deine Arbeitswoche</string>
+
+    <string name="monday">Montag</string>
+    <string name="tuesday">Dienstag</string>
+    <string name="wednesday">Mittwoch</string>
+    <string name="thursday">Donnerstag</string>
+    <string name="friday">Freitag</string>
+    <string name="saturday">Samstag</string>
+    <string name="sunday">Sonntag</string>
+
+    <string name="monday_short">Mo</string>
+    <string name="tuesday_short">Di</string>
+    <string name="wednesday_short">Mi</string>
+    <string name="thursday_short">Do</string>
+    <string name="friday_short">Fr</string>
+    <string name="saturday_short">Sa</string>
+    <string name="sunday_short">So</string>
+
+    <!-- CATEGORIES -->
+    <string name="user_categories">Benutzerkategorien</string>
+
+    <string name="work_day_category">Normal</string>
+    <string name="work_day_category_description">Ein ganz normaler Arbeitstag&#8230;</string>
+
+    <string name="vacation_category">Urlaub</string>
+    <string name="vacation_category_description">Die Welt erkunden :)</string>
+
+    <string name="sick_leave_category">Krankheit</string>
+    <string name="sick_leave_category_description">Gute Besserung!</string>
+
+    <string name="empty_category"></string>
+    <string name="empty_category_description"></string>
+
+    <string name="default_vacation_title">Urlaubstag</string>
+    <string name="default_sick_leave_title">Krankheitstag</string>
+
+    <!-- MAP FRAGMENT -->
+    <string name="select_location">Ort auswählen</string>
+    <string name="no_address_please_try_again">Keine Adresse gefunden. Bitte erneut versuchen.</string>
+    <string name="location_not_available">Ort nicht verfügbar</string>
+
+    <!-- Google API Client -->
+    <string name="google_api_client_connection_not_successful">Google Api Client nicht verbunden. Verbinde&#8230;</string>
+    <string name="google_api_client_offline">Google Api Client offline. Verbinde&#8230;</string>
+
+    <!-- Slide in panel -->
+    <string name="address_updated">Arbeitsadresse aktualisiert</string>
+
+    <!-- GEOFENCING -->
+    <string name="allow_geofencing_title">Geofencing (Beta!)</string>
+    <string name="allow_geofencing_subtitle">Aktiviere automatische Stundenerfassung per Geofencing</string>
+
+    <string name="allow_notifications">Mitteilungen</string>
+    <string name="allow_notifications_subtitle">Erlaube der App dir Ereignisse mitzuteilen</string>
+    <string name="export_via_email">Export als E-Mail</string>
+    <string name="export_data">Daten exportieren</string>
+
+    <string name="disable_geofencing_dialog">Geofencing deaktivieren?</string>
+    <string name="enable_geofencing_dialog">Geofencing aktivieren? Bitte denk daran eine Arbeitsadresse festzulegen.</string>
+
+    <string name="primary_geofence_entered">Geofence betreten&#8230; (Primäre Arbeitsadresse)</string>
+    <string name="primary_geofence_left">Geofence verlassen&#8230; (Primäre Arbeitsadresse)</string>
+    <string name="secondary_geofence_entered">Geofence betreten&#8230; (Sekundäre Arbeitsadresse)</string>
+    <string name="secondary_geofence_left">Geofence verlassen&#8230; (Sekundäre Arbeitsadresse)</string>
+
+    <string name="automatic_work_entry_title">%1$s (automatisch)</string>
+    <string name="automatic_work_entry_text">Automatisch erstellt für %1$s</string>
+
+    <string name="automatic_primary_work">primäre Arbeitsadresse</string>
+    <string name="automatic_secondary_work">sekundäre Arbeitsadresse</string>
+
+    <string name="automatic_other">andere</string>
+
+    <!-- Empty recyclers -->
+    <string name="rv_empty_user_categories">Ganz schön leer hier&#8230;\n\nUm eine neue Kategorie zu erstellen, drücke +.</string>
+    <string name="rv_empty_work_blocks">Keine Aktivität für heute erfasst.\n\nUm eine neue zu erfassen, drücke +.</string>
+    <string name="rv_empty_work_entries">Keine Arbeitstage erfasst.\n\nDu kannst Arbeitstage manuell aus dem Menü erfassen, oder das automatische Erfassen per Geofencing ausprobieren!</string>
+    <string name="rv_empty_vacation_or_sick_leave">Hier gibt\'s noch nicht zu sehen&#8230;\n\nUm einen Eintrag hinzuzufügen, drücke +.</string>
+
+    <string name="geofencing_beta_warning">Dieses Feature ist derzeit noch in Entwicklung. Es kann Situationen geben, in denen das Geofencing nicht wie gewünscht funktioniert. Ich bitte dies zu entschuldigen.</string>
+
+    <!-- CSV Errors -->
+    <string name="csv_unable_to_create_file">Datei kann nicht erstellt werden. Bitte erneut versuchen.</string>
+    <string name="csv_general_error">Export fehlgeschlagen. Bitte erneut versuchen.</string>
+
+    <!-- Permissions -->
+    <string name="storage_permission_question">OnTheJob! schreibt die zu exportierenden Daten temporär in den Speicher des Smartphones. Um diese zu dir zu schicken, benötigt die App die Erlaubnis den internen Speicher beschreiben und lesen zu dürfen.</string>
+    <string name="map_permission_question">Um deine Position auf der Karte anzeigen zu können benötigt OnTheJob! die Erlaubnis auf die Position des Smartphones zuzugreifen.</string>
+
+    <!-- Calendar -->
+    <string name="work_day">Arbeitstag</string>
+    <string name="sick_leave">Krankheitstag</string>
+    <string name="calendar_note">Hinweis: Vom Kalender können nur Arbeitstage ausgewählt werden</string>
+
+    <string-array name="custom_weekdays">
+        <item>@string/sunday_short</item>
+        <item>@string/monday_short</item>
+        <item>@string/tuesday_short</item>
+        <item>@string/wednesday_short</item>
+        <item>@string/thursday_short</item>
+        <item>@string/friday_short</item>
+        <item>@string/saturday_short</item>
+    </string-array>
+
+    <string-array name="custom_months">
+        <item>Januar</item>
+        <item>Februar</item>
+        <item>März</item>
+        <item>April</item>
+        <item>Mai</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>August</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>Dezember</item>
+    </string-array>
+
+    <!-- Manual logging widget -->
+    <string name="manual_logging">Manuelles Logging</string>
+    <string name="manual_logging_inactive">Inaktiv</string>
+    <string name="manual_logging_active">Aktiv für %1s</string>
+
+    <string name="manual_logging_tutorial">Bitte denke daran das manuelle Logging per Stop-Knopf wieder zu beenden. Es kann keine Aktivität erstellt werden wenn weniger als 1 Minute geloggt wird und das Logging nicht am selben Tag gestartet und beendet wurde. Viel Spaß!</string>
+
+    <string name="pie_chart_description">% der Zeit\nje Kategorie</string>
+
+    <!-- Statistics -->
+    <string name="start_date">Startdatum auswählen</string>
+    <string name="end_date">Enddatum auswählen</string>
+
+    <string name="move_slider">Du kannst deinen Arbeitsradius per Schieberegler anpassen</string>
+    <string name="top_categories">Top-Kategorien:</string>
+    <string name="more_coming_soon">Weitere Statistiken folgen bald&#8230;</string>
+
+    <!-- Feedback -->
+    <string name="feedback_subject">Feedback für \'On The Job!\'</string>
+    <string name="feedback_text">Hallo Florian,\nfolgendes Feedback würde ich dir gerne zu deiner App geben&#8230;</string>
+</resources>

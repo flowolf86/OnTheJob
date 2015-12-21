@@ -22,7 +22,6 @@ import com.google.android.gms.location.LocationServices;
 import data.manager.SharedPreferencesManager;
 import geofence.GeofenceManager;
 import geofence.ManageGeofenceInterface;
-import location.LocationHelper;
 import util.VirtualKeyboardManager;
 
 public class BaseActivity extends AppCompatActivity implements
@@ -274,7 +273,7 @@ public class BaseActivity extends AppCompatActivity implements
     public void onConnected(Bundle bundle) {
 
         // Set last location on connect
-        //LocationHelper.setLastLocation(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient));
+        // LocationHelper.setLastLocation(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient));
 
         // Add or update geofence data in LocationService API
         updateGeofencing();

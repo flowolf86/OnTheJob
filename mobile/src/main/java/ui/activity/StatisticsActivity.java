@@ -20,9 +20,10 @@ import ui.base.BaseFragment;
 public class StatisticsActivity extends BaseActivity implements
         BaseFragment.FragmentSnackbarInterface {
 
-    private static final int NUMBER_OF_FRAGMENTS_IN_PAGER = 3;
+    private static final int NUMBER_OF_FRAGMENTS_IN_PAGER = 2;
 
     @Bind(R.id.view_pager) BetterViewPager mViewPager;
+
     PagerAdapter mPagerAdapter;
 
     private BaseFragment mSelectedFragment;
@@ -45,6 +46,8 @@ public class StatisticsActivity extends BaseActivity implements
         mPagerAdapter = new StatisticsPagerAdapter(getSupportFragmentManager(), NUMBER_OF_FRAGMENTS_IN_PAGER);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+       // mViewPagerIndicator.setViewPager(mViewPager);
     }
 
     @Override

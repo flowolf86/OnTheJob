@@ -22,6 +22,7 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import data.manager.SharedPreferencesManager;
+import geofence.GeofenceConfiguration;
 import geofence.ManageGeofenceInterface;
 import listing.GeofencingState;
 import support.AppBroadcaster;
@@ -84,7 +85,7 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
     private void restoreLastState() {
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        @GeofencingState.IGeofencingState int state = sharedPreferencesManager.get(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, GeofencingState.PENDING);
+        @GeofencingState.IGeofencingState int state = sharedPreferencesManager.get(SharedPreferencesManager.ID_LAST_GEOFENCE_STATE, GeofenceConfiguration.INITIAL_GEOFENCE_STATUS);
         setState(state);
     }
 
@@ -149,7 +150,7 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
             case R.id.current_status:
 
                 SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
-                boolean isGeofencingEnabled = sharedPreferencesManager.get(SharedPreferencesManager.ID_GEOFENCING, true);
+                boolean isGeofencingEnabled = sharedPreferencesManager.get(SharedPreferencesManager.ID_GEOFENCING, false);
 
                 SimpleDialogFragment newFragment;
 
@@ -216,7 +217,7 @@ public class StatusWidgetFragment extends Fragment implements View.OnClickListen
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            @GeofencingState.IGeofencingState int status = intent.getIntExtra(EXTRA_STATE, GeofencingState.PENDING);
+            @GeofencingState.IGeofencingState int status = intent.getIntExtra(EXTRA_STATE, GeofenceConfiguration.INITIAL_GEOFENCE_STATUS);
 
             if(getActivity() != null && isAdded()) {
                 setState(status);

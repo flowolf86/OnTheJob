@@ -23,72 +23,6 @@
 
             <TextView
                 style="@style/content_header_title"
-                android:text="@string/sick_leave_category"/>
-
-            <TextView
-                android:id="@+id/sick_leave_statistics"
-                style="@style/content_header_title"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"/>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/call_in_sick_view"
-            style="@style/list_item_double_line">
-
-            <ImageView
-                android:id="@+id/call_in_sick_icon"
-                style="@style/content_entry_image_double_line"
-                android:src="@drawable/fw_sick_leave_2"/>
-
-            <LinearLayout
-                style="@style/content_title_subtitle_wrapper"
-                android:layout_toEndOf="@id/call_in_sick_icon">
-
-                <TextView
-                    android:id="@+id/call_in_sick_title"
-                    style="@style/list_item_title"
-                    android:text="@string/call_in_sick_today"/>
-
-                <TextView
-                    android:id="@+id/call_in_sick_subtitle"
-                    style="@style/list_item_subtitle"
-                    android:text="@string/call_in_sick_today_description"/>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/manage_sick_view"
-            style="@style/list_item_double_line">
-
-            <ImageView
-                android:id="@+id/manage_sick_icon"
-                style="@style/content_entry_image_double_line"
-                android:src="@drawable/fw_about_2"/>
-
-            <ImageView
-                android:id="@+id/arrow_right"
-                style="@style/list_item_arrow_right"/>
-
-            <LinearLayout
-                style="@style/content_title_subtitle_wrapper"
-                android:layout_toEndOf="@id/manage_sick_icon"
-                android:layout_toStartOf="@id/arrow_right">
-
-                <TextView
-                    android:id="@+id/manage_sick_title"
-                    style="@style/list_item_title"
-                    android:text="@string/manage_sick_leave_title"/>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/content_header_white"
-            android:layout_marginEnd="16dp">
-
-            <TextView
-                style="@style/content_header_title"
                 android:text="@string/vacation_category"/>
 
             <TextView
@@ -146,6 +80,72 @@
                     android:id="@+id/manage_vacation_title"
                     style="@style/list_item_title"
                     android:text="@string/manage_vacation_title"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/content_header_white"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                style="@style/content_header_title"
+                android:text="@string/sick_leave_category"/>
+
+            <TextView
+                android:id="@+id/sick_leave_statistics"
+                style="@style/content_header_title"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/call_in_sick_view"
+            style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/call_in_sick_icon"
+                style="@style/content_entry_image_double_line"
+                android:src="@drawable/fw_sick_leave_2"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_toEndOf="@id/call_in_sick_icon">
+
+                <TextView
+                    android:id="@+id/call_in_sick_title"
+                    style="@style/list_item_title"
+                    android:text="@string/call_in_sick_today"/>
+
+                <TextView
+                    android:id="@+id/call_in_sick_subtitle"
+                    style="@style/list_item_subtitle"
+                    android:text="@string/call_in_sick_today_description"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/manage_sick_view"
+            style="@style/list_item_double_line">
+
+            <ImageView
+                android:id="@+id/manage_sick_icon"
+                style="@style/content_entry_image_double_line"
+                android:src="@drawable/fw_about_2"/>
+
+            <ImageView
+                android:id="@+id/arrow_right"
+                style="@style/list_item_arrow_right"/>
+
+            <LinearLayout
+                style="@style/content_title_subtitle_wrapper"
+                android:layout_toEndOf="@id/manage_sick_icon"
+                android:layout_toStartOf="@id/arrow_right">
+
+                <TextView
+                    android:id="@+id/manage_sick_title"
+                    style="@style/list_item_title"
+                    android:text="@string/manage_sick_leave_title"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

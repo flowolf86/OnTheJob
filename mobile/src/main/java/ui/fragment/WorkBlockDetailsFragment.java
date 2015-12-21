@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -82,6 +83,9 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
 
     private static int TITLE_LENGTH = 0;
     private static int DESCRIPTION_LENGTH = 0;
+
+    private boolean mForceLeave = false;
+    private final int FORCE_LEAVE_DELAY = 3000;
 
     private WorkBlock mArgWorkBlock = null;
     private @FragmentState int mArgState = INITIAL_STATE;
@@ -445,6 +449,20 @@ public class WorkBlockDetailsFragment extends BaseFragment implements View.OnCli
 
     @Override
     public boolean onActivityFinishFragmentRequest() {
+
+        // Quick back force leaves without saving
+        if(mForceLeave){
+            ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
+            return true;
+        }
+
+        mForceLeave = true;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mForceLeave = false;
+            }
+        }, FORCE_LEAVE_DELAY);
         storeBlock();
         return true;
     }

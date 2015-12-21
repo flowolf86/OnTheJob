@@ -535,6 +535,18 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
         newFragment.show(getChildFragmentManager(), "dialog");
     }
 
+    public void showDeleteEntryDialog(){
+        SimpleDialogFragment newFragment = SimpleDialogFragment.newInstance(
+                null,
+                getString(R.string.dialog_text_delete_work_day),
+                getString(R.string.dialog_button_yes).toUpperCase(Locale.getDefault()),
+                getString(R.string.dialog_button_no).toUpperCase(Locale.getDefault()),
+                SimpleDialogFragment.DELETE_ENTRY_DIALOG,
+                null);
+        newFragment.setTargetFragment(this, 0);
+        newFragment.show(getChildFragmentManager(), "dialog");
+    }
+
     public void showEnterDateSnackbar(){
         Snackbar snackbar = Snackbar.make(mRootLayout, getString(R.string.please_choose_date), Snackbar.LENGTH_SHORT);
         snackbar.show();
@@ -554,6 +566,10 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
                 break;
             case SimpleDialogFragment.EDIT_WORK_DAY_DIALOG:
                 switchDataEditState((WorkEntry)data);
+                break;
+            case SimpleDialogFragment.DELETE_ENTRY_DIALOG:
+                deleteWorkEntry();
+                ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
                 break;
             default:
                 break;
@@ -579,8 +595,7 @@ public class WorkEntryDetailsFragment extends BaseFragment implements View.OnCli
 
         switch (item.getItemId()) {
             case R.id.action_delete:
-                deleteWorkEntry();
-                ((FragmentNavigationInterface)getActivity()).onFragmentFinished();
+                showDeleteEntryDialog();
                 break;
             default:
                 break;

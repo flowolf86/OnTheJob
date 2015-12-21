@@ -11,8 +11,6 @@ import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -28,6 +26,7 @@ import data.factory.CategoryFactory;
 import data.manager.SharedPreferencesManager;
 import database.DatabaseUiCallback;
 import util.DateUtils;
+import util.TextUtils;
 import util.UserUtils;
 
 public class DataCacheHelper {
@@ -270,21 +269,7 @@ public class DataCacheHelper {
         int weeklyWorkdays = sharedPreferencesManager.get(SharedPreferencesManager.ID_WORK_DAYS_NUMBER, WorkConfiguration.DEFAULT_WEEKLY_WORK_DAYS);
 
         double dailyWorkload = weeklyWorkload / weeklyWorkdays;
-
-        NumberFormat formatter = new DecimalFormat("#0.0");
-        Double finalValue;
-        try {
-            finalValue = Double.parseDouble(formatter.format(hours / dailyWorkload));
-        }catch (NumberFormatException e){
-            formatter = new DecimalFormat("#0,0");
-            try {
-                finalValue = Double.parseDouble(formatter.format(hours / dailyWorkload));
-            }catch (NumberFormatException e1){
-                return .0;
-            }
-        }
-
-        return finalValue;
+        return TextUtils.formatDoubleNumber(hours / dailyWorkload);
     }
 
     private long convertAbsoluteWorkDaysMilliesDependingOnUserPreferences(SharedPreferencesManager sharedPreferencesManager, int days){

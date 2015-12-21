@@ -1,8 +1,8 @@
 package application;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.multidex.MultiDexApplication;
 
 import cache.CategoryCacheHelper;
 import cache.EntryCache;
@@ -11,7 +11,7 @@ import cache.IntervalCache;
 /**
  * Created by Florian on 22.06.2015.
  */
-public class OtjApplication extends Application {
+public class OtjApplication extends MultiDexApplication {
 
     private static Context mContext = null;
     private static Resources mResources = null;

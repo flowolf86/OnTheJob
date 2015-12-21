@@ -203,7 +203,7 @@ public class SettingsMenuFragment extends BaseFragment implements View.OnClickLi
         boolean enableNotifications = getSharedPreferencesManager().get(SharedPreferencesManager.ID_NOTIFICATIONS, true);
         mNotificationsCheckbox.setChecked(enableNotifications);
 
-        boolean enableGeofencing = getSharedPreferencesManager().get(SharedPreferencesManager.ID_GEOFENCING, true);
+        boolean enableGeofencing = getSharedPreferencesManager().get(SharedPreferencesManager.ID_GEOFENCING, false);
         mGeofencingCheckbox.setChecked(enableGeofencing);
     }
 
